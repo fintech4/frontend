@@ -8,7 +8,7 @@ import Guide from "../ui/Guide";
 function MainPage() {
   return (
     <>
-      <Navigation />
+      <Navigation path={"/"} />
       <StockSearch />
       <div className="chart">
         <div>

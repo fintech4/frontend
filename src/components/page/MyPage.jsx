@@ -4,7 +4,7 @@ import Navigation from "../ui/bar/Navigation";
 const MyPage = () => {
   return (
     <div>
-      <Navigation />
+      <Navigation path={"/mypage"} />
       <h1>My Page</h1>
       <p>Welcome to My Page.</p>
     </div>
