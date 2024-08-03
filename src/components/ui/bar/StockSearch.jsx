@@ -12,7 +12,7 @@ export const getCurrentDateTime = () => {
 const currentDate = getCurrentDateTime();
 
 function StockSearch() {
-  const priceChange = 14500; // 예시 데이터: 가격 변화 값
+  const priceChange = 14000; // 예시 데이터: 가격 변화 값
   const priceRatio = 4.54; // 예시 데이터: 현재 가격
 
   return (
