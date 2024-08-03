@@ -9,7 +9,7 @@ import Calandar from "react-calendar";
 function MainPage() {
   return (
     <>
-      <Navigation />
+      <Navigation path={"/"} isLoggedIn={false} />
       <StockSearch />
       <div className="chart">
         <div>
