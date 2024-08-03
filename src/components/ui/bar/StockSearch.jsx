@@ -1,23 +1,117 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import SearchContainer from "../SearchContainer";
 
 export const getCurrentDateTime = () => {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더합니다.
+  const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
-
   return `${year}.${month}.${day}`;
 };
 
 const currentDate = getCurrentDateTime();
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 150px;
+  background-color: #ffffff;
+  border-radius: 8px;
+`;
+
+const StockContainer = styled.div`
+  display: flex;
+  width: 30%;
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 10px;
+  padding-bottom: 0px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+`;
+
+const StockNameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 0px;
+`;
+
+const StockName = styled.p`
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0px;
+  color: #000;
+`;
+
+const StockText = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const Kospi = styled.p`
+  font-size: 18px;
+  margin: 0;
+  margin-right: 5px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+`;
+
+const DateText = styled.p`
+  font-size: 18px;
+  margin: 0;
+  font-size: 15px;
+  color: black;
+  padding-top: 2px;
+  font-weight: bold;
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0px;
+`;
+
+const PriceNumContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const Price = styled.p`
+  font-size: 28px;
+  font-weight: bold;
+  color: #ed3738;
+  margin: 0;
+`;
+
+const PriceChange = styled.p`
+  font-size: 15px;
+  color: ${({ positive }) => (positive ? "#ED3738" : "#f44336")};
+  margin: 0;
+  margin-right: 5px;
+  font-weight: bold;
+`;
+
+const PriceRatio = styled.p`
+  font-size: 15px;
+  color: ${({ positive }) => (positive ? "#ED3738" : "#f44336")};
+  margin: 0;
+  font-weight: bold;
+`;
 
 function StockSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [stockList, setStockList] = useState([]);
   const [selectedStock, setSelectedStock] = useState(null);
-  const priceChange = selectedStock ? selectedStock.priceChange : 14500; // 예시 데이터: 가격 변화 값
-  const priceRatio = selectedStock ? selectedStock.priceRatio : 4.54; // 예시 데이터: 현재 가격
+  const priceChange = selectedStock ? selectedStock.priceChange : 14500;
+  const priceRatio = selectedStock ? selectedStock.priceRatio : 4.54;
 
   const fetchStockList = async (query) => {
     try {
@@ -47,8 +141,6 @@ function StockSearch() {
         priceRatio: 2.5,
         price: "120,000 KRW",
       });
-
-      console.log(selectedStock);
     } catch (error) {
       console.error("Error fetching stock details:", error);
       // 로컬 환경을 위해 가짜 데이터 사용
@@ -90,54 +182,41 @@ function StockSearch() {
   };
 
   return (
-    <>
-      <div className="wrapper">
-        <div className="stockname">
-          <p className="data">삼성SDI</p>
-          <div>
-            <p className="kospi">코스피</p>
-            <p className="data">{currentDate}</p>
-          </div>
-          <p className="price">
-            {selectedStock ? selectedStock.price : "123,000 KRW"}
-          </p>
+    <Wrapper>
+      <StockContainer>
+        <StockNameContainer>
+          <StockName>
+            {selectedStock ? selectedStock.name : "삼성SDI"}
+          </StockName>
+          <StockText>
+            <Kospi>코스피</Kospi>
+            <DateText>{currentDate}</DateText>
+          </StockText>
+        </StockNameContainer>
+        <PriceContainer>
+          <Price>{selectedStock ? selectedStock.price : "123,000 KRW"}</Price>
           {priceChange > 0 ? (
-            <>
-              <div>
-                <p className="price-change">▲{priceChange}</p>
-                <p className="price-ratio">+{priceRatio}%</p>
-              </div>
-            </>
+            <PriceNumContainer>
+              <PriceChange positive>▲{priceChange}</PriceChange>
+              <PriceRatio positive>+{priceRatio}%</PriceRatio>
+            </PriceNumContainer>
           ) : (
-            <>
-              <div>
-                <p className="price-change">▼{priceChange}</p>
-                <p className="price-ratio">-{priceRatio}%</p>
-              </div>
-            </>
+            <PriceNumContainer>
+              <PriceChange>▼{priceChange}</PriceChange>
+              <PriceRatio>-{priceRatio}%</PriceRatio>
+            </PriceNumContainer>
           )}
-        </div>
-        <div className="search">
-          <input
-            type="text"
-            placeholder="원하시는 종목을 검색하세요."
-            value={searchTerm}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
-          />
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          {stockList.length > 0 && (
-            <ul className="stock-list">
-              {stockList.map((stock) => (
-                <li key={stock} onClick={() => handleStockClick(stock)}>
-                  {stock}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-    </>
+        </PriceContainer>
+      </StockContainer>
+      <SearchContainer
+        searchTerm={searchTerm}
+        onSearchTermChange={handleChange}
+        onKeyPress={handleKeyPress}
+        errorMessage={errorMessage}
+        stockList={stockList}
+        onStockClick={handleStockClick}
+      />
+    </Wrapper>
   );
 }
 
