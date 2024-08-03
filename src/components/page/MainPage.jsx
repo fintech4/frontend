@@ -8,7 +8,7 @@ import Guide from "../ui/Guide";
 function MainPage() {
   return (
     <>
-      <Navigation path={"/"} />
+      <Navigation path={"/"} isLoggedIn={false} />
       <StockSearch />
       <div className="chart">
         <div>

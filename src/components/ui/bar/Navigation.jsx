@@ -59,7 +59,25 @@ const TabLinkText = styled.li`
   text-decoration: inherit;
 `
 
-function Navigation({ path }) {
+const SignInWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  margin-left: 61px;
+`
+
+const SignInLink = styled(Link)`
+  margin: 15px 0;
+  padding: 12px 38px;
+  border-radius: 38px;
+  color: #FFF;
+  font-size: 24px;
+  background-color: #42B5AD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+function Navigation({ path, isLoggedIn }) {
   return (
     <NavigationBar>
       <NavigationWrapper>
@@ -83,6 +101,11 @@ function Navigation({ path }) {
               </TabLinkText>
             </TabLinkListElement>
           </TabLink>
+          <SignInWrapper>
+            <SignInLink to={ isLoggedIn ? "/logout" : "/login"}>
+              { isLoggedIn ? "로그아웃" : "로그인"}
+            </SignInLink>
+          </SignInWrapper>
         </TabLinkWrapper>
       </NavigationWrapper>
     </NavigationBar>
