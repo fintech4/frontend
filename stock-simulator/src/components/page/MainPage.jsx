@@ -1,18 +1,14 @@
-import React from 'react';
-import StockList from '../list/StockList';
+import React from "react";
+import Navigation from "../ui/bar/Navigation";
+import StockSearch from "../ui/bar/StockSearch";
 
-const HomePage = () => {
-  const stocks = [
-    { id: 1, symbol: 'AAPL', quantity: 10, price: 150 },
-    { id: 2, symbol: 'GOOGL', quantity: 5, price: 2800 }
-  ];
-
+function MainPage() {
   return (
     <div>
-      <h1>Home Page</h1>
-      <StockList stocks={stocks} />
+      <Navigation />
+      <StockSearch />
     </div>
   );
-};
+}
 
-export default HomePage;
+export default MainPage;
