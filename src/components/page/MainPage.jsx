@@ -4,30 +4,39 @@ import StockSearch from "../ui/bar/StockSearch";
 import Wallet from "../ui/Wallet";
 import OrderForm from "../ui/OrderForm";
 import Guide from "../ui/Guide";
+import CandleChart from "../chart/CandleChart";
 
 function MainPage() {
   return (
     <>
       <Navigation path={"/"} isLoggedIn={false} />
       <StockSearch />
+      
+      {/* 차트 관련 섹션 */}
       <div className="chart">
         <div>
           <h1>차트</h1>
           <p>달력</p>
+          <p>삼성전자 3개월 주가데이터</p>
         </div>
-        <div>차트 컴포넌트 들어올 자리</div>
+        <div>
+          <CandleChart /> {/* CandleChart 컴포넌트 추가 */}
+        </div>
         <img src="" alt="로고" />
       </div>
 
+      {/* 지갑 관련 섹션 */}
       <div>
         <Wallet WalletName="잔고" />
         <Wallet WalletName="총 수익률" />
       </div>
 
+      {/* 주문 폼 섹션 */}
       <div>
-        <OrderForm /> {/* OrderForm 컴포넌트를 추가 */}
+        <OrderForm />
       </div>
 
+      {/* 가이드 섹션 */}
       <div>
         <Guide />
       </div>
