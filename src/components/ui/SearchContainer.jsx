@@ -12,25 +12,23 @@ const Container = styled.div`
 `;
 
 const SearchTitle = styled.h2`
-  font-size: 16px;
-  width: 30%;
-  margin: 0 0 10px;
-  font-weight: 500;
   color: #1e1e1e;
+  width: 30%;
+  margin-right: 16px;
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+  letter-spacing: -0.22px;
 `;
 
 const SearchInput = styled.input`
-  width: 80%;
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ddd;
-`;
-
-const ErrorMessage = styled.p`
-  color: #f44336;
-  font-size: 14px;
-  margin-top: 5px;
 `;
 
 const StockListWrapper = styled.div`
@@ -62,7 +60,6 @@ const SearchContainer = ({
         onChange={onSearchTermChange}
         onKeyPress={onKeyPress}
       />
-      {errorMessage && console.log(errorMessage)}
       {stockList.length > 0 && (
         <StockListWrapper>
           <StockList stockList={stockList} onStockClick={onStockClick} />

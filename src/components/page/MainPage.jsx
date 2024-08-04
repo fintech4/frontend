@@ -21,8 +21,8 @@ function MainPage() {
       </div>
 
       <div>
-        <Wallet WalletName="예수금" />
-        <Wallet WalletName="총 수익률" />
+        <Wallet walletName="예수금" />
+        <Wallet walletName="총 수익률" />
       </div>
 
       <div>

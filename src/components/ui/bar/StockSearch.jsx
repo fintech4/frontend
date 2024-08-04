@@ -24,7 +24,6 @@ const Wrapper = styled.div`
 
 const StockContainer = styled.div`
   display: flex;
-  width: 30%;
   max-width: 500px;
   background-color: #ffffff;
   padding: 10px;
@@ -32,6 +31,13 @@ const StockContainer = styled.div`
   border-radius: 10px;
   margin-bottom: 20px;
   margin-left: 15px;
+`;
+
+const SearchContainerWrapper = styled.div`
+  display: flex;
+  width: 80%;
+  max-width: 400px;
+  margin-right: 15px;
 `;
 
 const StockNameContainer = styled.div`
@@ -139,7 +145,7 @@ function StockSearch() {
         name: stockName,
         priceChange: 2000,
         priceRatio: 2.5,
-        price: "120,000 KRW",
+        price: 120000,
       });
     } catch (error) {
       console.error("Error fetching stock details:", error);
@@ -148,18 +154,21 @@ function StockSearch() {
         name: stockName,
         priceChange: 2000,
         priceRatio: 2.5,
-        price: "120,000 KRW",
+        price: 120000,
       });
     }
   };
 
+  const isKorean = (value) => {
+    const regex = /^[가-힣]+$/;
+    return regex.test(value) || value === "";
+  };
+
   const handleChange = (e) => {
     const value = e.target.value;
-    const regex = /^[가-힣]+$/;
-
     setSearchTerm(value);
 
-    if (regex.test(value) || value === "") {
+    if (isKorean(value)) {
       setErrorMessage("");
       if (value !== "") {
         fetchStockList(value);
@@ -194,7 +203,9 @@ function StockSearch() {
           </StockText>
         </StockNameContainer>
         <PriceContainer>
-          <Price>{selectedStock ? selectedStock.price : "123,000 KRW"}</Price>
+          <Price>
+            {selectedStock ? `${selectedStock.price}KRW` : "123,000 KRW"}
+          </Price>
           {priceChange > 0 ? (
             <PriceNumContainer>
               <PriceChange positive>▲{priceChange}</PriceChange>
@@ -208,14 +219,16 @@ function StockSearch() {
           )}
         </PriceContainer>
       </StockContainer>
-      <SearchContainer
-        searchTerm={searchTerm}
-        onSearchTermChange={handleChange}
-        onKeyPress={handleKeyPress}
-        errorMessage={errorMessage}
-        stockList={stockList}
-        onStockClick={handleStockClick}
-      />
+      <SearchContainerWrapper>
+        <SearchContainer
+          searchTerm={searchTerm}
+          onSearchTermChange={handleChange}
+          onKeyPress={handleKeyPress}
+          errorMessage={errorMessage}
+          stockList={stockList}
+          onStockClick={handleStockClick}
+        />
+      </SearchContainerWrapper>
     </Wrapper>
   );
 }
