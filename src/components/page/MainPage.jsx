@@ -5,6 +5,18 @@ import Wallet from "../ui/Wallet";
 import OrderForm from "../ui/OrderForm";
 import Guide from "../ui/Guide";
 import Calandar from "react-calendar";
+import styled from "styled-components";
+
+const WalletWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const Wrapper4 = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0 260px;
+`;
 
 function MainPage() {
   return (
@@ -20,18 +32,23 @@ function MainPage() {
         <img src="" alt="로고" />
       </div>
 
-      <div>
-        <Wallet walletName="예수금" />
-        <Wallet walletName="총 수익률" />
-      </div>
+      <Wrapper4>
+        <WalletWrapper>
+          <Wallet walletName="예수금" image="images/illustration/wallet.png" />
+          <Wallet
+            walletName="총 수익률"
+            image="images/illustration/money.png"
+          />
+        </WalletWrapper>
 
-      <div>
-        <OrderForm /> {/* OrderForm 컴포넌트를 추가 */}
-      </div>
+        <div>
+          <OrderForm /> {/* OrderForm 컴포넌트를 추가 */}
+        </div>
 
-      <div>
-        <Guide />
-      </div>
+        <div>
+          <Guide />
+        </div>
+      </Wrapper4>
     </>
   );
 }
