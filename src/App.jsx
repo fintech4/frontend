@@ -4,6 +4,7 @@ import "./assets/css/styles.css";
 import MainPage from "./components/page/MainPage";
 import MyPage from "./components/page/MyPage";
 import Navigation from "./components/ui/bar/Navigation";
+import "./assets/css/styles.css";
 
 function App() {
   return (

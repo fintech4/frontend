@@ -5,7 +5,6 @@ const WalletContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 25px;
-  border: 1px solid #ddd;
   border-radius: 10px;
   text-align: center;
   background-color: #f9f9f9;
