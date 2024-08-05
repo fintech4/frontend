@@ -159,8 +159,8 @@ function StockSearch() {
     }
   };
 
-  const isKorean = (value) => {
-    const regex = /^[가-힣]+$/;
+  const isCompleteCharacters = (value) => {
+    const regex = /^[가-힣a-zA-Z\s]+$/;
     return regex.test(value) || value === "";
   };
 
