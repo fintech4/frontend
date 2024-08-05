@@ -18,17 +18,20 @@ const Wrapper4 = styled.div`
   margin: 0 260px;
 `;
 
+
 function MainPage() {
   return (
     <>
       <Navigation path={"/"} isLoggedIn={false} />
       <StockSearch />
+      
+      {/* 차트 관련 섹션 */}
       <div className="chart">
         <div>
           <h1>차트</h1>
           <Calandar />
+
         </div>
-        <div>차트 컴포넌트 들어올 자리</div>
         <img src="" alt="로고" />
       </div>
 
