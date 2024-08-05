@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  margin: 20px 150px;
+  margin: 20px 260px;
   background-color: #ffffff;
   border-radius: 8px;
 `;
@@ -204,7 +204,7 @@ function StockSearch() {
         </StockNameContainer>
         <PriceContainer>
           <Price>
-            {selectedStock ? `${selectedStock.price}KRW` : "123,000 KRW"}
+            {selectedStock ? `${selectedStock.price}\nKRW` : "123,000 KRW"}
           </Price>
           {priceChange > 0 ? (
             <PriceNumContainer>
