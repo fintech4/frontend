@@ -168,7 +168,7 @@ function StockSearch() {
     const value = e.target.value;
     setSearchTerm(value);
 
-    if (isKorean(value)) {
+    if (isCompleteCharacters(value)) {
       setErrorMessage("");
       if (value !== "") {
         fetchStockList(value);
