@@ -16,14 +16,13 @@ const WalletWrapper = styled.div`
 
 const Wrapper4 = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 0 260px;
+  margin: 20px 260px;
+  gap: 20px;
 `;
 
 const Wrapper3 = styled.div`
   margin: 0 260px;
 `;
-
 
 function MainPage() {
   return (
@@ -46,11 +45,7 @@ function MainPage() {
         </WalletWrapper>
 
         <div>
-          <OrderForm /> {/* OrderForm 컴포넌트를 추가 */}
-        </div>
-
-        <div>
-          <Guide />
+          <OrderForm />
         </div>
       </Wrapper4>
     </>
