@@ -18,12 +18,25 @@ const Wrapper4 = styled.div`
   display: flex;
   margin: 20px 260px;
   gap: 20px;
+  position: relative;
+  align-items: flex-start;
 `;
 
 const Wrapper3 = styled.div`
   margin: 0 260px;
 `;
 
+const Logo = styled.div`
+  position: absolute;
+  top: 120px; // 상단에서의 거리
+  right: -130px; // 우측에서의 거리 (OrderForm 옆으로 이동)
+  width: 265.169px;
+  height: 113.644px;
+  background-image: url("images/logo/header_logo.png"); // 로고 이미지 경로
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 function MainPage() {
   return (
     <>
@@ -47,6 +60,8 @@ function MainPage() {
         <div>
           <OrderForm />
         </div>
+
+        <Logo />
       </Wrapper4>
     </>
   );

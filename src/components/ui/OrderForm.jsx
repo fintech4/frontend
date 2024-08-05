@@ -81,6 +81,7 @@ const OrderLabel = styled.p`
 `;
 
 const InputStyle = styled.input`
+  width: 264px;
   display: flex;
   padding: 8px 12px;
   height: 40px;
@@ -89,9 +90,15 @@ const InputStyle = styled.input`
   border-radius: 4px;
   border: 0.5px solid var(--black-black-700, #5b6b86);
   background: var(--Schemes-On-Primary, #fff);
+
+  ::placeholder {
+    color: #ccc; /* placeholder 텍스트 색상 설정 */
+    opacity: 1; /* 일부 브라우저에서 필요 */
+  }
 `;
 
 const InputStyle1 = styled.input`
+  width: 264px;
   display: flex;
   padding: 8px 12px;
   height: 40px;
@@ -113,14 +120,50 @@ const InputWrapper = styled.div`
   border-radius: 8px;
   background: var(--black-black-100, #fff);
 `;
+
+const BuySellButton = styled.button`
+  display: flex;
+  width: 104px;
+  height: 148px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 4px;
+  background: ${(props) =>
+    props.active
+      ? props.buy
+        ? "#FF4E36"
+        : "#0C67EF"
+      : "var(--primary-primary-300, #D1EFED)"};
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  justify-content: center;
+  color: var(--Schemes-On-Primary, #fff);
+  text-align: center;
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 1px;
+`;
+
 function OrderForm() {
   const price = 338000; // 주문 가격
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
   const [orderType, setOrderType] = useState("buy"); // "buy" 또는 "sell"
 
   const handleQuantityChange = (e) => {
-    setQuantity(Number(e.target.value));
+    const value = e.target.value;
+    // 숫자인 경우에만 상태 업데이트
+    if (/^\d*$/.test(value)) {
+      setQuantity(value);
+    }
   };
 
   const handleBuy = () => {
@@ -139,7 +182,7 @@ function OrderForm() {
     }
   };
 
-  const totalAmount = price * quantity;
+  const totalAmount = price * (quantity ? Number(quantity) : 0);
 
   return (
     <Wrapper>
@@ -162,7 +205,7 @@ function OrderForm() {
           <InfoWrapper>
             <OrderLabel>주문수량</OrderLabel>
             <InputStyle
-              type="number"
+              type="text"
               value={quantity}
               placeholder="매수수량을 입력하세요."
               onChange={handleQuantityChange}
@@ -171,16 +214,27 @@ function OrderForm() {
 
           <InfoWrapper>
             <OrderLabel>주문총액</OrderLabel>
-            <InputStyle1 type="number" value={totalAmount} readOnly />
+            <InputStyle1 type="text" value={totalAmount} readOnly />
           </InfoWrapper>
         </Contents>
 
         {orderType && (
           <div>
             {orderType === "buy" ? (
-              <button onClick={handleOrder}>구매</button>
+              <BuySellButton
+                active={orderType === "buy"}
+                buy
+                onClick={handleOrder}
+              >
+                구매
+              </BuySellButton>
             ) : (
-              <button onClick={handleOrder}>판매</button>
+              <BuySellButton
+                active={orderType === "sell"}
+                onClick={handleOrder}
+              >
+                판매
+              </BuySellButton>
             )}
           </div>
         )}
