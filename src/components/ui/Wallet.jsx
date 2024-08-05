@@ -8,7 +8,6 @@ const WalletContainer = styled.div`
   border-radius: 10px;
   text-align: center;
   background: var(--Schemes-On-Primary, #fff);
-
   width: 271px;
   height: 310px;
   position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
