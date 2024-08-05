@@ -159,8 +159,8 @@ function StockSearch() {
     }
   };
 
-  const isKorean = (value) => {
-    const regex = /^[가-힣]+$/;
+  const isCompleteCharacters = (value) => {
+    const regex = /^[가-힣a-zA-Z\s]+$/;
     return regex.test(value) || value === "";
   };
 
@@ -168,7 +168,7 @@ function StockSearch() {
     const value = e.target.value;
     setSearchTerm(value);
 
-    if (isKorean(value)) {
+    if (isCompleteCharacters(value)) {
       setErrorMessage("");
       if (value !== "") {
         fetchStockList(value);
@@ -204,7 +204,7 @@ function StockSearch() {
         </StockNameContainer>
         <PriceContainer>
           <Price>
-            {selectedStock ? `${selectedStock.price}KRW` : "123,000 KRW"}
+            {selectedStock ? `${selectedStock.price}\nKRW` : "123,000 KRW"}
           </Price>
           {priceChange > 0 ? (
             <PriceNumContainer>

@@ -45,7 +45,7 @@ function Wallet({ walletName, image }) {
     switch (name) {
       case "예수금":
         return "₩100,000,000"; // 백엔드에서 예수금 데이터 요청
-      case "수익률":
+      case "총 수익률":
         return "15%"; // 백엔드에서 수익률 데이터 요청
       default:
         return "데이터 없음"; // 기본값
