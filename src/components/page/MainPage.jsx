@@ -7,6 +7,7 @@ import Guide from "../ui/Guide";
 import Calandar from "react-calendar";
 import styled from "styled-components";
 import CandleChart from "../chart/CandleChart";
+import ChartComponent from "../ui/ChartComponent";
 
 const WalletWrapper = styled.div`
   display: flex;
@@ -19,6 +20,11 @@ const Wrapper4 = styled.div`
   margin: 0 260px;
 `;
 
+const Wrapper3 = styled.div`
+  margin: 0 260px;
+`;
+
+
 function MainPage() {
   return (
     <>
@@ -26,13 +32,9 @@ function MainPage() {
       <StockSearch />
 
       {/* 차트 관련 섹션 */}
-      <div className="chart">
-        <div>
-          <h1>차트</h1>
-          <CandleChart />
-        </div>
-        <img src="" alt="로고" />
-      </div>
+      <Wrapper3>
+        <ChartComponent />
+      </Wrapper3>
 
       <Wrapper4>
         <WalletWrapper>
