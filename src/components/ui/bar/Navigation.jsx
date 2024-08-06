@@ -10,7 +10,7 @@ const NavigationBar = styled.nav`
 const NavigationWrapper = styled.div`
   width: 1532px;
   margin: 0 auto;
-  padding: 0 260px;
+  padding: 0 360px;
   display: flex;
   justify-content: space-between;
 `;
