@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  width: 562px;
-  height: 311px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0px;
+  box-sizing: border-box;
 `;
 
 const ButtonWrapper = styled.div`
@@ -64,6 +67,7 @@ const Price = styled.p`
 
 const Contents = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
@@ -111,7 +115,6 @@ const InputStyle1 = styled.input`
 
 const InputWrapper = styled.div`
   display: flex;
-  width: 562px;
   height: 251px;
   padding: 25px;
   align-items: center;

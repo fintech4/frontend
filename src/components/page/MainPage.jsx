@@ -11,36 +11,30 @@ import ChartComponent from "../ui/ChartComponent";
 
 const WalletWrapper = styled.div`
   display: flex;
+  width: 100%;
   gap: 20px;
+`;
+const OrderWrapper = styled.div`
+  width: 100%;
 `;
 
 const Wrapper4 = styled.div`
+  margin: 20px 360px 0 360px;
   display: flex;
-  margin: 20px 260px;
   gap: 20px;
-  position: relative;
-  align-items: flex-start;
+  flex: 1 0 0;
+  width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
 `;
 
 const Wrapper3 = styled.div`
-  margin: 0 260px;
+  margin: 0 360px;
+  width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
 `;
 
-const Logo = styled.div`
-  position: absolute;
-  top: 120px; // 상단에서의 거리
-  right: -130px; // 우측에서의 거리 (OrderForm 옆으로 이동)
-  width: 265.169px;
-  height: 113.644px;
-  background-image: url("images/logo/header_logo.png"); // 로고 이미지 경로
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-`;
 function MainPage() {
   return (
     <>
-      <Navigation path={"/"} isLoggedIn={false} />
+      <Navigation path={"/"} isLoggedIn={true} />
       <StockSearch />
 
       {/* 차트 관련 섹션 */}
@@ -57,11 +51,7 @@ function MainPage() {
           />
         </WalletWrapper>
 
-        <div>
-          <OrderForm />
-        </div>
-
-        <Logo />
+        <OrderForm />
       </Wrapper4>
     </>
   );
