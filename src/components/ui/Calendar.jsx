@@ -41,8 +41,6 @@ const CalendarWrapper = styled.div`
 
   /* 전체 달력 배경색 */
   .react-calendar {
-    padding-left: 10px;
-    padding-right: 10px;
     background: #B7E6E2 !important; /* 연한 청록색 배경색 */
     border: 0px solid #ddd; /* 테두리 없음 */
     border-radius: 4px; /* 둥근 모서리 */
@@ -183,6 +181,14 @@ const CustomCalendar = ({ onChange, value }) => {
     return "날짜를 선택해주세요";
   };
 
+  
+  const formatTempRange = (range) => {
+    if (range[0] && range[1]) {
+      return `선택한 날짜: ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(range[1]).format("YYYY.MM.DD")}`;
+    }
+    return "날짜를 선택해주세요";
+  };
+
   return (
     <CalendarContainer>
       <DropdownButton onClick={handleToggleCalendar}>
@@ -190,7 +196,7 @@ const CustomCalendar = ({ onChange, value }) => {
       </DropdownButton>
       <CalendarWrapper isOpen={isOpen} range={tempRange}>
         <div className="selected-range">
-          {formatRange(tempRange)}
+          {formatTempRange(tempRange)}
         </div>
         <Calendar
           onChange={handleDateChange}
