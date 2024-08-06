@@ -4,7 +4,6 @@ import StockSearch from "../ui/bar/StockSearch";
 import Wallet from "../ui/Wallet";
 import OrderForm from "../ui/OrderForm";
 import Guide from "../ui/Guide";
-import Calandar from "react-calendar";
 import styled from "styled-components";
 import CandleChart from "../chart/CandleChart";
 import ChartComponent from "../ui/ChartComponent";
