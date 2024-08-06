@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 const WalletContainer = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   padding: 25px;
   border-radius: 10px;
   text-align: center;
-  background-color: #f9f9f9;
-  width: 271px;
+  background: var(--Schemes-On-Primary, #fff);
   height: 310px;
-  margin: 20px auto;
   position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
 `;
 
@@ -21,12 +20,12 @@ const WalletImage = styled.img`
 `;
 
 const WalletName = styled.h2`
-  font-size: 24px;
+  font-size: 20px;
   margin: 0 0 29px 0;
 `;
 
 const WalletBalance = styled.p`
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: #333;
   position: absolute;
