@@ -11,24 +11,30 @@ import ChartComponent from "../ui/ChartComponent";
 
 const WalletWrapper = styled.div`
   display: flex;
+  width: 100%;
   gap: 20px;
+`;
+const OrderWrapper = styled.div`
+  width: 100%;
 `;
 
 const Wrapper4 = styled.div`
+  margin: 20px 360px 0 360px;
   display: flex;
-  justify-content: space-between;
-  margin: 0 260px;
+  gap: 20px;
+  flex: 1 0 0;
+  width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
 `;
 
 const Wrapper3 = styled.div`
-  margin: 0 260px;
+  margin: 0 360px;
+  width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
 `;
-
 
 function MainPage() {
   return (
     <>
-      <Navigation path={"/"} isLoggedIn={false} />
+      <Navigation path={"/"} isLoggedIn={true} />
       <StockSearch />
 
       {/* 차트 관련 섹션 */}
@@ -45,13 +51,7 @@ function MainPage() {
           />
         </WalletWrapper>
 
-        <div>
-          <OrderForm /> {/* OrderForm 컴포넌트를 추가 */}
-        </div>
-
-        <div>
-          <Guide />
-        </div>
+        <OrderForm />
       </Wrapper4>
     </>
   );

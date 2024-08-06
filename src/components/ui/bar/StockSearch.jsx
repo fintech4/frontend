@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  margin: 20px 260px;
+  margin: 20px 360px;
   background-color: #ffffff;
   border-radius: 8px;
 `;
