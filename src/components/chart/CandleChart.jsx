@@ -18,9 +18,14 @@ const filterWeekdays = (data) => {
 };
 
 // 주말 제외 및 유효한 데이터 필터링
-const filteredData = filterValidDates(filterWeekdays(data));
+const filterDataByDateRange = (data, dateRange) => {
+  const [startDate, endDate] = dateRange;
+  return data.filter((item) => {
+    const itemDate = new Date(item.x);
+    return itemDate >= startDate && itemDate <= endDate;
+  });
+};
 
-// 날짜가 없는 경우 '휴장'이라고 메모를 추가하는 함수
 const getAnnotations = (data) => {
   const annotations = [];
 
@@ -54,9 +59,10 @@ const getAnnotations = (data) => {
   return annotations;
 };
 
-const chartAnnotations = getAnnotations(filteredData);
+const CandleChart = ({ dateRange }) => {
+  const filteredData = filterValidDates(filterWeekdays(filterDataByDateRange(data, dateRange)));
+  const chartAnnotations = getAnnotations(filteredData);
 
-const ChartComponent = () => {
   const chartOptions = {
     chart: {
       type: "candlestick",
@@ -138,4 +144,4 @@ const ChartComponent = () => {
   );
 };
 
-export default ChartComponent;
+export default CandleChart;
