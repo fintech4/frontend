@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import CandleChart from "../chart/CandleChart";
 import styled from "styled-components";
+import CustomCalendar from "./Calendar";
+import moment from "moment";
 
 const ChartTitle = styled.h1`
   color: #1e1e1e;
@@ -36,14 +38,27 @@ const ChartWrapper = styled.div`
 `;
 
 function ChartComponent() {
+  // Set default date range: 3 months ago to today
+  const [dateRange, setDateRange] = useState([
+    moment().subtract(3, 'months').startOf('day').toDate(),
+    moment().endOf('day').toDate(),
+  ]);
+
+  const handleDateChange = (range) => {
+    if (Array.isArray(range) && range.length === 2) {
+      setDateRange(range);
+      console.log('Selected date range:', range);
+    }
+  };
+
   return (
     <Wrapper>
       <TitleWrapper>
         <ChartTitle>차트</ChartTitle>
-        <ChartTitle>calandar</ChartTitle>
+        <CustomCalendar onChange={handleDateChange} value={dateRange} />
       </TitleWrapper>
       <ChartWrapper>
-        <CandleChart />
+        <CandleChart dateRange={dateRange} />
       </ChartWrapper>
     </Wrapper>
   );
