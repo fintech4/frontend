@@ -45,7 +45,7 @@ const Title = styled.h1`
 const MyPage = () => {
   return (
     <div>
-      <Navigation path={"/mypage"} isLoggedIn={false} />
+      <Navigation path={"/mypage"} isLoggedIn={true} />
       <List>
         <ListWrapper>
           <TitleWrapper>
