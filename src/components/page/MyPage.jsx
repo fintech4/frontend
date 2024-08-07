@@ -1,8 +1,8 @@
 import React from "react";
 import Navigation from "../ui/bar/Navigation";
-import Table from "../ui/MyTable";
+import Table from "../ui/tables/MyTable";
 import styled from "styled-components";
-import StockTable from "../ui/StockTable";
+import StockTable from "../ui/tables/StockTable";
 
 const List = styled.div`
   display: flex;
