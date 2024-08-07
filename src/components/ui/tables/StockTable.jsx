@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { FaInfoCircle } from "react-icons/fa";
+import "react-tooltip/dist/react-tooltip.css"; // react-tooltip의 기본 스타일을 가져옵니다.
+import "../../../assets/css/styles.css";
 
 const TableWrapper = styled.div`
   table {
@@ -52,6 +56,19 @@ const TableWrapper = styled.div`
   }
 `;
 
+const tooltipStyles = {
+  boxShadow: "0px 4px 10px 1px rgba(113, 205, 199, 0.3)",
+  borderRadius: "8px",
+  padding: "10px",
+  backgroundColor: "#fff",
+  color: "#15181E", // 수정된 색상
+  fontFamily: "Pretendard Variable",
+  fontSize: "16px", // 수정된 폰트 크기
+  fontWeight: "500",
+  lineHeight: "24px", // 수정된 줄 간격
+  zIndex: "1000",
+};
+
 const data = [
   {
     name: "삼성전자",
@@ -87,13 +104,60 @@ const StockTable = () => {
           <tr>
             <th>주식명</th>
             <th>
-              평균매수가 <span>ⓘ</span>
+              평균매수가{" "}
+              <FaInfoCircle
+                className="info-icon"
+                data-tooltip-id="averagePrice"
+                color="#058077"
+                style={{ cursor: "pointer" }}
+              />
+              <ReactTooltip
+                id="averagePrice"
+                place="bottom"
+                effect="solid"
+                style={tooltipStyles}
+              >
+                평균매수가 = 평균단가 | 내가 지금까지 주식을
+                <br /> 매입할 때의 평균 가격입니다. 여러 번에 걸쳐
+                <br /> 주식을 매입했을 때 유용합니다.
+              </ReactTooltip>
               <br />
-              현재가격 <span>ⓘ</span>
+              현재가격{" "}
+              <FaInfoCircle
+                className="info-icon"
+                data-tooltip-id="currentPrice"
+                color="#058077"
+                style={{ cursor: "pointer" }}
+              />
+              <ReactTooltip
+                id="currentPrice"
+                place="bottom"
+                effect="solid"
+                style={tooltipStyles}
+              >
+                자산의 현재 시장 가치를 나타내는 금액입니다.
+                <br /> 주식의 현재 가격을 기준으로 평가합니다.
+              </ReactTooltip>
             </th>
             <th>보유주식수</th>
             <th>
-              평가금액 <span>ⓘ</span>
+              평가금액{" "}
+              <FaInfoCircle
+                className="info-icon"
+                data-tooltip-id="valuationAmount"
+                color="#058077"
+                style={{ cursor: "pointer" }}
+              />
+              <ReactTooltip
+                id="valuationAmount"
+                place="bottom"
+                effect="solid"
+                style={tooltipStyles}
+              >
+                증권 계좌에 있는 현금으로, 내가 주식 매입을 위해 사용할 수 있는
+                <br />
+                금액입니다. 나의 통장 잔고와 같은 존재이죠.
+              </ReactTooltip>
               <br />
               수익률
             </th>
