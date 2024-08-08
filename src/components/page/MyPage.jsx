@@ -3,6 +3,8 @@ import Navigation from "../ui/bar/Navigation";
 import Table from "../ui/tables/MyTable";
 import styled from "styled-components";
 import StockTable from "../ui/tables/StockTable";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const List = styled.div`
   display: flex;
@@ -42,7 +44,66 @@ const Title = styled.h1`
   line-height: normal;
 `;
 
+const defaultMyAsset = {
+  total: 150000000,
+  deposit: 50000000,
+  stockTotal: 7000000,
+  yield: 12.56,
+  stockCount: 3,
+};
+
+const defaultMyStockList = [
+  {
+    stock_id: "1",
+    stock_name: "삼성전자",
+    average_price: 5000,
+    current_price: 5760,
+    quantity: 10,
+    evaluation_amount: 50000,
+    yield: 8.07,
+  },
+  {
+    stock_id: "2",
+    stock_name: "현대차",
+    average_price: 6000,
+    current_price: 6600,
+    quantity: 15,
+    evaluation_amount: 90000,
+    yield: 10.0,
+  },
+];
+
 const MyPage = () => {
+  const [myAsset, setMyAsset] = useState(defaultMyAsset);
+  const [myStockList, setMyStockList] = useState(defaultMyStockList);
+
+  useEffect(() => {
+    const fetchMyAsset = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/accounts/assets`
+        );
+        setMyAsset(response.data);
+      } catch (error) {
+        console.error("Error fetching my asset data:", error);
+      }
+    };
+
+    const fetchMyStockList = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/accounts/holdings`
+        );
+        setMyStockList(response.data);
+      } catch (error) {
+        console.error("Error fetching my stock list data:", error);
+      }
+    };
+
+    fetchMyAsset();
+    fetchMyStockList();
+  }, []);
+
   return (
     <div>
       <Navigation path={"/mypage"} isLoggedIn={true} />
@@ -51,14 +112,14 @@ const MyPage = () => {
           <TitleWrapper>
             <Title>내 자산</Title>
           </TitleWrapper>
-          <Table />
+          <Table myAsset={myAsset} />
         </ListWrapper>
         <ListWrapper>
           <TitleWrapper>
             <Title>보유주식목록</Title>
           </TitleWrapper>
 
-          <StockTable />
+          <StockTable myStockList={myStockList} />
         </ListWrapper>
       </List>
     </div>

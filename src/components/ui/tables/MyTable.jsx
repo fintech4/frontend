@@ -58,29 +58,7 @@ const tooltipStyles = {
   zIndex: "1000",
 };
 
-const Table = () => {
-  const [data, setData] = useState({
-    totalAssets: 150000000,
-    deposit: 50000000,
-    totalStocks: 7000000,
-    profitRate: 12.56,
-    stockCount: 3,
-  });
-
-  useEffect(() => {
-    // 백엔드 API 호출하여 데이터 받아오기
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/userAssets");
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+const Table = ({ myAsset }) => {
   return (
     <TableWrapper>
       <table>
@@ -102,7 +80,7 @@ const Table = () => {
                 보유주식의 총액 + 예수금으로, 현재까지의 총 자산 보유액입니다.
               </ReactTooltip>
             </td>
-            <td className="align-right">{data.totalAssets.toLocaleString()}</td>
+            <td className="align-right">{myAsset.total.toLocaleString()}</td>
           </tr>
           <tr>
             <td className="align-left">
@@ -123,7 +101,7 @@ const Table = () => {
                 금액입니다. 나의 통장 잔고와 같은 존재이죠.
               </ReactTooltip>
             </td>
-            <td className="align-right">{data.deposit.toLocaleString()}</td>
+            <td className="align-right">{myAsset.deposit.toLocaleString()}</td>
           </tr>
           <tr>
             <td className="align-left">
@@ -142,15 +120,17 @@ const Table = () => {
                 평가금액의 합으로 지금까지 주식투자로만 벌어들인 수익입니다.
               </ReactTooltip>
             </td>
-            <td className="align-right">{data.totalStocks.toLocaleString()}</td>
+            <td className="align-right">
+              {myAsset.stockTotal.toLocaleString()}
+            </td>
           </tr>
           <tr>
             <td className="align-left">총 수익률</td>
-            <td className="align-right">{data.profitRate}%</td>
+            <td className="align-right">{myAsset.yield}%</td>
           </tr>
           <tr>
             <td className="align-left">보유 종목 수</td>
-            <td className="align-right">{data.stockCount}</td>
+            <td className="align-right">{myAsset.stockCount}</td>
           </tr>
         </tbody>
       </table>

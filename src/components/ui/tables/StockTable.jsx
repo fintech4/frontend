@@ -96,7 +96,7 @@ const data = [
   },
 ];
 
-const StockTable = () => {
+const StockTable = ({ myStockList }) => {
   return (
     <TableWrapper>
       <table>
@@ -164,19 +164,19 @@ const StockTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {myStockList.map((stock, index) => (
             <tr key={index} className="align-left">
-              <td className="align-left">{row.name}</td>
+              <td className="align-left">{stock.stock_name}</td>
               <td className="align-left">
-                {row.avgPrice}
+                {stock.average_price}
                 <br />
-                {row.currentPrice}
+                {stock.current_price}
               </td>
-              <td className="align-left">{row.quantity}</td>
+              <td className="align-left">{stock.quantity}</td>
               <td className="align-left">
-                {row.totalPrice}
+                {stock.evaluation_amount}
                 <br />
-                {row.profitRate}
+                {stock.yield}
               </td>
             </tr>
           ))}
