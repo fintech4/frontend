@@ -68,7 +68,15 @@ const tooltipStyles = {
 };
 
 const StockTable = ({ myStockList }) => {
-  console.log(myStockList);
+  const [stockList, setStockList] = useState([]);
+
+  useEffect(() => {
+    if (myStockList) {
+      setStockList(myStockList);
+    }
+  }, [myStockList]);
+  console.log(JSON.stringify(myStockList, null, 2)); // 객체를 JSON 형태로 출력
+
   return (
     <TableWrapper>
       <table>
@@ -136,8 +144,8 @@ const StockTable = ({ myStockList }) => {
           </tr>
         </thead>
         <tbody>
-          {myStockList.length > 0 ? (
-            myStockList.map((stock, index) => (
+          {stockList?.length > 0 ? (
+            stockList.map((stock, index) => (
               <tr key={index} className="align-left">
                 <td className="align-left">{stock.stock_name || "N/A"}</td>
                 <td className="align-left">

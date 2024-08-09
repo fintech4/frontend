@@ -54,7 +54,6 @@ const defaultMyAsset = {
 
 const defaultMyStockList = [
   {
-    stock_id: "1",
     stock_name: "삼성전자",
     average_price: 5000,
     current_price: 5760,
@@ -63,7 +62,6 @@ const defaultMyStockList = [
     yield: 8.07,
   },
   {
-    stock_id: "2",
     stock_name: "현대차",
     average_price: 6000,
     current_price: 6600,
@@ -76,24 +74,47 @@ const defaultMyStockList = [
 const MyPage = () => {
   const [myAsset, setMyAsset] = useState(defaultMyAsset);
   const [myStockList, setMyStockList] = useState(defaultMyStockList);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMyAsset = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/accounts/assets`
+        // 자산 정보 가져오기
+        const assetResponse = await axios.get(
+          `http://toou.kro.kr/api/accounts/assets`
         );
-        if (response.data) {
-          setMyAsset(response.data);
-          setMyStockList(response.data.stocks);
+        if (assetResponse.data) {
+          setMyAsset({
+            total: assetResponse.data.totalAsset || 0,
+            deposit: assetResponse.data.deposit || 0,
+            stockTotal: assetResponse.data.totalHoldingsValue || 0,
+            yield: assetResponse.data.investmentYield || 0,
+            stockCount: assetResponse.data.totalHoldingsQuantity || 0,
+          });
         } else {
           setMyAsset(defaultMyAsset);
+        }
+
+        // 주식 목록 가져오기
+        const holdingsResponse = await axios.get(
+          `http://toou.kro.kr/api/accounts/holdings`
+        );
+        if (holdingsResponse.data && holdingsResponse.data.holdings) {
+          setMyStockList(
+            holdingsResponse.data.holdings.map((stock) => ({
+              stock_name: stock.stockName || "N/A",
+              average_price: stock.averagePurchasePrice || 0,
+              current_price: stock.currentPrice || 0,
+              quantity: stock.quantity || 0,
+              evaluation_amount: stock.valuation || 0,
+              yield: stock.yield || 0,
+            }))
+          );
+        } else {
           setMyStockList(defaultMyStockList);
         }
       } catch (error) {
-        console.error("Error fetching my asset data:", error);
+        console.error("Error fetching data:", error);
         setMyAsset(defaultMyAsset);
         setMyStockList(defaultMyStockList);
       } finally {
@@ -101,12 +122,11 @@ const MyPage = () => {
       }
     };
 
-    fetchMyAsset();
+    fetchData();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시할 UI
-  }
+  console.log(JSON.stringify(myAsset, null, 2)); // 객체를 JSON 형태로 출력
+  console.log(JSON.stringify(myStockList, null, 2)); // 객체를 JSON 형태로 출력
 
   return (
     <div>
