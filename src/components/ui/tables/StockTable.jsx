@@ -67,7 +67,8 @@ const tooltipStyles = {
   zIndex: "1000",
 };
 
-const StockTable = ({ myStockList = [] }) => {
+const StockTable = ({ myStockList }) => {
+  console.log(myStockList);
   return (
     <TableWrapper>
       <table>

@@ -56,6 +56,7 @@ const tooltipStyles = {
 };
 
 const Table = ({ myAsset }) => {
+  console.log(myAsset);
   return (
     <TableWrapper>
       <table>
