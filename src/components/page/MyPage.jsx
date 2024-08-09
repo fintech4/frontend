@@ -86,6 +86,7 @@ const MyPage = () => {
         setMyAsset(response.data);
       } catch (error) {
         console.error("Error fetching my asset data:", error);
+        setMyAsset(defaultMyAsset);
       }
     };
 
@@ -97,6 +98,7 @@ const MyPage = () => {
         setMyStockList(response.data);
       } catch (error) {
         console.error("Error fetching my stock list data:", error);
+        setMyStockList(defaultMyStockList);
       }
     };
 
