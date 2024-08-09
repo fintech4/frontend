@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Modal from "../ui/modal/BuyModal"; // 모달 컴포넌트 임포트
 
 const Wrapper = styled.div`
   display: flex;
@@ -157,9 +158,9 @@ const BuySellButton = styled.button`
 
 function OrderForm() {
   const price = 338000; // 주문 가격
-
   const [quantity, setQuantity] = useState("");
   const [orderType, setOrderType] = useState("buy"); // "buy" 또는 "sell"
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleQuantityChange = (e) => {
     const value = e.target.value;
@@ -183,6 +184,11 @@ function OrderForm() {
     } else if (orderType === "sell") {
       console.log("판매 완료");
     }
+    setIsModalOpen(true); // 모달을 띄우는 상태 변경
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // 모달을 닫는 상태 변경
   };
 
   const totalAmount = price * (quantity ? Number(quantity) : 0);
@@ -242,6 +248,12 @@ function OrderForm() {
           </div>
         )}
       </InputWrapper>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        orderType={orderType}
+      />
     </Wrapper>
   );
 }
