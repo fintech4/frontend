@@ -213,7 +213,7 @@ function OrderForm() {
         }
       } catch (error) {
         console.error("판매 요청 중 오류 발생:", error);
-        setErrorMessage("수량을 확인해주세요!");
+        setErrorMessage("종목을 확인해주세요!"); ///여기가 default입니다!!!!!!!!!!
         setIsErrorModalOpen(true); // 에러 모달 띄우기
       }
     }
