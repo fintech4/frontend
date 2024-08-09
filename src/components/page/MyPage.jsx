@@ -77,34 +77,36 @@ const MyPage = () => {
   const [myAsset, setMyAsset] = useState(defaultMyAsset);
   const [myStockList, setMyStockList] = useState(defaultMyStockList);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchMyAsset = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/accounts/assets`
         );
-        setMyAsset(response.data);
+        if (response.data) {
+          setMyAsset(response.data);
+          setMyStockList(response.data.stocks);
+        } else {
+          setMyAsset(defaultMyAsset);
+          setMyStockList(defaultMyStockList);
+        }
       } catch (error) {
         console.error("Error fetching my asset data:", error);
         setMyAsset(defaultMyAsset);
-      }
-    };
-
-    const fetchMyStockList = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/accounts/holdings`
-        );
-        setMyStockList(response.data);
-      } catch (error) {
-        console.error("Error fetching my stock list data:", error);
         setMyStockList(defaultMyStockList);
+      } finally {
+        setLoading(false); // 데이터 로딩이 완료되면 로딩 상태를 false로
       }
     };
 
     fetchMyAsset();
-    fetchMyStockList();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시할 UI
+  }
 
   return (
     <div>

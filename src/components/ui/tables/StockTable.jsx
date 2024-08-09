@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { FaInfoCircle } from "react-icons/fa";
-import "react-tooltip/dist/react-tooltip.css"; // react-tooltip의 기본 스타일을 가져옵니다.
+import "react-tooltip/dist/react-tooltip.css";
 import "../../../assets/css/styles.css";
 
 const TableWrapper = styled.div`
@@ -10,41 +10,39 @@ const TableWrapper = styled.div`
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
-    overflow: hidden; /* border-radius가 적용된 영역 밖의 내용이 잘리도록 설정 */
+    overflow: hidden;
   }
   th,
   td {
-    width: 295px; /* 셀의 너비 */
-    height: 64px; /* 셀의 높이 */
-    padding: 18px 29px; /* 셀의 여백 */
+    width: 295px;
+    height: 64px;
+    padding: 18px 29px;
     border-right: 1px solid var(--black-black-300, #e0e4ea);
     border-bottom: 1px solid var(--black-black-300, #e0e4ea);
   }
   th {
     background: var(--primary-primary-100, #f3fbfa);
-    color: var(--black-900, #1c1b1f); /* 글꼴 색상 */
-    font-family: "Pretendard Variable"; /* 글꼴 */
-    font-size: 16px; /* 글꼴 크기 */
-    font-style: normal; /* 글꼴 스타일 */
-    font-weight: 700; /* 글꼴 굵기 */
-    line-height: 24px; /* 줄 간격 */
+    color: var(--black-900, #1c1b1f);
+    font-family: "Pretendard Variable";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
     text-align: left;
   }
   td {
-    background-color: #fff; /* 기본 배경색 */
-    color: var(--black-black-700, #5b6b86); /* 글꼴 색상 */
-    font-family: "Pretendard Variable"; /* 글꼴 */
-    font-size: 16px; /* 글꼴 크기 */
-    font-style: normal; /* 글꼴 스타일 */
-    font-weight: 500; /* 글꼴 굵기 */
-    line-height: 24px; /* 줄 간격 */
+    background-color: #fff;
+    color: var(--black-black-700, #5b6b86);
+    font-family: "Pretendard Variable";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
   }
-  /* Remove the right border from the last column */
   th:last-child,
   td:last-child {
     border-right: none;
   }
-  /* Remove the bottom border from the last row */
   tr:last-child td {
     border-bottom: none;
   }
@@ -61,42 +59,15 @@ const tooltipStyles = {
   borderRadius: "8px",
   padding: "10px",
   backgroundColor: "#fff",
-  color: "#15181E", // 수정된 색상
+  color: "#15181E",
   fontFamily: "Pretendard Variable",
-  fontSize: "16px", // 수정된 폰트 크기
+  fontSize: "16px",
   fontWeight: "500",
-  lineHeight: "24px", // 수정된 줄 간격
+  lineHeight: "24px",
   zIndex: "1000",
 };
 
-const data = [
-  {
-    name: "삼성전자",
-    avgPrice: "5,000",
-    currentPrice: "5,760",
-    quantity: 10,
-    totalPrice: "50,000",
-    profitRate: "8.07%",
-  },
-  {
-    name: "LG전자",
-    avgPrice: "85,000",
-    currentPrice: "90,000",
-    quantity: 5,
-    totalPrice: "425,000",
-    profitRate: "5.88%",
-  },
-  {
-    name: "카카오",
-    avgPrice: "120,000",
-    currentPrice: "110,000",
-    quantity: 2,
-    totalPrice: "220,000",
-    profitRate: "-8.33%",
-  },
-];
-
-const StockTable = ({ myStockList }) => {
+const StockTable = ({ myStockList = [] }) => {
   return (
     <TableWrapper>
       <table>
@@ -164,22 +135,38 @@ const StockTable = ({ myStockList }) => {
           </tr>
         </thead>
         <tbody>
-          {myStockList.map((stock, index) => (
-            <tr key={index} className="align-left">
-              <td className="align-left">{stock.stock_name}</td>
-              <td className="align-left">
-                {stock.average_price}
-                <br />
-                {stock.current_price}
-              </td>
-              <td className="align-left">{stock.quantity}</td>
-              <td className="align-left">
-                {stock.evaluation_amount}
-                <br />
-                {stock.yield}
+          {myStockList.length > 0 ? (
+            myStockList.map((stock, index) => (
+              <tr key={index} className="align-left">
+                <td className="align-left">{stock.stock_name || "N/A"}</td>
+                <td className="align-left">
+                  {stock.average_price
+                    ? stock.average_price.toLocaleString()
+                    : "N/A"}
+                  <br />
+                  {stock.current_price
+                    ? stock.current_price.toLocaleString()
+                    : "N/A"}
+                </td>
+                <td className="align-left">
+                  {stock.quantity !== undefined ? stock.quantity : "N/A"}
+                </td>
+                <td className="align-left">
+                  {stock.evaluation_amount
+                    ? stock.evaluation_amount.toLocaleString()
+                    : "N/A"}
+                  <br />
+                  {stock.yield !== undefined ? `${stock.yield}%` : "N/A"}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="align-center">
+                보유 중인 주식이 없습니다.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </TableWrapper>
