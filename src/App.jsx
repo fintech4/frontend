@@ -21,7 +21,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/" element={<WelcomePage />} />
         <Route path="/main" element={<MainPage isLoggedIn={isLoggedIn} />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>

@@ -82,12 +82,12 @@ function Navigation({ path, isLoggedIn }) {
     <NavigationBar>
       <NavigationWrapper>
         <HomeLinkWrapper>
-          <Link to="/welcome">
+          <Link to="/">
             <LogoImage src={"images/logo/header_logo.png"} />
           </Link>
         </HomeLinkWrapper>
         <TabLinkWrapper>
-          <TabLink to="/">
+          <TabLink to="/main">
             <TabLinkListElement className={path === "/" ? "clicked" : ""}>
               <TabLinkText>투자</TabLinkText>
             </TabLinkListElement>
