@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Modal from "../ui/modal/BuyModal"; // 모달 컴포넌트 임포트
+import Modal from "./modal/BuyModal"; // 모달 컴포넌트 임포트
+import ErrorModal from "./modal/ErrorModal";
 
 const Wrapper = styled.div`
   display: flex;
@@ -161,6 +162,8 @@ function OrderForm() {
   const [quantity, setQuantity] = useState("");
   const [orderType, setOrderType] = useState("buy"); // "buy" 또는 "sell"
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleQuantityChange = (e) => {
     const value = e.target.value;
@@ -178,15 +181,46 @@ function OrderForm() {
     setOrderType("sell");
   };
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
     if (orderType === "buy") {
       console.log("구매 완료");
+      setIsModalOpen(true); // 구매 완료 모달
     } else if (orderType === "sell") {
-      console.log("판매 완료");
-    }
-    setIsModalOpen(true); // 모달을 띄우는 상태 변경
-  };
+      try {
+        // sellable API 요청 보내기
+        const response = await fetch("/api/sellable", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ stockName: "종목 이름", quantity }), // 실제 종목 이름과 수량을 넣어야 함
+        });
+        const result = await response.json();
 
+        if (result.ok) {
+          console.log("판매 완료");
+          setIsModalOpen(true); // 판매 완료 모달
+        } else {
+          // ok가 false인 경우, 에러 처리
+          if (result.errorType === "종목 부족") {
+            setErrorMessage("종목을 확인해주세요!");
+          } else if (result.errorType === "수량 부족") {
+            setErrorMessage("수량을 확인해주세요!");
+          } else {
+            setErrorMessage("판매할 수 없습니다.");
+          }
+          setIsErrorModalOpen(true); // 에러 모달 띄우기
+        }
+      } catch (error) {
+        console.error("판매 요청 중 오류 발생:", error);
+        setErrorMessage("수량을 확인해주세요!");
+        setIsErrorModalOpen(true); // 에러 모달 띄우기
+      }
+    }
+  };
+  const handleCloseErrorModal = () => {
+    setIsErrorModalOpen(false); // 에러 모달 닫기
+  };
   const handleCloseModal = () => {
     setIsModalOpen(false); // 모달을 닫는 상태 변경
   };
@@ -203,7 +237,6 @@ function OrderForm() {
           매도
         </OrderButton>
       </ButtonWrapper>
-
       <InputWrapper>
         <Contents>
           <InfoWrapper>
@@ -248,11 +281,15 @@ function OrderForm() {
           </div>
         )}
       </InputWrapper>
-
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         orderType={orderType}
+      />
+      <ErrorModal
+        isOpen={isErrorModalOpen}
+        onClose={handleCloseErrorModal}
+        message={errorMessage}
       />
     </Wrapper>
   );
