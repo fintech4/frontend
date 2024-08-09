@@ -127,6 +127,7 @@ const MyPage = () => {
 
   console.log(JSON.stringify(myAsset, null, 2)); // 객체를 JSON 형태로 출력
   console.log(JSON.stringify(myStockList, null, 2)); // 객체를 JSON 형태로 출력
+  console.log("배포확인"); // 객체를 JSON 형태로 출력
 
   return (
     <div>
