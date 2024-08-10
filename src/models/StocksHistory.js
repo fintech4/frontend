@@ -1,5 +1,4 @@
 // src/models/StockHistory.js
-import DailyHistory from './DailyHistory';
 
 class StockHistory {
   constructor(id, stockCode, stockName, stockNewestPrice, newestDate, dailyHistories) {
@@ -8,10 +7,8 @@ class StockHistory {
     this.stockName = stockName;
     this.stockNewestPrice = stockNewestPrice;
     this.newestDate = newestDate;
-    // dailyHistories 배열의 각 요소를 DailyHistory 인스턴스로 변환합니다.
-    this.dailyHistories = dailyHistories.map(
-      history => new DailyHistory(history.date, history.prices)
-    );
+    // dailyHistories를 배열로 직접 저장합니다.
+    this.dailyHistories = dailyHistories;
   }
 
   // 주식의 최신 가격과 최신 날짜를 반환하는 메서드

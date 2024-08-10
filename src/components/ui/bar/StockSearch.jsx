@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import SearchContainer from "../SearchContainer";
-import axios from "axios";
+import { StocksContext } from '../../../context/stocksContext';
 import { media } from "../../../media";
 export const getCurrentDateTime = () => {
   const now = new Date();
@@ -75,11 +75,17 @@ const StockName = styled.p`
   font-weight: bold;
   margin: 0px;
   color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StockText = styled.div`
   display: flex;
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Kospi = styled.p`
@@ -121,16 +127,32 @@ const PriceNumContainer = styled.div`
     `}
 `;
 
-const Price = styled.p`
+const Price = styled.div`
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  position: relative;
+`;
+
+const PriceAmount = styled.p`
   font-size: 28px;
   font-weight: bold;
-  color: #ed3738;
+  color: ${({ positive, zero }) => (zero ? "#000000" : positive ? "#FF4E36" : "#0C67EF")};
   margin: 0;
+`;
+
+const PriceLabel = styled.p`
+  font-size: 12px;
+  color: ${({ positive, zero }) => (zero ? "#000000" : positive ? "#FF4E36" : "#0C67EF")};
+  margin: 0;
+  font-weight: bold;
+  margin-left: 5px; 
+  align-self: flex-start; 
 `;
 
 const PriceChange = styled.p`
   font-size: 15px;
-  color: ${({ positive }) => (positive ? "#ED3738" : "#f44336")};
+  color: ${({ positive, zero }) => (zero ? "#000000" : positive ? "#FF4E36" : "#0C67EF")};
   margin: 0;
   margin-right: 5px;
   font-weight: bold;
@@ -138,7 +160,7 @@ const PriceChange = styled.p`
 
 const PriceRatio = styled.p`
   font-size: 15px;
-  color: ${({ positive }) => (positive ? "#ED3738" : "#f44336")};
+  color: ${({ positive, zero }) => (zero ? "#000000" : positive ? "#FF4E36" : "#0C67EF")};
   margin: 0;
   font-weight: bold;
 `;
@@ -147,75 +169,45 @@ function StockSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [stockList, setStockList] = useState([]);
-  const [selectedStock, setSelectedStock] = useState(null);
-  const priceChange = selectedStock ? selectedStock.priceChange : 14500;
-  const priceRatio = selectedStock ? selectedStock.priceRatio : 4.54;
+  const { stocks, selectedStockCode, stockHistory, fetchStocks, fetchStocksHistory } = useContext(StocksContext);
 
-  const fetchStockList = async (query) => {
-    console.log(query);
-
-    try {
-      // axios를 사용하여 데이터 요청
-      const response = await axios.get("/toou/api/stocks", {
-        params: { name: query }, // 쿼리 파라미터로 name 전달
-      });
-      console.log(response.data); // 응답 데이터 전체 구조를 확인
-      const stockSearchList = response.data.stockSearchList;
-
-      // stockSearchList가 배열로 존재하는지 확인
-      if (Array.isArray(stockSearchList)) {
-        setStockList(stockSearchList); // stockSearchList 배열 전체를 상태로 설정
-        setSelectedStock(stockSearchList.stockName); // 선택된 주식 초기화
-      } else {
-        console.error("Stock search list is not an array");
-        setStockList([]); // 비어 있는 배열로 설정하여 오류 방지
-      }
-    } catch (e) {
-      console.error(e); // 콘솔에 오류 로그
-      setStockList([]); // 오류 발생 시 비어 있는 배열로 설정
-    }
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
-  const fetchStockDetails = async (selectedStock) => {
-    console.log(selectedStock);
-
-    try {
-      // 여기에 실제 API 요청 코드를 추가하세요.
-      // const response = await axios.get(`/api/stock-details?name=${stockName}`);
-      // setSelectedStock(response.data); // assuming the response has stock details
-
-      // 로컬 환경을 위해 가짜 데이터 사용
-      setSelectedStock({
-        name: selectedStock.stockName,
-        priceChange: 2000,
-        priceRatio: 2.5,
-        price: 120000,
-      });
-    } catch (error) {
-      console.error("Error fetching stock details:", error);
-      // 로컬 환경을 위해 가짜 데이터 사용
-      setSelectedStock({
-        name: selectedStock.stockName,
-        priceChange: 2000,
-        priceRatio: 2.5,
-        price: 120000,
-      });
+  useEffect(() => {
+    if (selectedStockCode) {
+      // Fetch stock history based on the selected stock code
+      const today = getTodayDate();
+      fetchStocksHistory(selectedStockCode, "2023-07-01", today);
     }
-  };
+  }, [selectedStockCode, fetchStocksHistory]);
 
   const isCompleteCharacters = (value) => {
     const regex = /^[가-힣a-zA-Z\s]+$/;
     return regex.test(value) || value === "";
   };
 
-  const handleChange = (e) => {
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat().format(number);
+  };
+
+  const handleChange = async (e) => {
     const value = e.target.value;
     setSearchTerm(value);
 
     if (isCompleteCharacters(value)) {
-      setErrorMessage("");
       if (value !== "") {
-        fetchStockList(value);
+        try {
+          await fetchStocks(value);
+          setStockList(stocks); // Update stockList with the fetched stocks
+        } catch (error) {
+          console.error("Error fetching stocks:", error);
+        }
       } else {
         setStockList([]);
       }
@@ -224,53 +216,59 @@ function StockSearch() {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && searchTerm) {
-      fetchStockDetails(searchTerm);
-    }
+  const priceChange = stockHistory && stockHistory.dailyHistories.length > 0
+    ? stockHistory.stockNewestPrice - (stockHistory.dailyHistories[stockHistory.dailyHistories.length-2]?.prices[3] || stockHistory.stockNewestPrice)
+    : 0;
+
+  const isPositive = priceChange > 0;
+  const isZero = priceChange === 0;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    
+    const [year, month, day] = dateString.split('-');
+    return `${year}.${month}.${day}`;
   };
 
-  const handleStockClick = (selectedStock) => {
-    fetchStockDetails(selectedStock);
-  };
-
+  
   return (
     <Wrapper>
       <StockContainer>
         <StockNameContainer>
           <StockName>
-            {selectedStock ? selectedStock.name : "삼성전자"}
+            {stockHistory ? stockHistory.stockName : ""}
           </StockName>
           <StockText>
-            <Kospi>코스피</Kospi>
-            <DateText>{currentDate}</DateText>
+            <DateText>{stockHistory ? formatDate(stockHistory.newestDate) : "" }</DateText>
           </StockText>
         </StockNameContainer>
         <PriceContainer>
           <Price>
-            {selectedStock ? `${selectedStock.price}\nKRW` : "123,000 KRW"}
+            <PriceAmount positive={isPositive} zero={isZero}>
+              {stockHistory ? formatNumber(stockHistory.stockNewestPrice) : ""}
+            </PriceAmount>
+            <PriceLabel positive={isPositive} zero={isZero}>   
+              {stockHistory ? "KRW" : ""}
+            </PriceLabel>
           </Price>
-          {priceChange > 0 ? (
+          {stockHistory && stockHistory.dailyHistories.length > 0 ? (
             <PriceNumContainer>
-              <PriceChange positive>▲{priceChange}</PriceChange>
-              <PriceRatio positive>+{priceRatio}%</PriceRatio>
+              <PriceChange positive={isPositive} zero={isZero}>
+                {isZero ? `` : isPositive ? `▲${formatNumber(priceChange)}` : `▼${formatNumber(-priceChange)}`}
+              </PriceChange>
+              <PriceRatio positive={isPositive} zero={isZero}>
+                {isZero ? `0%` : isPositive ? `+${(((priceChange) / (stockHistory.dailyHistories[0]?.prices[0] || stockHistory.stockNewestPrice)) * 100).toFixed(2)}%` : `${(((priceChange) / (stockHistory.dailyHistories[0]?.prices[0] || stockHistory.stockNewestPrice)) * 100).toFixed(2)}%`}
+              </PriceRatio>
             </PriceNumContainer>
-          ) : (
-            <PriceNumContainer>
-              <PriceChange>▼{priceChange}</PriceChange>
-              <PriceRatio>-{priceRatio}%</PriceRatio>
-            </PriceNumContainer>
-          )}
+          ) : null}
         </PriceContainer>
       </StockContainer>
       <SearchContainerWrapper>
         <SearchContainer
           searchTerm={searchTerm}
           onSearchTermChange={handleChange}
-          onKeyPress={handleKeyPress}
-          errorMessage={errorMessage}
           stockList={stockList}
-          onStockClick={handleStockClick}
+          //onStockClick={handleStockClick}
         />
       </SearchContainerWrapper>
     </Wrapper>
