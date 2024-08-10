@@ -78,6 +78,7 @@ const SignInLink = styled(Link)`
 `;
 
 function Navigation({ path, isLoggedIn }) {
+  console.log(isLoggedIn);
   return (
     <NavigationBar>
       <NavigationWrapper>
