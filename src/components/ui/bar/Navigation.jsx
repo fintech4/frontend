@@ -45,7 +45,7 @@ const LogoImage = styled.img`
 const TabLinkPcWrapper = styled.ul`
   display: flex;
   justify-content: space-between;
-  
+
   ${media.mobile`
     display: none;
   `}
@@ -120,8 +120,8 @@ const TabLinkMobileWrapper = styled.ul`
   position: absolute;
   top: 60px;
   right: 0;
-  box-shadow: 0px 4px 10px 1px rgba(113, 205, 199, 0.30);
-  background-color: #FFF;
+  box-shadow: 0px 4px 10px 1px rgba(113, 205, 199, 0.3);
+  background-color: #fff;
 `;
 
 const TabLinkMobile = styled(Link)`
@@ -166,12 +166,11 @@ const SignInMobileLink = styled(Link)`
 `;
 
 function Navigation({ path, isLoggedIn }) {
-
-  const [mobileMenuClicked, setMobileMenuClicked] = useState(false)
+  const [mobileMenuClicked, setMobileMenuClicked] = useState(false);
 
   const handleClickMobileMenu = () => {
-    setMobileMenuClicked(!mobileMenuClicked)
-  }
+    setMobileMenuClicked(!mobileMenuClicked);
+  };
 
   console.log(path);
   console.log(isLoggedIn);
@@ -193,46 +192,66 @@ function Navigation({ path, isLoggedIn }) {
         {/* PC 너비에서만 노출됨 */}
         <TabLinkPcWrapper>
           <TabLinkPc to="/main">
-            <TabLinkPcListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
+            <TabLinkPcListElement
+              className={path === "/main" || path === "/" ? "clicked" : ""}
+            >
               <TabLinkPcText>투자</TabLinkPcText>
             </TabLinkPcListElement>
           </TabLinkPc>
           <TabLinkPc to="/mypage">
-            <TabLinkPcListElement className={path === "/mypage" ? "clicked" : ""}>
+            <TabLinkPcListElement
+              className={path === "/mypage" ? "clicked" : ""}
+            >
               <TabLinkPcText>MY</TabLinkPcText>
             </TabLinkPcListElement>
           </TabLinkPc>
           <SignInPcWrapper>
-            <SignInPcLink to={isLoggedIn ? "/logout" : "/login"} onClick={handleLogout}>
+            <SignInPcLink
+              to={isLoggedIn ? "/" : "/login"}
+              onClick={handleLogout}
+            >
               {isLoggedIn ? "로그아웃" : "로그인"}
             </SignInPcLink>
           </SignInPcWrapper>
         </TabLinkPcWrapper>
         <MenuMobileWrapper onClick={handleClickMobileMenu}>
-          <MenuMobile src={mobileMenuClicked ? "images/hamburger-close.png" : "images/hamburger-menu.png"} />
+          <MenuMobile
+            src={
+              mobileMenuClicked
+                ? "images/hamburger-close.png"
+                : "images/hamburger-menu.png"
+            }
+          />
         </MenuMobileWrapper>
         {/* Mobile 너비에서만, 햄버거 메뉴 클릭되면 노출됨 */}
-        {
-          mobileMenuClicked && <>
+        {mobileMenuClicked && (
+          <>
             <TabLinkMobileWrapper>
               <SignInMobileWrapper>
-                <SignInMobileLink to={isLoggedIn ? "/logout" : "/login"} onClick={handleLogout}>
+                <SignInMobileLink
+                  to={isLoggedIn ? "/" : "/login"}
+                  onClick={handleLogout}
+                >
                   {isLoggedIn ? "로그아웃" : "로그인"}
                 </SignInMobileLink>
               </SignInMobileWrapper>
               <TabLinkMobile to="/main">
-                <TabLinkMobileListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
+                <TabLinkMobileListElement
+                  className={path === "/main" || path === "/" ? "clicked" : ""}
+                >
                   <TabLinkMobileText>투자</TabLinkMobileText>
                 </TabLinkMobileListElement>
               </TabLinkMobile>
               <TabLinkMobile to="/mypage">
-                <TabLinkMobileListElement className={path === "/mypage" ? "clicked" : ""}>
+                <TabLinkMobileListElement
+                  className={path === "/mypage" ? "clicked" : ""}
+                >
                   <TabLinkMobileText>MY</TabLinkMobileText>
                 </TabLinkMobileListElement>
               </TabLinkMobile>
             </TabLinkMobileWrapper>
           </>
-        }
+        )}
       </NavigationWrapper>
     </NavigationBar>
   );
