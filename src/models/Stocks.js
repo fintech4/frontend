@@ -1,15 +1,16 @@
 // models/Stocks.js
-function Stock(stockCode, stockName, market) {
+function Stocks(stockCode, stockName, market) {
   this.stockCode = stockCode;
   this.stockName = stockName;
   this.market = market;
 }
 
-Stock.prototype.getStockInfo = function() {
+Stocks.prototype.getStockInfo = function() {
   return `${this.stockName} (${this.stockCode}) - ${this.market}`;
 };
 
-export default Stock;
+export default Stocks;
+
 
 
 // {

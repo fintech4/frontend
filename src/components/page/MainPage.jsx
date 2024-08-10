@@ -7,6 +7,8 @@ import Guide from "../ui/Guide";
 import styled from "styled-components";
 import CandleChart from "../chart/CandleChart";
 import ChartComponent from "../ui/ChartComponent";
+import { StocksProvider } from '../../context/stocksContext';
+
 const WalletWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -31,7 +33,7 @@ const Wrapper3 = styled.div`
 
 function MainPage() {
   return (
-    <>
+    <StocksProvider>
       <Navigation path={"/"} isLoggedIn={true} />
       <StockSearch />
 
@@ -51,8 +53,9 @@ function MainPage() {
 
         <OrderForm />
       </Wrapper4>
-    </>
+    </StocksProvider>
   );
 }
+
 
 export default MainPage;
