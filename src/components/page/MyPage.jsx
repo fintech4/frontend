@@ -19,6 +19,7 @@ const List = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0px;
   `}
 `;
 
@@ -28,6 +29,11 @@ const ListWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+
+  ${media.mobile`
+    width: 100%;
+    align-items: center;
+    `}
 `;
 
 const TitleWrapper = styled.div`
