@@ -13,6 +13,11 @@ const WalletWrapper = styled.div`
   display: flex;
   width: 100%;
   gap: 20px;
+  ${media.mobile`
+    display: flex;
+    width : 100%;
+    flex-direction: row;
+   s`}
 `;
 const OrderWrapper = styled.div`
   width: 100%;
@@ -24,11 +29,21 @@ const Wrapper4 = styled.div`
   gap: 20px;
   flex: 1 0 0;
   width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
+  ${media.mobile`
+    display: flex;
+    flex-direction : column;
+    margin:0px;
+    width : 100%;`}
 `;
 
 const Wrapper3 = styled.div`
   margin: 0 360px;
   width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
+
+  ${media.mobile`
+    margin: 20px 0px;
+    width : 100%;
+  `}
 `;
 
 function MainPage({ isLoggedIn, onLogout }) {
