@@ -80,9 +80,7 @@ const MyPage = () => {
     const fetchData = async () => {
       try {
         // 자산 정보 가져오기
-        const assetResponse = await axios.get(
-          `http://toou.kro.kr/api/accounts/assets`
-        );
+        const assetResponse = await axios.get(`/toou/api/accounts/assets`);
         if (assetResponse.data) {
           setMyAsset({
             total: assetResponse.data.totalAsset || 0,
@@ -96,9 +94,7 @@ const MyPage = () => {
         }
 
         // 주식 목록 가져오기
-        const holdingsResponse = await axios.get(
-          `http://toou.kro.kr/api/accounts/holdings`
-        );
+        const holdingsResponse = await axios.get(`/toou/api/accounts/holdings`);
         if (holdingsResponse.data && holdingsResponse.data.holdings) {
           setMyStockList(
             holdingsResponse.data.holdings.map((stock) => ({

@@ -208,7 +208,7 @@ function StockSearch() {
       <StockContainer>
         <StockNameContainer>
           <StockName>
-            {selectedStock ? selectedStock.name : "삼성SDI"}
+            {selectedStock ? selectedStock.name : "삼성전자"}
           </StockName>
           <StockText>
             <Kospi>코스피</Kospi>
