@@ -5,7 +5,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import "react-tooltip/dist/react-tooltip.css";
 import "../../../assets/css/styles.css";
 import { useEffect, useState } from "react";
-
+import { media } from "../../../media";
 const TableWrapper = styled.div`
   table {
     width: 100%;
@@ -53,6 +53,10 @@ const TableWrapper = styled.div`
   .align-right {
     text-align: right;
   }
+  ${media.mobile`
+    width: 708px;
+    margin-left: 30px;
+  `}
 `;
 
 const tooltipStyles = {

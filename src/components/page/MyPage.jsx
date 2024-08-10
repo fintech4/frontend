@@ -14,6 +14,12 @@ const List = styled.div`
   gap: 20px;
   align-self: stretch;
   margin-top: 20px;
+
+  ${media.mobile`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `}
 `;
 
 const ListWrapper = styled.div`
@@ -22,6 +28,9 @@ const ListWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+  ${media.mobile`
+    width: 768px;
+  `}
 `;
 
 const TitleWrapper = styled.div`
@@ -33,6 +42,11 @@ const TitleWrapper = styled.div`
   align-self: stretch;
   border-radius: 8px;
   background: var(--Schemes-On-Primary, #fff);
+
+  ${media.mobile`
+    width: 768px;
+    height : 20px;
+  `}
 `;
 
 const Title = styled.h1`
