@@ -28,9 +28,6 @@ const ListWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  ${media.mobile`
-    width: 768px;
-  `}
 `;
 
 const TitleWrapper = styled.div`
@@ -44,7 +41,6 @@ const TitleWrapper = styled.div`
   background: var(--Schemes-On-Primary, #fff);
 
   ${media.mobile`
-    width: 768px;
     height : 20px;
   `}
 `;

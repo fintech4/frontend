@@ -7,6 +7,8 @@ import Guide from "../ui/Guide";
 import styled from "styled-components";
 import CandleChart from "../chart/CandleChart";
 import ChartComponent from "../ui/ChartComponent";
+import { media } from "../../media";
+
 const WalletWrapper = styled.div`
   display: flex;
   width: 100%;
