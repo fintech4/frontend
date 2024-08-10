@@ -111,25 +111,57 @@ const MenuMobileWrapper = styled.ul`
 `;
 
 const MenuMobile = styled.img`
+  position: relative;
   width: 100%;
 `;
 
 const TabLinkMobileWrapper = styled.ul`
+  position: absolute;
+  top: 60px;
+  right: 0;
+  box-shadow: 0px 4px 10px 1px rgba(113, 205, 199, 0.30);
+  background-color: #FFF;
 `;
 
 const TabLinkMobile = styled(Link)`
+  display: block;
+  color: #15181e;
 `;
 
 const TabLinkMobileListElement = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 88px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #15181e;
 `;
 
 const TabLinkMobileText = styled.li`
+  color: inherit;
+  text-decoration: inherit;
 `;
 
 const SignInMobileWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;
 
 const SignInMobileLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  margin: 12px 0;
+  padding: 10px 0;
+  border-radius: 38px;
+  color: #fff;
+  font-size: 16px;
+  background-color: #42b5ad;
 `;
 
 function Navigation({ path, isLoggedIn }) {
@@ -173,6 +205,11 @@ function Navigation({ path, isLoggedIn }) {
         {
           mobileMenuClicked && <>
             <TabLinkMobileWrapper>
+              <SignInMobileWrapper>
+                <SignInMobileLink to={isLoggedIn ? "/logout" : "/login"}>
+                  {isLoggedIn ? "로그아웃" : "로그인"}
+                </SignInMobileLink>
+              </SignInMobileWrapper>
               <TabLinkMobile to="/main">
                 <TabLinkMobileListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
                   <TabLinkMobileText>투자</TabLinkMobileText>
@@ -183,11 +220,6 @@ function Navigation({ path, isLoggedIn }) {
                   <TabLinkMobileText>MY</TabLinkMobileText>
                 </TabLinkMobileListElement>
               </TabLinkMobile>
-              <SignInMobileWrapper>
-                <SignInMobileLink to={isLoggedIn ? "/logout" : "/login"}>
-                  {isLoggedIn ? "로그아웃" : "로그인"}
-                </SignInMobileLink>
-              </SignInMobileWrapper>
             </TabLinkMobileWrapper>
           </>
         }
