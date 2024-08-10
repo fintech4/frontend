@@ -5,14 +5,22 @@ import styled from "styled-components";
 import StockTable from "../ui/tables/StockTable";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { media } from "../../media";
 
 const List = styled.div`
   display: flex;
-  padding: 0px 360px;
+  width: 100%;
   justify-content: center;
   gap: 20px;
   align-self: stretch;
   margin-top: 20px;
+
+  ${media.mobile`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+  `}
 `;
 
 const ListWrapper = styled.div`
@@ -21,6 +29,11 @@ const ListWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+
+  ${media.mobile`
+    width: 100%;
+    align-items: center;
+    `}
 `;
 
 const TitleWrapper = styled.div`
@@ -32,6 +45,10 @@ const TitleWrapper = styled.div`
   align-self: stretch;
   border-radius: 8px;
   background: var(--Schemes-On-Primary, #fff);
+
+  ${media.mobile`
+    height : 20px;
+  `}
 `;
 
 const Title = styled.h1`
@@ -80,9 +97,8 @@ const MyPage = () => {
     const fetchData = async () => {
       try {
         // 자산 정보 가져오기
-        const assetResponse = await axios.get(
-          `http://toou.kro.kr/api/accounts/assets`
-        );
+        const assetResponse = await axios.get("/toou/api/accounts/assets");
+        console.log(assetResponse.data);
         if (assetResponse.data) {
           setMyAsset({
             total: assetResponse.data.totalAsset || 0,
@@ -92,13 +108,12 @@ const MyPage = () => {
             stockCount: assetResponse.data.totalHoldingsQuantity || 0,
           });
         } else {
+          console.log("불러오기 실패");
           setMyAsset(defaultMyAsset);
         }
 
         // 주식 목록 가져오기
-        const holdingsResponse = await axios.get(
-          `http://toou.kro.kr/api/accounts/holdings`
-        );
+        const holdingsResponse = await axios.get("/toou/api/accounts/holdings");
         if (holdingsResponse.data && holdingsResponse.data.holdings) {
           setMyStockList(
             holdingsResponse.data.holdings.map((stock) => ({
@@ -124,10 +139,6 @@ const MyPage = () => {
 
     fetchData();
   }, []);
-
-  console.log(JSON.stringify(myAsset, null, 2)); // 객체를 JSON 형태로 출력
-  console.log(JSON.stringify(myStockList, null, 2)); // 객체를 JSON 형태로 출력
-  console.log("배포확인"); // 객체를 JSON 형태로 출력
 
   return (
     <div>

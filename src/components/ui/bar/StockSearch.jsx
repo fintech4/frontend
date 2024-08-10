@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import SearchContainer from "../SearchContainer";
 import { StocksContext } from '../../../context/stocksContext';
-
+import { media } from "../../../media";
 export const getCurrentDateTime = () => {
   const now = new Date();
   const year = now.getFullYear();
@@ -17,10 +17,18 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  width: 100%;
+  max-width: 1200px;
   justify-content: space-between;
-  margin: 20px 360px;
   background-color: #ffffff;
   border-radius: 8px;
+  ${media.mobile`
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 0;
+    `}
 `;
 
 const StockContainer = styled.div`
@@ -32,6 +40,16 @@ const StockContainer = styled.div`
   border-radius: 10px;
   margin-bottom: 20px;
   margin-left: 15px;
+
+  ${media.mobile`
+    width : 100%;
+     display: flex; 
+     background: none;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px 24px 18px 24px;
+    margin : 0px ;
+    `}
 `;
 
 const SearchContainerWrapper = styled.div`
@@ -39,6 +57,10 @@ const SearchContainerWrapper = styled.div`
   width: 80%;
   max-width: 400px;
   margin-right: 15px;
+  ${media.mobile`
+    width : 100%;
+    margin: 0px;
+    `}
 `;
 
 const StockNameContainer = styled.div`
@@ -89,12 +111,20 @@ const PriceContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 0px;
-  margin-left: 20px;
+
+  ${media.mobile`
+      align-items: flex-end;
+    `}
 `;
 
 const PriceNumContainer = styled.div`
   display: flex;
   width: 100%;
+  ${media.mobile`
+  display: flex; 
+  flex-direction: row;
+ justify-content: flex-end;
+    `}
 `;
 
 const Price = styled.div`

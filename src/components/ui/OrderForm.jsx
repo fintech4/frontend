@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./modal/BuyModal"; // 모달 컴포넌트 임포트
 import ErrorModal from "./modal/ErrorModal";
-
+import { media } from "../../media";
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
   padding: 0px;
   box-sizing: border-box;
+  ${media.mobile`
+    width : 100%;
+    height: 200px;
+    padding: 37px 35px;
+    display: flex;
+    align-items: center;
+    margin-bottom : 180px;
+
+    `}
 `;
 
 const ButtonWrapper = styled.div`
@@ -18,6 +27,10 @@ const ButtonWrapper = styled.div`
   align-items: center;
   gap: 35px;
   flex-shrink: 0;
+  ${media.mobile`
+    justify-content: flex-start;
+    width : 100%;
+    `}
 `;
 
 const OrderButton = styled.button`
@@ -101,6 +114,10 @@ const InputStyle = styled.input`
     color: #ccc; /* placeholder 텍스트 색상 설정 */
     opacity: 1; /* 일부 브라우저에서 필요 */
   }
+
+  ${media.mobile`
+    width : 10px;
+    `}
 `;
 
 const InputStyle1 = styled.input`
@@ -113,6 +130,10 @@ const InputStyle1 = styled.input`
   border-radius: 4px;
   border: 0.5px solid var(--black-black-700, #5b6b86);
   background: var(--black-black-200, #f1f3f6);
+
+  ${media.mobile`
+    width : 10px;
+    `}
 `;
 
 const InputWrapper = styled.div`
@@ -124,6 +145,13 @@ const InputWrapper = styled.div`
   flex-shrink: 0;
   border-radius: 8px;
   background: var(--black-black-100, #fff);
+  ${media.mobile`
+    width : 100%;
+  display: flex;
+     height: 200px;
+  align-items: center;
+  gap: 35px;
+  `}
 `;
 
 const BuySellButton = styled.button`
@@ -155,6 +183,12 @@ const BuySellButton = styled.button`
   font-weight: 700;
   line-height: 150%; /* 30px */
   letter-spacing: 1px;
+
+  ${media.mobile`
+    width : 60px;
+    height : 120px;
+    font-size: 15px;
+  `}
 `;
 
 function OrderForm() {
@@ -268,14 +302,14 @@ function OrderForm() {
                 buy
                 onClick={handleOrder}
               >
-                구매
+                살게요
               </BuySellButton>
             ) : (
               <BuySellButton
                 active={orderType === "sell"}
                 onClick={handleOrder}
               >
-                판매
+                팔게요
               </BuySellButton>
             )}
           </div>
