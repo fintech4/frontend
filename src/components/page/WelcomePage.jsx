@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { media } from "../../media";
 
 function WelcomePage() {
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ function WelcomePage() {
     flex-direction: column;
     align-items: center;
     gap: 67px;
+
+    ${media.mobile`
+      width : 80%;
+      `}
   `;
   const Contents = styled.div`
     display: flex;
@@ -42,11 +47,25 @@ function WelcomePage() {
     font-weight: 600;
     flex: 1 0 0;
     align-self: stretch;
+
+    ${media.mobile`
+      color: var(--primary-primary-800, #058077);
+text-align: center;
+font-family: "Pretendard Variable";
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+`}
   `;
   const LogoImg = styled.img`
     width: 428px;
     height: 114px;
     flex-shrink: 0;
+
+    ${media.mobile`
+      width : 80%;
+      height : auto;
+      `}
   `;
   const WelcomeButton = styled.button`
     display: flex;
@@ -66,6 +85,12 @@ function WelcomePage() {
     font-weight: 600;
     line-height: 150%; /* 48px */
     cursor: pointer;
+
+    ${media.mobile`
+      width : 80%;
+      padding: 14px 65px;
+      font-size : 20px;
+      `}
   `;
 
   return (
