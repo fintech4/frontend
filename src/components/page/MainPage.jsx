@@ -20,13 +20,14 @@ const WalletWrapper = styled.div`
    s`}
 `;
 
-
 const Wrapper4 = styled.div`
-  margin: 20px 360px 0 360px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
   gap: 20px;
-  flex: 1 0 0;
-  width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
   ${media.mobile`
     display: flex;
     flex-direction : column;
@@ -34,9 +35,33 @@ const Wrapper4 = styled.div`
     width : 100%;`}
 `;
 
+const Container4 = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: center;
+  gap: 20px;
+  ${media.mobile`
+    display: flex;
+    flex-direction : column;
+    width : 100%;
+    `}
+`;
+
+const Wrapper2 = styled.div`
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
 const Wrapper3 = styled.div`
-  margin: 0 360px;
-  width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 
   ${media.mobile`
     margin: 20px 0px;
@@ -48,23 +73,28 @@ function MainPage({ isLoggedIn, onLogout }) {
   return (
     <>
       <Navigation path={"/"} isLoggedIn={isLoggedIn} onLogout={onLogout} />
-      <StockSearch />
-
+      <Wrapper2>
+        <StockSearch />
+      </Wrapper2>
       {/* 차트 관련 섹션 */}
       <Wrapper3>
         <ChartComponent />
       </Wrapper3>
 
       <Wrapper4>
-        <WalletWrapper>
-          <Wallet walletName="예수금" image="images/illustration/wallet.png" />
-          <Wallet
-            walletName="총 수익률"
-            image="images/illustration/money.png"
-          />
-        </WalletWrapper>
-
-        <OrderForm />
+        <Container4>
+          <WalletWrapper>
+            <Wallet
+              walletName="예수금"
+              image="images/illustration/wallet.png"
+            />
+            <Wallet
+              walletName="총 수익률"
+              image="images/illustration/money.png"
+            />
+          </WalletWrapper>
+          <OrderForm />{" "}
+        </Container4>
       </Wrapper4>
     </>
   );

@@ -9,7 +9,7 @@ import { media } from "../../media";
 
 const List = styled.div`
   display: flex;
-  padding: 0px 360px;
+  width: 100%;
   justify-content: center;
   gap: 20px;
   align-self: stretch;

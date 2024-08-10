@@ -17,8 +17,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  width: 100%;
+  max-width: 1200px;
   justify-content: space-between;
-  margin: 20px 360px;
   background-color: #ffffff;
   border-radius: 8px;
   ${media.mobile`
