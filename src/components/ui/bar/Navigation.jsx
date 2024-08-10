@@ -17,24 +17,65 @@ const NavigationWrapper = styled.div`
 
   ${media.mobile`
     width: 100%;
-    padding: 24px 18px;
+    padding: 8px 18px;
   `}
 `;
 
-const HomeLinkWrapper = styled.ul``;
+const HomeLinkWrapper = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+
+const TabLink = styled(Link)`
+  display: block;
+`;
 
 const LogoImage = styled.img`
   display: block;
   width: 150px;
   padding: 15px 0;
+
+  ${media.mobile`
+    width: 90px;
+    padding: 0;
+  `}
 `;
 
-const TabLinkWrapper = styled.ul`
+const MenuMobileWrapper = styled.ul`
+  display: none;
+  width: 44px;
+  height: 44px;
+  ${media.mobile`
+    display: flex;
+    cursor: pointer;
+  `}
+`;
+
+
+const MenuMobile = styled.img`
+  width: 100%;
+`;
+
+const TabLinkPcWrapper = styled.ul`
   display: flex;
   justify-content: space-between;
+  
+  ${media.mobile`
+    display: none;
+  `}
 `;
 
-const TabLink = styled(Link)`
+const TabLinkMobileWrapper = styled.ul`
+  display: none;
+  
+  ${media.mobile`
+    &.clicked {
+      display: flex;
+    }
+  `}
+`;
+
+const TabLinkPc = styled(Link)`
   margin-left: 61px;
   color: #15181e;
 
@@ -44,7 +85,7 @@ const TabLink = styled(Link)`
   }
 `;
 
-const TabLinkListElement = styled.li`
+const TabLinkPcListElement = styled.li`
   padding: 0 33px;
   height: calc(100% - 3px);
   margin: 0 0 3px;
@@ -61,7 +102,7 @@ const TabLinkListElement = styled.li`
   }
 `;
 
-const TabLinkText = styled.li`
+const TabLinkPcText = styled.li`
   color: inherit;
   text-decoration: inherit;
 `;
@@ -89,27 +130,30 @@ function Navigation({ path, isLoggedIn }) {
     <NavigationBar>
       <NavigationWrapper>
         <HomeLinkWrapper>
-          <Link to="/">
+          <TabLink to="/">
             <LogoImage src={"images/logo/header_logo.png"} />
-          </Link>
+          </TabLink>
         </HomeLinkWrapper>
-        <TabLinkWrapper>
-          <TabLink to="/main">
-            <TabLinkListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
-              <TabLinkText>투자</TabLinkText>
-            </TabLinkListElement>
-          </TabLink>
-          <TabLink to="/mypage">
-            <TabLinkListElement className={path === "/mypage" ? "clicked" : ""}>
-              <TabLinkText>MY</TabLinkText>
-            </TabLinkListElement>
-          </TabLink>
+        <MenuMobileWrapper>
+          <MenuMobile src={"images/hamburger-menu.png"} />
+        </MenuMobileWrapper>
+        <TabLinkPcWrapper>
+          <TabLinkPc to="/main">
+            <TabLinkPcListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
+              <TabLinkPcText>투자</TabLinkPcText>
+            </TabLinkPcListElement>
+          </TabLinkPc>
+          <TabLinkPc to="/mypage">
+            <TabLinkPcListElement className={path === "/mypage" ? "clicked" : ""}>
+              <TabLinkPcText>MY</TabLinkPcText>
+            </TabLinkPcListElement>
+          </TabLinkPc>
           <SignInWrapper>
             <SignInLink to={isLoggedIn ? "/logout" : "/login"}>
               {isLoggedIn ? "로그아웃" : "로그인"}
             </SignInLink>
           </SignInWrapper>
-        </TabLinkWrapper>
+        </TabLinkPcWrapper>
       </NavigationWrapper>
     </NavigationBar>
   );
