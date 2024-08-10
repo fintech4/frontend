@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { media } from "../../../media";
@@ -41,37 +41,12 @@ const LogoImage = styled.img`
   `}
 `;
 
-const MenuMobileWrapper = styled.ul`
-  display: none;
-  width: 44px;
-  height: 44px;
-  ${media.mobile`
-    display: flex;
-    cursor: pointer;
-  `}
-`;
-
-
-const MenuMobile = styled.img`
-  width: 100%;
-`;
-
 const TabLinkPcWrapper = styled.ul`
   display: flex;
   justify-content: space-between;
   
   ${media.mobile`
     display: none;
-  `}
-`;
-
-const TabLinkMobileWrapper = styled.ul`
-  display: none;
-  
-  ${media.mobile`
-    &.clicked {
-      display: flex;
-    }
   `}
 `;
 
@@ -107,13 +82,13 @@ const TabLinkPcText = styled.li`
   text-decoration: inherit;
 `;
 
-const SignInWrapper = styled.div`
+const SignInPcWrapper = styled.div`
   display: flex;
   height: 100%;
   margin-left: 61px;
 `;
 
-const SignInLink = styled(Link)`
+const SignInPcLink = styled(Link)`
   margin: 12px 0;
   padding: 10px 38px;
   border-radius: 38px;
@@ -125,7 +100,46 @@ const SignInLink = styled(Link)`
   align-items: center;
 `;
 
+const MenuMobileWrapper = styled.ul`
+  display: none;
+  width: 44px;
+  height: 44px;
+  ${media.mobile`
+    display: flex;
+    cursor: pointer;
+  `}
+`;
+
+const MenuMobile = styled.img`
+  width: 100%;
+`;
+
+const TabLinkMobileWrapper = styled.ul`
+`;
+
+const TabLinkMobile = styled(Link)`
+`;
+
+const TabLinkMobileListElement = styled.li`
+`;
+
+const TabLinkMobileText = styled.li`
+`;
+
+const SignInMobileWrapper = styled.div`
+`;
+
+const SignInMobileLink = styled(Link)`
+`;
+
 function Navigation({ path, isLoggedIn }) {
+
+  const [mobileMenuClicked, setMobileMenuClicked] = useState(false)
+
+  const handleClickMobileMenu = () => {
+    setMobileMenuClicked(!mobileMenuClicked)
+  }
+
   return (
     <NavigationBar>
       <NavigationWrapper>
@@ -134,9 +148,7 @@ function Navigation({ path, isLoggedIn }) {
             <LogoImage src={"images/logo/header_logo.png"} />
           </TabLink>
         </HomeLinkWrapper>
-        <MenuMobileWrapper>
-          <MenuMobile src={"images/hamburger-menu.png"} />
-        </MenuMobileWrapper>
+        {/* PC 너비에서만 노출됨 */}
         <TabLinkPcWrapper>
           <TabLinkPc to="/main">
             <TabLinkPcListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
@@ -148,12 +160,37 @@ function Navigation({ path, isLoggedIn }) {
               <TabLinkPcText>MY</TabLinkPcText>
             </TabLinkPcListElement>
           </TabLinkPc>
-          <SignInWrapper>
-            <SignInLink to={isLoggedIn ? "/logout" : "/login"}>
+          <SignInPcWrapper>
+            <SignInPcLink to={isLoggedIn ? "/logout" : "/login"}>
               {isLoggedIn ? "로그아웃" : "로그인"}
-            </SignInLink>
-          </SignInWrapper>
+            </SignInPcLink>
+          </SignInPcWrapper>
         </TabLinkPcWrapper>
+        <MenuMobileWrapper onClick={handleClickMobileMenu}>
+          <MenuMobile src={mobileMenuClicked ? "images/hamburger-close.png" : "images/hamburger-menu.png"} />
+        </MenuMobileWrapper>
+        {/* Mobile 너비에서만, 햄버거 메뉴 클릭되면 노출됨 */}
+        {
+          mobileMenuClicked && <>
+            <TabLinkMobileWrapper>
+              <TabLinkMobile to="/main">
+                <TabLinkMobileListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
+                  <TabLinkMobileText>투자</TabLinkMobileText>
+                </TabLinkMobileListElement>
+              </TabLinkMobile>
+              <TabLinkMobile to="/mypage">
+                <TabLinkMobileListElement className={path === "/mypage" ? "clicked" : ""}>
+                  <TabLinkMobileText>MY</TabLinkMobileText>
+                </TabLinkMobileListElement>
+              </TabLinkMobile>
+              <SignInMobileWrapper>
+                <SignInMobileLink to={isLoggedIn ? "/logout" : "/login"}>
+                  {isLoggedIn ? "로그아웃" : "로그인"}
+                </SignInMobileLink>
+              </SignInMobileWrapper>
+            </TabLinkMobileWrapper>
+          </>
+        }
       </NavigationWrapper>
     </NavigationBar>
   );
