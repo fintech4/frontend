@@ -8,7 +8,7 @@ const NavigationBar = styled.nav`
 `;
 
 const NavigationWrapper = styled.div`
-  width: 1532px;
+  width: 1200px;
   margin: 0 auto;
   padding: 0 360px;
   display: flex;
@@ -18,8 +18,9 @@ const NavigationWrapper = styled.div`
 const HomeLinkWrapper = styled.ul``;
 
 const LogoImage = styled.img`
+  display: block;
   width: 150px;
-  padding: 25px 0;
+  padding: 15px 0;
 `;
 
 const TabLinkWrapper = styled.ul`
@@ -41,7 +42,7 @@ const TabLinkListElement = styled.li`
   padding: 0 33px;
   height: calc(100% - 3px);
   margin: 0 0 3px;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   color: #15181e;
   display: flex;
@@ -66,11 +67,11 @@ const SignInWrapper = styled.div`
 `;
 
 const SignInLink = styled(Link)`
-  margin: 15px 0;
-  padding: 12px 38px;
+  margin: 12px 0;
+  padding: 10px 38px;
   border-radius: 38px;
   color: #fff;
-  font-size: 24px;
+  font-size: 22px;
   background-color: #42b5ad;
   display: flex;
   justify-content: center;
