@@ -34,7 +34,7 @@ function App() {
         />
         <Route
           path="/mypage"
-          element={<MyPage isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+          element={<MyPage  />}
         />
       </Routes>
     </Router>

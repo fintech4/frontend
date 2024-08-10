@@ -96,11 +96,15 @@ function Navigation({ path, isLoggedIn }) {
               <TabLinkText>투자</TabLinkText>
             </TabLinkListElement>
           </TabLink>
-          <TabLink to="/mypage">
-            <TabLinkListElement className={path === "/mypage" ? "clicked" : ""}>
-              <TabLinkText>MY</TabLinkText>
-            </TabLinkListElement>
-          </TabLink>
+          {isLoggedIn && (
+            <TabLink to="/mypage">
+              <TabLinkListElement
+                className={path === "/mypage" ? "clicked" : ""}
+              >
+                <TabLinkText>MY</TabLinkText>
+              </TabLinkListElement>
+            </TabLink>
+          )}
           <SignInWrapper>
             <SignInLink to={isLoggedIn ? "/logout" : "/login"}>
               {isLoggedIn ? "로그아웃" : "로그인"}
