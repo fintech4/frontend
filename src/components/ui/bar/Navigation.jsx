@@ -88,7 +88,7 @@ function Navigation({ path, isLoggedIn }) {
         </HomeLinkWrapper>
         <TabLinkWrapper>
           <TabLink to="/main">
-            <TabLinkListElement className={path === "/main" ? "clicked" : ""}>
+            <TabLinkListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
               <TabLinkText>투자</TabLinkText>
             </TabLinkListElement>
           </TabLink>
