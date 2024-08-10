@@ -10,7 +10,7 @@ function WelcomePage() {
   };
 
   const Wrapper = styled.div`
-    background-image: url(${"images/logo/bg.png"});
+    background-image: url(${"images/logo/bg2.gif"});
     background-size: cover;
     background-position: center;
     height: 100vh;

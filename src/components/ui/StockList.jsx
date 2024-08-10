@@ -26,7 +26,7 @@ const StockList = ({ stockList, onStockClick }) => {
     <StockListContainer>
       {stockList.map((stock) => (
         <StockListItem key={stock} onClick={() => onStockClick(stock)}>
-          {stock}
+          {stock.stockName}
         </StockListItem>
       ))}
     </StockListContainer>
