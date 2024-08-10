@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import { media } from "../../../media";
 
 const NavigationBar = styled.nav`
   display: flex;
@@ -13,6 +14,11 @@ const NavigationWrapper = styled.div`
   padding: 0 360px;
   display: flex;
   justify-content: space-between;
+
+  ${media.mobile`
+    width: 100%;
+    padding: 24px 18px;
+  `}
 `;
 
 const HomeLinkWrapper = styled.ul``;
