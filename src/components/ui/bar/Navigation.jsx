@@ -78,6 +78,8 @@ const SignInLink = styled(Link)`
 `;
 
 function Navigation({ path, isLoggedIn }) {
+  console.log(path);
+  console.log(isLoggedIn);
   return (
     <NavigationBar>
       <NavigationWrapper>
@@ -88,7 +90,9 @@ function Navigation({ path, isLoggedIn }) {
         </HomeLinkWrapper>
         <TabLinkWrapper>
           <TabLink to="/main">
-            <TabLinkListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
+            <TabLinkListElement
+              className={path === "/main" || path === "/" ? "clicked" : ""}
+            >
               <TabLinkText>투자</TabLinkText>
             </TabLinkListElement>
           </TabLink>
