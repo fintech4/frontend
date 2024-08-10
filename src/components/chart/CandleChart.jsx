@@ -124,7 +124,7 @@ const CandleChart = ({ dateRange }) => {
           const date = new Date(value);
           const month = date.getMonth() + 1; // 0-based
           const day = date.getDate();
-          return `${month}월 ${day}일`;
+          return `${month}월${day}일`;
         },
       },
       axisBorder: {
