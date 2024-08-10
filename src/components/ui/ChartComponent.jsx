@@ -29,9 +29,12 @@ const TitleWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1200px;
   margin: 0;
   padding-left: 29px;
   padding-right: 29px;
+  box-sizing: border-box; /* padding을 포함한 max-width 설정 */
   height: 530px;
   flex-direction: column;
   border-radius: 8px;
