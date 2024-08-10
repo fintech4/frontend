@@ -3,6 +3,7 @@ import CandleChart from "../chart/CandleChart";
 import styled from "styled-components";
 import CustomCalendar from "./Calendar";
 import moment from "moment";
+import { media } from "../../media";
 
 const ChartTitle = styled.h1`
   color: #1e1e1e;
@@ -12,6 +13,9 @@ const ChartTitle = styled.h1`
   font-weight: 600;
   line-height: 150%; /* 30px */
   margin: 0px;
+  ${media.mobile`
+      margin:  0px 20px;
+  `}
 `;
 
 const TitleWrapper = styled.div`
@@ -20,6 +24,8 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
   padding-top: 25px;
   padding-bottom: 29px;
+  ${media.mobile`
+  `}
 `;
 
 const Wrapper = styled.div`
@@ -40,14 +46,14 @@ const ChartWrapper = styled.div`
 function ChartComponent() {
   // Set default date range: 3 months ago to today
   const [dateRange, setDateRange] = useState([
-    moment().subtract(3, 'months').startOf('day').toDate(),
-    moment().endOf('day').toDate(),
+    moment().subtract(3, "months").startOf("day").toDate(),
+    moment().endOf("day").toDate(),
   ]);
 
   const handleDateChange = (range) => {
     if (Array.isArray(range) && range.length === 2) {
       setDateRange(range);
-      console.log('Selected date range:', range);
+      console.log("Selected date range:", range);
     }
   };
 

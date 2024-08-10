@@ -55,6 +55,10 @@ const SearchContainerWrapper = styled.div`
   width: 80%;
   max-width: 400px;
   margin-right: 15px;
+  ${media.mobile`
+    width : 100%;
+    margin: 0px;
+    `}
 `;
 
 const StockNameContainer = styled.div`

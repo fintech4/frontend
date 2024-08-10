@@ -29,6 +29,11 @@ const Wrapper4 = styled.div`
 const Wrapper3 = styled.div`
   margin: 0 360px;
   width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
+
+  ${media.mobile`
+    margin: 0px;
+    width : 100%;
+  `}
 `;
 
 function MainPage({ isLoggedIn, onLogout }) {
