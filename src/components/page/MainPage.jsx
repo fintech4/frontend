@@ -19,9 +19,7 @@ const WalletWrapper = styled.div`
     flex-direction: row;
    s`}
 `;
-const OrderWrapper = styled.div`
-  width: 100%;
-`;
+
 
 const Wrapper4 = styled.div`
   margin: 20px 360px 0 360px;
