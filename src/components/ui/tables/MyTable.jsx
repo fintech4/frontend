@@ -40,6 +40,18 @@ const TableWrapper = styled.div`
     color: #888;
     cursor: pointer;
   }
+
+  ${media.mobile`
+    table {
+    border-collapse: collapse;
+    border-radius: 8px;
+    width : 100%;
+  }
+    td {
+    padding: 14px 20px;
+    font-size: 14px;
+    line-height: 20px;
+  `}
 `;
 
 const tooltipStyles = {

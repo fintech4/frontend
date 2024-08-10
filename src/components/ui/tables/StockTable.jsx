@@ -53,6 +53,18 @@ const TableWrapper = styled.div`
   .align-right {
     text-align: right;
   }
+
+  ${media.mobile`
+    table {
+    border-collapse: collapse;
+    border-radius: 8px;
+    width : 100%;
+  }
+    th {
+    padding: 14px 20px;
+    font-size: 14px;
+    line-height: 20px;
+  `}
 `;
 
 const tooltipStyles = {
