@@ -122,6 +122,7 @@ const TabLinkMobileWrapper = styled.ul`
   right: 0;
   box-shadow: 0px 4px 10px 1px rgba(113, 205, 199, 0.3);
   background-color: #fff;
+  z-index: 999;
 `;
 
 const TabLinkMobile = styled(Link)`

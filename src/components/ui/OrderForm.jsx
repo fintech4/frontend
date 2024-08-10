@@ -10,7 +10,12 @@ const Wrapper = styled.div`
   padding: 0px;
   box-sizing: border-box;
   ${media.mobile`
-    padding: 16px 24px;`}
+    width : 100%;
+  height: 251px;
+  padding: 37px 35px;
+  display: flex;
+  align-items: center;
+    `}
 `;
 
 const ButtonWrapper = styled.div`
@@ -20,6 +25,10 @@ const ButtonWrapper = styled.div`
   align-items: center;
   gap: 35px;
   flex-shrink: 0;
+  ${media.mobile`
+    justify-content: flex-start;
+    width : 100%;
+    `}
 `;
 
 const OrderButton = styled.button`
@@ -126,11 +135,18 @@ const InputWrapper = styled.div`
   flex-shrink: 0;
   border-radius: 8px;
   background: var(--black-black-100, #fff);
+  ${media.mobile`
+  display: flex;
+  height: 251px;
+  align-items: center;
+  gap: 35px;
+  width : 100%;
+  `}
 `;
 
 const BuySellButton = styled.button`
   display: flex;
-  width: 104px;
+104px  width: ;
   height: 148px;
   flex-direction: column;
   justify-content: space-between;
@@ -157,6 +173,10 @@ const BuySellButton = styled.button`
   font-weight: 700;
   line-height: 150%; /* 30px */
   letter-spacing: 1px;
+
+   ${media.mobile`
+    width : 100px;
+  `}
 `;
 
 function OrderForm() {

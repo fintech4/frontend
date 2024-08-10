@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { media } from "../../media";
 
 const WalletContainer = styled.div`
   display: flex;
   width: 100%;
+  max-width: 1200px;
   justify-content: space-between;
   padding: 25px;
   border-radius: 10px;
@@ -11,12 +13,25 @@ const WalletContainer = styled.div`
   background: var(--Schemes-On-Primary, #fff);
   height: 310px;
   position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
+  ${media.mobile`
+    width : 100%;
+    height: 140px;
+    `};
 `;
 
 const WalletImage = styled.img`
   width: 140px;
   height: 140px;
   margin-bottom: 29px;
+  ${media.mobile`
+   display: flex;
+width: 50px;
+height: 52.326px;
+padding-bottom: 0.326px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+    `};
 `;
 
 const WalletName = styled.h2`
