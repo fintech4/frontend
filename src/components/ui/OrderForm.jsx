@@ -11,10 +11,12 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   ${media.mobile`
     width : 100%;
-  height: 251px;
-  padding: 37px 35px;
-  display: flex;
-  align-items: center;
+    height: 200px;
+    padding: 37px 35px;
+    display: flex;
+    align-items: center;
+    margin-bottom : 180px;
+
     `}
 `;
 
@@ -112,6 +114,10 @@ const InputStyle = styled.input`
     color: #ccc; /* placeholder 텍스트 색상 설정 */
     opacity: 1; /* 일부 브라우저에서 필요 */
   }
+
+  ${media.mobile`
+    width : 10px;
+    `}
 `;
 
 const InputStyle1 = styled.input`
@@ -124,6 +130,10 @@ const InputStyle1 = styled.input`
   border-radius: 4px;
   border: 0.5px solid var(--black-black-700, #5b6b86);
   background: var(--black-black-200, #f1f3f6);
+
+  ${media.mobile`
+    width : 10px;
+    `}
 `;
 
 const InputWrapper = styled.div`
@@ -136,17 +146,17 @@ const InputWrapper = styled.div`
   border-radius: 8px;
   background: var(--black-black-100, #fff);
   ${media.mobile`
+    width : 100%;
   display: flex;
-  height: 251px;
+     height: 200px;
   align-items: center;
   gap: 35px;
-  width : 100%;
   `}
 `;
 
 const BuySellButton = styled.button`
   display: flex;
-104px  width: ;
+  width: 104px;
   height: 148px;
   flex-direction: column;
   justify-content: space-between;
@@ -174,8 +184,10 @@ const BuySellButton = styled.button`
   line-height: 150%; /* 30px */
   letter-spacing: 1px;
 
-   ${media.mobile`
-    width : 100px;
+  ${media.mobile`
+    width : 60px;
+    height : 120px;
+    font-size: 15px;
   `}
 `;
 
