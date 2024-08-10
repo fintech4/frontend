@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { media } from "../../../media";
+import { useNavigate } from "react-router-dom";
 
 const NavigationBar = styled.nav`
   display: flex;
@@ -172,6 +173,15 @@ function Navigation({ path, isLoggedIn }) {
     setMobileMenuClicked(!mobileMenuClicked)
   }
 
+  console.log(path);
+  console.log(isLoggedIn);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 제거
+    navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
+  };
+
   return (
     <NavigationBar>
       <NavigationWrapper>
@@ -193,7 +203,7 @@ function Navigation({ path, isLoggedIn }) {
             </TabLinkPcListElement>
           </TabLinkPc>
           <SignInPcWrapper>
-            <SignInPcLink to={isLoggedIn ? "/logout" : "/login"}>
+            <SignInPcLink to={isLoggedIn ? "/logout" : "/login"} onClick={handleLogout}>
               {isLoggedIn ? "로그아웃" : "로그인"}
             </SignInPcLink>
           </SignInPcWrapper>
@@ -206,7 +216,7 @@ function Navigation({ path, isLoggedIn }) {
           mobileMenuClicked && <>
             <TabLinkMobileWrapper>
               <SignInMobileWrapper>
-                <SignInMobileLink to={isLoggedIn ? "/logout" : "/login"}>
+                <SignInMobileLink to={isLoggedIn ? "/logout" : "/login"} onClick={handleLogout}>
                   {isLoggedIn ? "로그아웃" : "로그인"}
                 </SignInMobileLink>
               </SignInMobileWrapper>

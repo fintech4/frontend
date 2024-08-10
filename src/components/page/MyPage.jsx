@@ -80,9 +80,8 @@ const MyPage = () => {
     const fetchData = async () => {
       try {
         // 자산 정보 가져오기
-        const assetResponse = await axios.get(
-          `http://toou.kro.kr/api/accounts/assets`
-        );
+        const assetResponse = await axios.get("/toou/api/accounts/assets");
+        console.log(assetResponse.data);
         if (assetResponse.data) {
           setMyAsset({
             total: assetResponse.data.totalAsset || 0,
@@ -92,13 +91,12 @@ const MyPage = () => {
             stockCount: assetResponse.data.totalHoldingsQuantity || 0,
           });
         } else {
+          console.log("불러오기 실패");
           setMyAsset(defaultMyAsset);
         }
 
         // 주식 목록 가져오기
-        const holdingsResponse = await axios.get(
-          `http://toou.kro.kr/api/accounts/holdings`
-        );
+        const holdingsResponse = await axios.get("/toou/api/accounts/holdings");
         if (holdingsResponse.data && holdingsResponse.data.holdings) {
           setMyStockList(
             holdingsResponse.data.holdings.map((stock) => ({
@@ -124,10 +122,6 @@ const MyPage = () => {
 
     fetchData();
   }, []);
-
-  console.log(JSON.stringify(myAsset, null, 2)); // 객체를 JSON 형태로 출력
-  console.log(JSON.stringify(myStockList, null, 2)); // 객체를 JSON 형태로 출력
-  console.log("배포확인"); // 객체를 JSON 형태로 출력
 
   return (
     <div>
