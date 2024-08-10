@@ -5,6 +5,7 @@ import styled from "styled-components";
 import StockTable from "../ui/tables/StockTable";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { media } from "../../media";
 
 const List = styled.div`
   display: flex;

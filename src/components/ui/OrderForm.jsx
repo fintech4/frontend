@@ -268,14 +268,14 @@ function OrderForm() {
                 buy
                 onClick={handleOrder}
               >
-                구매
+                살게요
               </BuySellButton>
             ) : (
               <BuySellButton
                 active={orderType === "sell"}
                 onClick={handleOrder}
               >
-                판매
+                팔게요
               </BuySellButton>
             )}
           </div>
