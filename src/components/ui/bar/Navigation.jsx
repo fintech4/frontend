@@ -199,13 +199,16 @@ function Navigation({ path, isLoggedIn }) {
               <TabLinkPcText>투자</TabLinkPcText>
             </TabLinkPcListElement>
           </TabLinkPc>
-          <TabLinkPc to="/mypage">
-            <TabLinkPcListElement
-              className={path === "/mypage" ? "clicked" : ""}
-            >
-              <TabLinkPcText>MY</TabLinkPcText>
-            </TabLinkPcListElement>
-          </TabLinkPc>
+          {isLoggedIn && (
+            <TabLinkPc to="/mypage">
+              <TabLinkPcListElement
+                className={path === "/mypage" ? "clicked" : ""}
+              >
+                <TabLinkPcText>MY</TabLinkPcText>
+              </TabLinkPcListElement>
+            </TabLinkPc>
+          )}
+
           <SignInPcWrapper>
             <SignInPcLink
               to={isLoggedIn ? "/" : "/login"}
@@ -243,13 +246,15 @@ function Navigation({ path, isLoggedIn }) {
                   <TabLinkMobileText>투자</TabLinkMobileText>
                 </TabLinkMobileListElement>
               </TabLinkMobile>
-              <TabLinkMobile to="/mypage">
-                <TabLinkMobileListElement
-                  className={path === "/mypage" ? "clicked" : ""}
-                >
-                  <TabLinkMobileText>MY</TabLinkMobileText>
-                </TabLinkMobileListElement>
-              </TabLinkMobile>
+              {isLoggedIn && (
+                <TabLinkMobile to="/mypage">
+                  <TabLinkMobileListElement
+                    className={path === "/mypage" ? "clicked" : ""}
+                  >
+                    <TabLinkMobileText>MY</TabLinkMobileText>
+                  </TabLinkMobileListElement>
+                </TabLinkMobile>
+              )}
             </TabLinkMobileWrapper>
           </>
         )}

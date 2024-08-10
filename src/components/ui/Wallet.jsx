@@ -37,6 +37,11 @@ align-items: center;
 const WalletName = styled.h2`
   font-size: 20px;
   margin: 0 0 29px 0;
+
+  ${media.mobile`
+   font-size: 16px;
+ 
+    `};
 `;
 
 const WalletBalance = styled.p`
@@ -47,6 +52,10 @@ const WalletBalance = styled.p`
   bottom: 25px;
   right: 25px;
   margin: 0;
+  ${media.mobile`
+   font-size: 20px;
+ 
+    `};
 `;
 
 function Wallet({ walletName, image }) {
