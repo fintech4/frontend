@@ -4,8 +4,8 @@ import "./assets/css/styles.css";
 import MainPage from "./components/page/MainPage";
 import MyPage from "./components/page/MyPage";
 import WelcomePage from "./components/page/WelcomePage";
-import Navigation from "./components/ui/bar/Navigation";
 import "./assets/css/styles.css";
+import LoginPage from "./components/page/LoginPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,9 +18,15 @@ function App() {
     }
   }, []);
 
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+  };
+
   // 로그아웃 함수
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    console.log("Logging out...");
+    localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 제거
+    console.log("Token after removal:", localStorage.getItem("token")); // 토큰 제거 후 확인
     setIsLoggedIn(false);
   };
 
@@ -32,9 +38,15 @@ function App() {
           path="/main"
           element={<MainPage isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
         />
+        <Route path="/mypage" element={<MyPage />} />{" "}
         <Route
-          path="/mypage"
-          element={<MyPage  />}
+          path="/login"
+          element={
+            <LoginPage
+              isLoggedIn={isLoggedIn}
+              onLoginSuccess={handleLoginSuccess}
+            />
+          }
         />
       </Routes>
     </Router>
