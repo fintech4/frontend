@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./modal/BuyModal"; // 모달 컴포넌트 임포트
 import ErrorModal from "./modal/ErrorModal";
-
+import { media } from "../../media";
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
   padding: 0px;
   box-sizing: border-box;
+  ${media.mobile`
+    padding: 16px 24px;`}
 `;
 
 const ButtonWrapper = styled.div`
