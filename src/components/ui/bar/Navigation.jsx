@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const NavigationBar = styled.nav`
   display: flex;
@@ -78,6 +79,15 @@ const SignInLink = styled(Link)`
 `;
 
 function Navigation({ path, isLoggedIn }) {
+  console.log(path);
+  console.log(isLoggedIn);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 제거
+    navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
+  };
+
   return (
     <NavigationBar>
       <NavigationWrapper>
@@ -88,19 +98,29 @@ function Navigation({ path, isLoggedIn }) {
         </HomeLinkWrapper>
         <TabLinkWrapper>
           <TabLink to="/main">
-            <TabLinkListElement className={path === "/main" || path === "/" ? "clicked" : ""}>
+            <TabLinkListElement
+              className={path === "/main" || path === "/" ? "clicked" : ""}
+            >
               <TabLinkText>투자</TabLinkText>
             </TabLinkListElement>
           </TabLink>
-          <TabLink to="/mypage">
-            <TabLinkListElement className={path === "/mypage" ? "clicked" : ""}>
-              <TabLinkText>MY</TabLinkText>
-            </TabLinkListElement>
-          </TabLink>
+          {isLoggedIn && (
+            <TabLink to="/mypage">
+              <TabLinkListElement
+                className={path === "/mypage" ? "clicked" : ""}
+              >
+                <TabLinkText>MY</TabLinkText>
+              </TabLinkListElement>
+            </TabLink>
+          )}
           <SignInWrapper>
-            <SignInLink to={isLoggedIn ? "/logout" : "/login"}>
-              {isLoggedIn ? "로그아웃" : "로그인"}
-            </SignInLink>
+            {isLoggedIn ? (
+              <SignInLink to="/" onClick={handleLogout}>
+                로그아웃
+              </SignInLink>
+            ) : (
+              <SignInLink to="/login">로그인</SignInLink>
+            )}
           </SignInWrapper>
         </TabLinkWrapper>
       </NavigationWrapper>

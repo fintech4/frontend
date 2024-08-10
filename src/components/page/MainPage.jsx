@@ -29,10 +29,10 @@ const Wrapper3 = styled.div`
   width: calc(100% - 720px); /* 좌우 마진을 제외한 너비 계산 */
 `;
 
-function MainPage() {
+function MainPage({ isLoggedIn, onLogout }) {
   return (
     <>
-      <Navigation path={"/"} isLoggedIn={true} />
+      <Navigation path={"/"} isLoggedIn={isLoggedIn} onLogout={onLogout} />
       <StockSearch />
 
       {/* 차트 관련 섹션 */}
