@@ -43,8 +43,9 @@ function WelcomePage() {
     flex: 1 0 0;
     align-self: stretch;
   `;
-  const LogoImg = styled.img`
+  const Logo = styled.div`
     width: 428px;
+    height: 114px;
     flex-shrink: 0;
   `;
   const WelcomeButton = styled.button`
@@ -72,7 +73,7 @@ function WelcomePage() {
       <Container>
         <Contents>
           <WelcomeTitle>투유로 만나는 무한한 투자여정</WelcomeTitle>
-          <LogoImg src="images/logo/logo_green.gif" />
+          <Logo />
         </Contents>
         <WelcomeButton onClick={handleStart}>투자하기</WelcomeButton>
       </Container>{" "}
