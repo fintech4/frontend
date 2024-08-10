@@ -40,10 +40,6 @@ const TableWrapper = styled.div`
     color: #888;
     cursor: pointer;
   }
-  ${media.mobile`
-    width: 708px;
-    margin-left: 30px;
-  `}
 `;
 
 const tooltipStyles = {
