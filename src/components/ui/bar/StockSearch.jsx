@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import SearchContainer from "../SearchContainer";
+import axios from "axios";
 
 export const getCurrentDateTime = () => {
   const now = new Date();
@@ -120,21 +121,33 @@ function StockSearch() {
   const priceRatio = selectedStock ? selectedStock.priceRatio : 4.54;
 
   const fetchStockList = async (query) => {
-    try {
-      // 실제 API 요청 코드 작성할 것임.
-      // const response = await axios.get(`/api/search-stocks?query=${query}`);
-      // setStockList(response.data.stocks); // assuming the response has a "stocks" array
+    console.log(query);
 
-      // 로컬 환경을 위해 가짜 데이터 사용
-      setStockList(["삼성전자", "LG전자", "SK하이닉스", "현대자동차"]);
-    } catch (error) {
-      console.error("Error fetching stock list:", error);
-      // 로컬 환경을 위해 가짜 데이터 사용
-      setStockList(["삼성전자", "LG전자", "SK하이닉스", "현대자동차"]);
+    try {
+      // axios를 사용하여 데이터 요청
+      const response = await axios.get("/toou/api/stocks", {
+        params: { name: query }, // 쿼리 파라미터로 name 전달
+      });
+      console.log(response.data); // 응답 데이터 전체 구조를 확인
+      const stockSearchList = response.data.stockSearchList;
+
+      // stockSearchList가 배열로 존재하는지 확인
+      if (Array.isArray(stockSearchList)) {
+        setStockList(stockSearchList); // stockSearchList 배열 전체를 상태로 설정
+        setSelectedStock(stockSearchList.stockName); // 선택된 주식 초기화
+      } else {
+        console.error("Stock search list is not an array");
+        setStockList([]); // 비어 있는 배열로 설정하여 오류 방지
+      }
+    } catch (e) {
+      console.error(e); // 콘솔에 오류 로그
+      setStockList([]); // 오류 발생 시 비어 있는 배열로 설정
     }
   };
 
-  const fetchStockDetails = async (stockName) => {
+  const fetchStockDetails = async (selectedStock) => {
+    console.log(selectedStock);
+
     try {
       // 여기에 실제 API 요청 코드를 추가하세요.
       // const response = await axios.get(`/api/stock-details?name=${stockName}`);
@@ -142,7 +155,7 @@ function StockSearch() {
 
       // 로컬 환경을 위해 가짜 데이터 사용
       setSelectedStock({
-        name: stockName,
+        name: selectedStock.stockName,
         priceChange: 2000,
         priceRatio: 2.5,
         price: 120000,
@@ -151,7 +164,7 @@ function StockSearch() {
       console.error("Error fetching stock details:", error);
       // 로컬 환경을 위해 가짜 데이터 사용
       setSelectedStock({
-        name: stockName,
+        name: selectedStock.stockName,
         priceChange: 2000,
         priceRatio: 2.5,
         price: 120000,
@@ -186,8 +199,8 @@ function StockSearch() {
     }
   };
 
-  const handleStockClick = (stockName) => {
-    fetchStockDetails(stockName);
+  const handleStockClick = (selectedStock) => {
+    fetchStockDetails(selectedStock);
   };
 
   return (
