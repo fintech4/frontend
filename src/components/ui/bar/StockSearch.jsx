@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SearchContainer from "../SearchContainer";
 import axios from "axios";
-
+import { media } from "../../../media";
 export const getCurrentDateTime = () => {
   const now = new Date();
   const year = now.getFullYear();
@@ -21,6 +21,13 @@ const Wrapper = styled.div`
   margin: 20px 360px;
   background-color: #ffffff;
   border-radius: 8px;
+  ${media.mobile`
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 0;
+    `}
 `;
 
 const StockContainer = styled.div`
@@ -32,6 +39,15 @@ const StockContainer = styled.div`
   border-radius: 10px;
   margin-bottom: 20px;
   margin-left: 15px;
+
+  ${media.mobile`
+    width : 100%;
+     display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px 24px 18px 24px;
+    margin : 0px ;
+    `}
 `;
 
 const SearchContainerWrapper = styled.div`
@@ -83,11 +99,20 @@ const PriceContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 0px;
+
+  ${media.mobile`
+      align-items: flex-end;
+    `}
 `;
 
 const PriceNumContainer = styled.div`
   display: flex;
   width: 100%;
+  ${media.mobile`
+  display: flex; 
+  flex-direction: row;
+ justify-content: flex-end;
+    `}
 `;
 
 const Price = styled.p`
