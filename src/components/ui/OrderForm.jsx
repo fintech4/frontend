@@ -202,9 +202,9 @@ function OrderForm() {
           setIsModalOpen(true); // 판매 완료 모달
         } else {
           // ok가 false인 경우, 에러 처리
-          if (result.errorType === "종목 부족") {
+          if (result.error.message === "종목 부족") {
             setErrorMessage("종목을 확인해주세요!");
-          } else if (result.errorType === "수량 부족") {
+          } else if (result.error.message === "수량 부족") {
             setErrorMessage("수량을 확인해주세요!");
           } else {
             setErrorMessage("판매할 수 없습니다.");
