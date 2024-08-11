@@ -21,8 +21,8 @@ const WalletContainer = styled.div`
 `;
 
 const WalletImage = styled.img`
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   margin-bottom: 29px;
   ${media.mobile`
     display: flex;
@@ -81,11 +81,13 @@ function Wallet({ walletName, image }) {
   const balance = getBalance(walletName);
 
   return (
-    <WalletContainer>
-      <WalletName>{walletName}</WalletName>
-      <WalletImage src={image} alt={walletName} />
-      <WalletBalance>{balance}</WalletBalance>
-    </WalletContainer>
+    <StocksContext.Provider value={{ myAsset }}>
+      <WalletContainer>
+        <WalletName>{walletName}</WalletName>
+        <WalletImage src={image} alt={walletName} />
+        <WalletBalance>{balance}</WalletBalance>
+      </WalletContainer>
+    </StocksContext.Provider>
   );
 }
 

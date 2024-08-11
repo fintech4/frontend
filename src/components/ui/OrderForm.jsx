@@ -205,8 +205,7 @@ const formatNumber = (number) => {
 };
 
 function OrderForm() {
-  const { myAsset, setMyAsset } = useContext(StocksContext);
-  const { stocks, stockHistory } = useContext(StocksContext);
+  const { stocks, stockHistory, setMyAsset, fetchData } = useContext(StocksContext);
   const [quantity, setQuantity] = useState('');
   const [orderType, setOrderType] = useState('buy'); // "buy" or "sell"
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -232,12 +231,12 @@ function OrderForm() {
   const handleOrder = async () => {
     const stockCode = stockHistory.stockCode;
     console.log('stockCode: ' + stockCode);
-
+  
     const orderData = {
       orderQuantity: quantity,
       tradeType: orderType, // "buy" or "sell"
     };
-
+  
     console.log('orderData: ' + JSON.stringify(orderData));
     try {
       const response = await fetch(`/toou/api/accounts/stocks/${stockCode}/order`, {
@@ -247,20 +246,28 @@ function OrderForm() {
         },
         body: JSON.stringify(orderData),
       });
-
+  
       const result = await response.json();
-
+  
+      // Check if quantity is empty
+      if (quantity === '') {
+        setErrorMessage('수량을 입력해주세요!');
+        setIsErrorModalOpen(true); // Show error modal
+        return; // Exit the function early
+      }
+  
       if (result.ok) {
-        setMyAsset();
         setIsModalOpen(true); // Show modal for success
       } else {
-        // Error handling
-        if (result.errorType === '종목 부족') {
-          setErrorMessage('종목을 확인해주세요!');
-        } else if (result.errorType === '수량 부족') {
+        // Error handling based on result.error.message
+        if (result.error.type === 'wrong_buy_order') {
+          setErrorMessage('살 수 있는 돈이 부족해요!😞');
+        } else if (result.error.type === 'no_holding_stock') {
+          setErrorMessage('팔 수 있는 주식이 부족해요!😞');
+        } else if (result.error.type === 'wrong_sell_order') {
+          setErrorMessage('잘못된 매도 주문입니다.');
+        } else if (result.error.type === 'quantity_lacking') {
           setErrorMessage('수량을 확인해주세요!');
-        } else if (result.errorType === '잔액 부족') {
-          setErrorMessage('잔액이 부족합니다!');
         } else {
           setErrorMessage('주문을 처리할 수 없습니다.');
         }
@@ -271,8 +278,10 @@ function OrderForm() {
       setErrorMessage('주문 요청 중 오류가 발생했습니다.'); // Default error message
       setIsErrorModalOpen(true); // Show error modal
     }
+    fetchData();
+    setQuantity(''); // Clear quantity after processing
   };
-
+  
   const handleCloseErrorModal = () => {
     setIsErrorModalOpen(false); // Close error modal
   };
