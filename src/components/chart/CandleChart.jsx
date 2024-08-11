@@ -1,55 +1,76 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { data } from "../../stockData/chartData"; // 데이터 파일에서 데이터 가져오기
+import { StocksContext } from "../../context/stocksContext";
 
-// 유효한 데이터만을 필터링하여 반환하는 함수
+// Convert the raw data to the format needed for the candlestick chart
+const formatDataForChart = (data) => {
+  return data.map(item => {
+    const date = new Date(item.date);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      console.warn('Invalid date encountered:', item.date);
+      return null;
+    }
+
+    return {
+      x: date.getTime(), // Convert date to timestamp
+      y: item.prices // [open, high, low, close]
+    };
+  }).filter(item => item !== null); // Remove invalid entries
+};
+
+// Filter out only valid data
 const filterValidDates = (data) => {
   return data.filter((item) =>
-    item.y.every((value) => value !== null && value !== undefined)
+    item.prices.every((value) => value !== null && value !== undefined)
   );
 };
 
-// 주말을 제외한 유효한 데이터만 필터링하여 반환하는 함수
+// Filter out weekends and invalid data
 const filterWeekdays = (data) => {
   return data.filter((item) => {
-    const day = new Date(item.x).getDay(); // 0: 일요일, 1: 월요일, ..., 6: 토요일
-    return day !== 0 && day !== 6; // 주말 제외 (일요일과 토요일)
+    const day = new Date(item.date).getDay(); // 0: Sunday, 1: Monday, ..., 6: Saturday
+    return day !== 0 && day !== 6; // Exclude weekends (Sunday and Saturday)
   });
 };
 
-// 주말 제외 및 유효한 데이터 필터링
+// Filter data by date range
 const filterDataByDateRange = (data, dateRange) => {
   const [startDate, endDate] = dateRange;
   return data.filter((item) => {
-    const itemDate = new Date(item.x);
+    const itemDate = new Date(item.date);
     return itemDate >= startDate && itemDate <= endDate;
   });
 };
 
+// Get annotations for weekends and missing data days
 const getAnnotations = (data) => {
   const annotations = [];
 
-  const startDate = new Date(Math.min(...data.map((item) => item.x)));
-  const endDate = new Date(Math.max(...data.map((item) => item.x)));
+  if (!data || data.length === 0) return annotations;
+
+  const startDate = new Date(Math.min(...data.map((item) => new Date(item.date).getTime())));
+  const endDate = new Date(Math.max(...data.map((item) => new Date(item.date).getTime())));
   let currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     const dateStr = currentDate.toDateString();
     const dayOfWeek = currentDate.getDay();
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const hasData = data.some((d) => new Date(d.x).toDateString() === dateStr);
+    const hasData = data.some((d) => new Date(d.date).toDateString() === dateStr);
 
     if (!hasData && !isWeekend) {
       annotations.push({
         x: new Date(currentDate).getTime(),
-        borderColor: "#F6bb43", // 세로 선 색상
+        borderColor: "#FF4E36", // Vertical line color
       });
     }
 
     if (isWeekend) {
       annotations.push({
         x: new Date(currentDate).getTime(),
-        borderColor: "#ced4da", // 세로 선 색상
+        borderColor: "#ced4da", // Vertical line color
       });
     }
 
@@ -60,8 +81,24 @@ const getAnnotations = (data) => {
 };
 
 const CandleChart = ({ dateRange }) => {
-  const filteredData = filterValidDates(filterWeekdays(filterDataByDateRange(data, dateRange)));
-  const chartAnnotations = getAnnotations(filteredData);
+  const { stockHistory, selectedStockCode, fetchStocksHistory } = useContext(StocksContext);
+  const [formattedData, setFormattedData] = useState([]);
+  const [chartAnnotations, setChartAnnotations] = useState([]);
+
+  useEffect(() => {
+    // Fetch stock history when selected stock code changes
+    if (selectedStockCode) {
+      fetchStocksHistory(selectedStockCode, "2023-07-01", new Date().toISOString().split('T')[0]); // Use current date
+    }
+  }, [selectedStockCode, fetchStocksHistory]);
+
+  useEffect(() => {
+    if (stockHistory) {
+      const filtered = filterValidDates(filterWeekdays(filterDataByDateRange(stockHistory.dailyHistories, dateRange)));
+      setFormattedData(formatDataForChart(filtered));
+      setChartAnnotations(getAnnotations(filtered));
+    }
+  }, [stockHistory, dateRange]);
 
   const chartOptions = {
     chart: {
@@ -74,20 +111,20 @@ const CandleChart = ({ dateRange }) => {
     plotOptions: {
       candlestick: {
         colors: {
-          upward: "#FF0000", // 종가가 시가보다 높은 경우 초록색
-          downward: "#0000FF", // 종가가 시가보다 낮은 경우 파란색
+          upward: "#FF4E36", // Color for upward candlestick
+          downward: "#0C67EF", // Color for downward candlestick
         },
       },
     },
     xaxis: {
       type: "datetime",
-      tickAmount: 10, // x축에 표시될 tick의 수 조절
+      tickAmount: 10,
       labels: {
         formatter: function (value) {
           const date = new Date(value);
           const month = date.getMonth() + 1; // 0-based
           const day = date.getDate();
-          return `${month}.${day}`;
+          return `${month}월${day}일`;
         },
       },
       axisBorder: {
@@ -104,13 +141,19 @@ const CandleChart = ({ dateRange }) => {
       tooltip: {
         enabled: true,
       },
+      labels: {
+        formatter: function (value) {
+          // Format to integer
+          return Math.floor(value).toLocaleString();
+        },
+      },
     },
     tooltip: {
       custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-        const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]; // 시가
-        const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]; // 고가
-        const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]; // 저가
-        const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]; // 종가
+        const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]; // Open
+        const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]; // High
+        const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]; // Low
+        const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]; // Close
 
         return `
           <div style="padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
@@ -123,7 +166,7 @@ const CandleChart = ({ dateRange }) => {
       },
     },
     annotations: {
-      xaxis: chartAnnotations, // 메모 추가
+      xaxis: chartAnnotations,
     },
   };
 
@@ -133,8 +176,26 @@ const CandleChart = ({ dateRange }) => {
         options={chartOptions}
         series={[
           {
-            name: "Price",
-            data: filteredData, // 필터링된 데이터 사용
+            name: "가격",
+            data: formattedData,
+          },
+          {
+            name: "추이",
+            data: formattedData,
+            type: 'area',
+            color: '#D1EFED',
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shade: 'light',
+                type: 'vertical',
+                gradientToColors: ['#ffffff'],
+                opacityFrom: 0.3,
+                opacityTo: 0.7,
+                stops: [0, 100],
+              },
+            },
+            opacity: 0.4,
           },
         ]}
         type="candlestick"

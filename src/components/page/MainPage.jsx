@@ -7,6 +7,7 @@ import Guide from "../ui/Guide";
 import styled from "styled-components";
 import CandleChart from "../chart/CandleChart";
 import ChartComponent from "../ui/ChartComponent";
+import { StocksProvider } from '../../context/stocksContext';
 import { media } from "../../media";
 
 const WalletWrapper = styled.div`
@@ -71,11 +72,12 @@ const Wrapper3 = styled.div`
 
 function MainPage({ isLoggedIn, onLogout }) {
   return (
-    <>
+    <StocksProvider>
       <Navigation path={"/"} isLoggedIn={isLoggedIn} onLogout={onLogout} />
       <Wrapper2>
         <StockSearch />
       </Wrapper2>
+
       {/* 차트 관련 섹션 */}
       <Wrapper3>
         <ChartComponent />
@@ -96,8 +98,9 @@ function MainPage({ isLoggedIn, onLogout }) {
           <OrderForm />{" "}
         </Container4>
       </Wrapper4>
-    </>
+    </StocksProvider>
   );
 }
+
 
 export default MainPage;
