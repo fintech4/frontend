@@ -46,6 +46,7 @@ function WelcomePage() {
     font-style: normal;
     font-weight: 600;
     flex: 1 0 0;
+    line-height: 0%;
     align-self: stretch;
 
     ${media.mobile`
@@ -55,15 +56,16 @@ font-family: "Pretendard Variable";
 font-size: 20px;
 font-style: normal;
 font-weight: 600;
+line-height: 0%; 
 `}
   `;
   const LogoImg = styled.img`
     width: 428px;
-    height: 114px;
+    height: auto;
     flex-shrink: 0;
 
     ${media.mobile`
-      width : 80%;
+      width : 50%;
       height : auto;
       `}
   `;
@@ -98,7 +100,7 @@ font-weight: 600;
       <Container>
         <Contents>
           <WelcomeTitle>투유로 만나는 무한한 투자여정</WelcomeTitle>
-          <LogoImg src="images/logo/header_logo.png" />
+          <LogoImg src="images/logo/logo.gif" />
         </Contents>
         <WelcomeButton onClick={handleStart}>투자하기</WelcomeButton>
       </Container>{" "}
