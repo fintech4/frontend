@@ -68,71 +68,63 @@
 ## 3. 프로젝트 구조
 
 ```
-├── README.md
-├── .eslintrc.js
-├── .gitignore
-├── .prettierrc.json
-├── package-lock.json
-├── package.json
+│  App.jsx
+│  index.js
+│  media.js
+│  setupProxy.js
 │
-├── public
-│    └── index.html
-└── src
-     ├── App.jsx
-     ├── index.jsx
-     ├── api
-     │     └── mandarinAPI.js
-     ├── asset
-     │     ├── fonts
-     │     ├── css_sprites.png
-     │     ├── logo-404.svg
-     │     └── logo-home.svg
-     │          .
-     │          .
-     │          .
-     ├── atoms
-     │     ├── LoginData.js
-     │     └── LoginState.js
-     ├── common
-     │     ├── alert
-     │     │     ├── Alert.jsx
-     │     │     └── Alert.Style.jsx
-     │     ├── button
-     │     ├── comment
-     │     ├── inputBox
-     │     ├── post
-     │     ├── postModal
-     │     ├── product
-     │     ├── tabMenu
-     │     ├── topBanner
-     │     └── userBanner
-     ├── pages
-     │     ├── addProduct
-     │     │     ├── AddProduct.jsx
-     │     │     └── AddProduct.Style.jsx
-     │     ├── chatList
-     │     ├── chatRoom
-     │     ├── emailLogin
-     │     ├── followerList
-     │     ├── followingList
-     │     ├── home
-     │     ├── join
-     │     ├── page404
-     │     ├── postDetail
-     │     ├── postEdit
-     │     ├── postUpload
-     │     ├── productEdit
-     │     ├── profile
-     │     ├── profileEdit
-     │     ├── profileSetting
-     │     ├── search
-     │     ├── snsLogin
-     │     └── splash
-     ├── routes
-     │     ├── privateRoutes.jsx
-     │     └── privateRoutesRev.jsx  
-     └── styles
-           └── Globalstyled.jsx
+├─assets
+│  └─css
+│          styles.css
+│
+├─components
+│  ├─chart
+│  │      CandleChart.jsx
+│  │
+│  ├─page
+│  │      LoginPage.jsx
+│  │      MainPage.jsx
+│  │      MyPage.jsx
+│  │      WelcomePage.jsx
+│  │
+│  └─ui
+│      │  Calendar.jsx
+│      │  ChartComponent.jsx
+│      │  Guide.jsx
+│      │  OrderForm.jsx
+│      │  SearchContainer.jsx
+│      │  StockList.jsx
+│      │  Wallet.jsx
+│      │
+│      ├─bar
+│      │      Navigation.jsx
+│      │      StockSearch.jsx
+│      │
+│      ├─buttons
+│      │      Button.js
+│      │      Input.js
+│      │      Table.js
+│      │
+│      ├─modal
+│      │      BuyModal.jsx
+│      │      ErrorModal.jsx
+│      │
+│      └─tables
+│              MyTable.jsx
+│              StockTable.jsx
+│
+├─context
+│      stocksContext.js
+│
+├─models
+│      AccountAssets.js
+│      AccountUsers.js
+│      Holdings.js
+│      Stocks.js
+│      StocksHistory.js
+│
+└─stockData
+        chartData.js
 ```
 
 <br>
