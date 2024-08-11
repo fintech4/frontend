@@ -32,13 +32,14 @@ const TableWrapper = styled.div`
     text-align: left;
   }
   td {
-    background-color: #fff;
+    background-color: #fff !important;
     color: var(--black-black-700, #5b6b86);
     font-family: "Pretendard Variable";
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
+    color: #000;
   }
   th:last-child,
   td:last-child {

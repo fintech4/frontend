@@ -23,8 +23,8 @@ const WalletContainer = styled.div`
 `;
 
 const WalletImage = styled.img`
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   margin-bottom: 29px;
   ${media.mobile`
     display: flex;
@@ -103,11 +103,11 @@ function Wallet({ walletName, image }) {
 
     switch (name) {
       case "예수금":
-        return (myAsset.deposit).toLocaleString();
+        return (myAsset.deposit).toLocaleString()+"원";
       case "총 수익률":
         return `${(myAsset.yield)}%`;
       default:
-        return "데이터가 없어요:(";
+        return "데이터가 없어요";
     }
   };
 

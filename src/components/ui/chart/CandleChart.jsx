@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { StocksContext } from "../../context/stocksContext";
+import { StocksContext } from "../../../context/stocksContext";
 
 // Convert the raw data to the format needed for the candlestick chart
 const formatDataForChart = (data) => {

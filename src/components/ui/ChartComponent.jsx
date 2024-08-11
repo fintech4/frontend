@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CandleChart from "../chart/CandleChart";
+import CandleChart from "./chart/CandleChart";
 import styled from "styled-components";
 import CustomCalendar from "./Calendar";
 import moment from "moment";
