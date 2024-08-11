@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Modal from "./modal/BuyModal"; // 모달 컴포넌트 임포트
-import ErrorModal from "./modal/ErrorModal";
-import { media } from "../../media";
+import React, { useState, useContext } from 'react';
+import styled from 'styled-components';
+import Modal from './modal/BuyModal'; // Import Modal Component
+import ErrorModal from './modal/ErrorModal'; // Import ErrorModal Component
+import { media } from '../../media';
+import { StocksContext } from '../../context/stocksContext';
+
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
@@ -10,14 +12,13 @@ const Wrapper = styled.div`
   padding: 0px;
   box-sizing: border-box;
   ${media.mobile`
-    width : 100%;
+    width: 100%;
     height: 200px;
     padding: 37px 35px;
     display: flex;
     align-items: center;
-    margin-bottom : 180px;
-
-    `}
+    margin-bottom: 180px;
+  `}
 `;
 
 const ButtonWrapper = styled.div`
@@ -29,8 +30,8 @@ const ButtonWrapper = styled.div`
   flex-shrink: 0;
   ${media.mobile`
     justify-content: flex-start;
-    width : 100%;
-    `}
+    width: 100%;
+  `}
 `;
 
 const OrderButton = styled.button`
@@ -42,21 +43,20 @@ const OrderButton = styled.button`
   gap: 17.869px;
   flex-shrink: 0;
   border-radius: 6px 6px 0px 0px;
-  background: var(--red, #ff4e36);
-  background-color: ${(props) =>
+  background: ${(props) =>
     props.active
       ? props.buy
-        ? "#FF4E36"
-        : "#0C67EF"
-      : "var(--primary-primary-300, #D1EFED)"};
-  color: ${(props) => (props.active ? "white" : "black")};
+        ? '#FF4E36'
+        : '#0C67EF'
+      : 'var(--primary-primary-300, #D1EFED)'};
+  color: ${(props) => (props.active ? 'white' : 'black')};
   padding: 10px 0px;
   cursor: pointer;
   &:focus {
     outline: none;
   }
   border: none;
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -73,7 +73,7 @@ const InfoWrapper = styled.div`
 const Price = styled.p`
   color: var(--black-black-700, #5b6b86);
   text-align: right;
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -91,7 +91,7 @@ const Contents = styled.div`
 
 const OrderLabel = styled.p`
   color: var(--black-black-900, #15181e);
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -109,15 +109,19 @@ const InputStyle = styled.input`
   border-radius: 4px;
   border: 0.5px solid var(--black-black-700, #5b6b86);
   background: var(--Schemes-On-Primary, #fff);
+  font-family: 'Pretendard Variable'; /* Ensure font is consistent with other elements */
+  font-size: 16px; /* Adjust text size as needed */
+  font-weight: 400; /* Normal weight; adjust if necessary */
+  line-height: 20px; /* Ensure line-height is appropriate for the text size */
 
   ::placeholder {
-    color: #ccc; /* placeholder 텍스트 색상 설정 */
-    opacity: 1; /* 일부 브라우저에서 필요 */
+    color: #ccc; /* placeholder text color */
+    opacity: 1; /* needed for some browsers */
   }
 
   ${media.mobile`
-    width : 10px;
-    `}
+    width: 10px;
+  `}
 `;
 
 const InputStyle1 = styled.input`
@@ -130,10 +134,14 @@ const InputStyle1 = styled.input`
   border-radius: 4px;
   border: 0.5px solid var(--black-black-700, #5b6b86);
   background: var(--black-black-200, #f1f3f6);
+  font-family: 'Pretendard Variable'; /* Ensure font is consistent with other elements */
+  font-size: 16px; /* Adjust text size as needed */
+  font-weight: 400; /* Normal weight; adjust if necessary */
+  line-height: 20px; /* Ensure line-height is appropriate for the text size */
 
   ${media.mobile`
-    width : 10px;
-    `}
+    width: 10px;
+  `}
 `;
 
 const InputWrapper = styled.div`
@@ -146,18 +154,18 @@ const InputWrapper = styled.div`
   border-radius: 8px;
   background: var(--black-black-100, #fff);
   ${media.mobile`
-    width : 100%;
-  display: flex;
-     height: 200px;
-  align-items: center;
-  gap: 35px;
+    width: 100%;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    gap: 35px;
   `}
 `;
 
 const BuySellButton = styled.button`
   display: flex;
   width: 104px;
-  height: 148px;
+  height: 208px;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -167,9 +175,9 @@ const BuySellButton = styled.button`
   background: ${(props) =>
     props.active
       ? props.buy
-        ? "#FF4E36"
-        : "#0C67EF"
-      : "var(--primary-primary-300, #D1EFED)"};
+        ? '#FF4E36'
+        : '#0C67EF'
+      : 'var(--primary-primary-300, #D1EFED)'};
   cursor: pointer;
   &:focus {
     outline: none;
@@ -177,7 +185,7 @@ const BuySellButton = styled.button`
   justify-content: center;
   color: var(--Schemes-On-Primary, #fff);
   text-align: center;
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -185,89 +193,101 @@ const BuySellButton = styled.button`
   letter-spacing: 1px;
 
   ${media.mobile`
-    width : 60px;
-    height : 120px;
+    width: 60px;
+    height: 120px;
     font-size: 15px;
   `}
 `;
 
+// Format number with comma separation
+const formatNumber = (number) => {
+  return new Intl.NumberFormat().format(number);
+};
+
 function OrderForm() {
-  const price = 338000; // 주문 가격
-  const [quantity, setQuantity] = useState("");
-  const [orderType, setOrderType] = useState("buy"); // "buy" 또는 "sell"
+  const { stocks, stockHistory } = useContext(StocksContext);
+  const [quantity, setQuantity] = useState('');
+  const [orderType, setOrderType] = useState('buy'); // "buy" or "sell"
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleQuantityChange = (e) => {
     const value = e.target.value;
-    // 숫자인 경우에만 상태 업데이트
+    // Update state only if the value is a number
     if (/^\d*$/.test(value)) {
       setQuantity(value);
     }
   };
 
   const handleBuy = () => {
-    setOrderType("buy");
+    setOrderType('buy');
   };
 
   const handleSell = () => {
-    setOrderType("sell");
+    setOrderType('sell');
   };
 
   const handleOrder = async () => {
-    if (orderType === "buy") {
-      console.log("구매 완료");
-      setIsModalOpen(true); // 구매 완료 모달
-    } else if (orderType === "sell") {
-      try {
-        // sellable API 요청 보내기
-        const response = await fetch("/api/sellable", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ stockName: "종목 이름", quantity }), // 실제 종목 이름과 수량을 넣어야 함
-        });
-        const result = await response.json();
+    const stockCode = stockHistory.stockCode;
+    console.log('stockCode: ' + stockCode);
 
-        if (result.ok) {
-          console.log("판매 완료");
-          setIsModalOpen(true); // 판매 완료 모달
+    const orderData = {
+      orderQuantity: quantity,
+      tradeType: orderType, // "buy" or "sell"
+    };
+
+    console.log('orderData: ' + JSON.stringify(orderData));
+    try {
+      const response = await fetch(`/toou/api/accounts/stocks/${stockCode}/order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const result = await response.json();
+
+      if (result.ok) {
+        setIsModalOpen(true); // Show modal for success
+      } else {
+        // Error handling
+        if (result.errorType === '종목 부족') {
+          setErrorMessage('종목을 확인해주세요!');
+        } else if (result.errorType === '수량 부족') {
+          setErrorMessage('수량을 확인해주세요!');
+        } else if (result.errorType === '잔액 부족') {
+          setErrorMessage('잔액이 부족합니다!');
         } else {
-          // ok가 false인 경우, 에러 처리
-          if (result.errorType === "종목 부족") {
-            setErrorMessage("종목을 확인해주세요!");
-          } else if (result.errorType === "수량 부족") {
-            setErrorMessage("수량을 확인해주세요!");
-          } else {
-            setErrorMessage("판매할 수 없습니다.");
-          }
-          setIsErrorModalOpen(true); // 에러 모달 띄우기
+          setErrorMessage('주문을 처리할 수 없습니다.');
         }
-      } catch (error) {
-        console.error("판매 요청 중 오류 발생:", error);
-        setErrorMessage("종목을 확인해주세요!"); ///여기가 default입니다!!!!!!!!!!
-        setIsErrorModalOpen(true); // 에러 모달 띄우기
+        setIsErrorModalOpen(true); // Show error modal
       }
+    } catch (error) {
+      console.error('주문 요청 중 오류 발생:', error);
+      setErrorMessage('주문 요청 중 오류가 발생했습니다.'); // Default error message
+      setIsErrorModalOpen(true); // Show error modal
     }
   };
+
   const handleCloseErrorModal = () => {
-    setIsErrorModalOpen(false); // 에러 모달 닫기
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // 모달을 닫는 상태 변경
+    setIsErrorModalOpen(false); // Close error modal
   };
 
-  const totalAmount = price * (quantity ? Number(quantity) : 0);
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // Close success modal
+  };
+
+  const totalAmount = stockHistory.stockNewestPrice * (quantity ? Number(quantity) : 0);
 
   return (
     <Wrapper>
       <ButtonWrapper>
-        <OrderButton active={orderType === "buy"} buy onClick={handleBuy}>
+        <OrderButton active={orderType === 'buy'} buy onClick={handleBuy}>
           매수
         </OrderButton>
-        <OrderButton active={orderType === "sell"} onClick={handleSell}>
+        <OrderButton active={orderType === 'sell'} onClick={handleSell}>
           매도
         </OrderButton>
       </ButtonWrapper>
@@ -275,7 +295,7 @@ function OrderForm() {
         <Contents>
           <InfoWrapper>
             <OrderLabel>주문 가격</OrderLabel>
-            <Price> {price}</Price>
+            <Price>{formatNumber(stockHistory.stockNewestPrice)}원</Price> {/* Price from context */}
           </InfoWrapper>
 
           <InfoWrapper>
@@ -283,35 +303,30 @@ function OrderForm() {
             <InputStyle
               type="text"
               value={quantity}
-              placeholder="매수수량을 입력하세요."
+              placeholder="주문수량을 입력하세요."
               onChange={handleQuantityChange}
             />
           </InfoWrapper>
 
           <InfoWrapper>
             <OrderLabel>주문총액</OrderLabel>
-            <InputStyle1 type="text" value={totalAmount} readOnly />
+            <InputStyle1
+              type="text"
+              value={`${formatNumber(totalAmount)}원`}
+              readOnly
+            /> {/* Formatted total amount */}
           </InfoWrapper>
         </Contents>
 
         {orderType && (
           <div>
-            {orderType === "buy" ? (
-              <BuySellButton
-                active={orderType === "buy"}
-                buy
-                onClick={handleOrder}
-              >
-                살게요
-              </BuySellButton>
-            ) : (
-              <BuySellButton
-                active={orderType === "sell"}
-                onClick={handleOrder}
-              >
-                팔게요
-              </BuySellButton>
-            )}
+            <BuySellButton
+              active={orderType === 'buy'}
+              buy={orderType === 'buy'}
+              onClick={handleOrder}
+            >
+              {orderType === 'buy' ? '살게요' : '팔게요'}
+            </BuySellButton>
           </div>
         )}
       </InputWrapper>

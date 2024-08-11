@@ -27,5 +27,5 @@ class AccountAssets {
     }
   }
   
-  export default FinancialPortfolio;
+  export default AccountAssets;
   
