@@ -148,7 +148,7 @@ function LoginPage({ isLoggedIn, onLoginSuccess }) {
         <Container1>
           <Contents>
             <WelcomeTitle>투유로 만나는 무한한 투자여정</WelcomeTitle>
-            <LogoImg src="images/logo/logo.gif" />
+            <LogoImg src="/images/logo/logo.gif" />
           </Contents>
           <Container2>
             {" "}
