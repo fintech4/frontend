@@ -162,7 +162,10 @@ function LoginPage({ isLoggedIn, onLoginSuccess }) {
             </InputWrapper>
             <InputWrapper>
               <InputTitle>비밀번호</InputTitle>
-              <InputContent placeholder="비밀번호를 입력해주세요"></InputContent>
+              <InputContent
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+              ></InputContent>
             </InputWrapper>
             <ButtonStyle onClick={handleLogin}>로그인</ButtonStyle>
           </Container2>
