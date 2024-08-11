@@ -35,14 +35,14 @@ export const StocksContext = createContext();
 export const StocksProvider = ({ children }) => {
   const [stocks, setStocks] = useState([]);
   const [stockHistory, setStockHistory] = useState({
-    id: '',
-    stockCode: '',
-    stockName: '',
+    id: "",
+    stockCode: "",
+    stockName: "",
     stockNewestPrice: 0,
-    newestDate: '',
-    dailyHistories: []
+    newestDate: "",
+    dailyHistories: [],
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -70,7 +70,7 @@ export const StocksProvider = ({ children }) => {
 
   // Fetch stocks function
   const fetchStocks = useCallback(async (query) => {
-    const url = '/toou/api/stocks'; // 요청할 URL
+    const url = "/toou/api/stocks"; // 요청할 URL
 
     try {
       setLoading(true); // 로딩 상태 시작
@@ -78,16 +78,16 @@ export const StocksProvider = ({ children }) => {
       const data = response.data;
 
       if (data && data.stockSearchList) {
-        const stocksInstances = data.stockSearchList.map(stock =>
-          new Stocks(stock.stockCode, stock.stockName, stock.market)
+        const stocksInstances = data.stockSearchList.map(
+          (stock) => new Stocks(stock.stockCode, stock.stockName, stock.market)
         );
         setStocks(stocksInstances); // 주식 목록 상태를 업데이트합니다.
       } else {
-        setError('Invalid data format');
+        setError("Invalid data format");
       }
     } catch (err) {
-      console.error('Error fetching stocks:', err);
-      setError('An error occurred while fetching stocks');
+      console.error("Error fetching stocks:", err);
+      setError("An error occurred while fetching stocks");
     } finally {
       setLoading(false);
     }
@@ -100,26 +100,27 @@ export const StocksProvider = ({ children }) => {
       const response = await axios.get(url, {
         params: {
           dateFrom: dateFrom,
-          dateTo: dateTo
-        }
+          dateTo: dateTo,
+        },
       });
       const data = response.data;
 
       if (data && data.ok) {
         const stockHistory = {
           id: data.id,
+          market: data.market,
           stockCode: data.stockCode,
           stockName: data.stockName,
           stockNewestPrice: data.stockNewestPrice,
           newestDate: data.newestDate,
-          dailyHistories: data.dailyHistories
+          dailyHistories: data.dailyHistories,
         };
         setStockHistory(stockHistory);
       } else {
-        console.warn('Invalid data format');
+        console.warn("Invalid data format");
       }
     } catch (err) {
-      console.error('Error fetching stock history:', err);
+      console.error("Error fetching stock history:", err);
     }
   }, []);
 
@@ -192,7 +193,7 @@ export const StocksProvider = ({ children }) => {
       try {
         await fetchStocksHistory("005930");
       } catch (error) {
-        console.error('Error fetching initial stock data:', error);
+        console.error("Error fetching initial stock data:", error);
       }
     };
       
@@ -222,6 +223,7 @@ export const StocksProvider = ({ children }) => {
       loading, 
       error 
     }}>
+
       {children}
     </StocksContext.Provider>
   );
