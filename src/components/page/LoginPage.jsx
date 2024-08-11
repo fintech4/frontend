@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navigation from "../ui/bar/Navigation";
+import { media } from "../../media";
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -25,6 +27,11 @@ const Container1 = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 52px;
+  ${media.mobile`
+    width : 100%; 
+    max-width: 300px;
+    gap: 10px;
+    `}
 `;
 
 const Container2 = styled.div`
@@ -42,6 +49,11 @@ const Container2 = styled.div`
 
   /* menu-shadow */
   box-shadow: 0px 4px 10px 1px rgba(113, 205, 199, 0.3);
+
+  ${media.mobile`
+    padding : 20px 15px;
+    gap: 10px;
+    `}
 `;
 
 const InputTitle = styled.p`
@@ -53,6 +65,9 @@ const InputTitle = styled.p`
   font-style: normal;
   font-weight: 600;
   line-height: 10%;
+  ${media.mobile`
+   line-height: 5%;
+    `}
 `;
 
 const InputWrapper = styled.div`
@@ -61,6 +76,9 @@ const InputWrapper = styled.div`
   align-items: flex-start;
   gap: 14px;
   align-self: stretch;
+  ${media.mobile`
+    gap: 5px;
+    `}
 `;
 
 const InputContent = styled.input`
@@ -73,6 +91,9 @@ const InputContent = styled.input`
   border-radius: 5.024px;
   border: 0.5px solid var(--black-black-700, #5b6b86);
   background: var(--Schemes-On-Primary, #fff);
+  ${media.mobile`
+    height: 20px;
+    `}
 `;
 
 const ButtonStyle = styled.button`
@@ -110,12 +131,18 @@ const WelcomeTitle = styled.h1`
   font-weight: 600;
   flex: 1 0 0;
   align-self: stretch;
+  ${media.mobile`
+   font-size: 20px;
+    `}
 `;
 const LogoImg = styled.img`
   width: 297.46px;
   height: auto;
   margin-bottom: 0px;
   flex-shrink: 0;
+  ${media.mobile`
+    width : 200px;
+    `}
 `;
 
 function LoginPage({ isLoggedIn, onLoginSuccess }) {

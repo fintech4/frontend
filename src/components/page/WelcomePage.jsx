@@ -65,7 +65,7 @@ line-height: 0%;
     flex-shrink: 0;
 
     ${media.mobile`
-      width : 50%;
+      width : 100%;
       height : auto;
       `}
   `;
