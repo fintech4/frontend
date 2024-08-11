@@ -262,12 +262,12 @@ function OrderForm() {
         // Error handling based on result.error.message
         if (result.error.type === 'wrong_buy_order') {
           setErrorMessage('살 수 있는 돈이 부족해요!😞');
-        } else if (result.error.type === 'no_holding_stock') {
+        } else if (result.error.type === 'wrong_sell_quantity') {
           setErrorMessage('팔 수 있는 주식이 부족해요!😞');
-        } else if (result.error.type === 'wrong_sell_order') {
-          setErrorMessage('잘못된 매도 주문입니다.');
-        } else if (result.error.type === 'quantity_lacking') {
-          setErrorMessage('수량을 확인해주세요!');
+        // } else if (result.error.type === 'wrong_sell_quantity') {
+        //   setErrorMessage('잘못된 매도 주문입니다.');
+        // } else if (result.error.type === 'quantity_lacking') {
+        //   setErrorMessage('수량을 확인해주세요!');
         } else {
           setErrorMessage('주문을 처리할 수 없습니다.');
         }
