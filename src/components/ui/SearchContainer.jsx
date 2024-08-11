@@ -68,9 +68,6 @@ const StockListWrapper = styled.div`
   box-sizing: border-box; /* padding과 border를 포함한 너비 계산 */
 `;
 
-
-
-
 const StockInfo = styled.p`
   margin: 5px 0;
   font-size: 16px;
@@ -82,7 +79,8 @@ const SearchContainer = ({
   onKeyPress,
   errorMessage,
 }) => {
-  const { stocks, fetchStocks, updateSelectedStock, fetchStocksHistory } = useContext(StocksContext);
+  const { stocks, fetchStocks, updateSelectedStock, fetchStocksHistory } =
+    useContext(StocksContext);
   const [isStockListVisible, setStockListVisible] = useState(false);
 
   useEffect(() => {
@@ -97,14 +95,14 @@ const SearchContainer = ({
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
-    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1
+    const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   const handleStockClick = (stock) => {
     // Update the search term with the selected stock name
-    onSearchTermChange({ target: { value: stock.stockName } });
+    onSearchTermChange({ target: { value: "" } });
 
     // Use a timeout to ensure the searchTerm update has completed
     setTimeout(() => {
@@ -142,13 +140,10 @@ const SearchContainer = ({
           </ClearButton>
         )}
       </SearchInputContainer>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {isStockListVisible && stocks.length > 0 && (
         <StockListWrapper>
-          <StockList
-            stockList={stocks}
-            onStockClick={handleStockClick}
-          />
+          <StockList stockList={stocks} onStockClick={handleStockClick} />
         </StockListWrapper>
       )}
     </Container>
