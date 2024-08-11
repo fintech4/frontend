@@ -3,11 +3,12 @@ import styled from "styled-components";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { media } from "../../media";
 
 const CalendarContainer = styled.div`
   position: relative;
-  font-family: "Pretendard Variable"; 
+  font-family: "Pretendard Variable";
   font-weight: 500;
 `;
 
@@ -29,6 +30,9 @@ const DropdownButton = styled.button`
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 12px;
+  ${media.mobile`
+    width : 230px;
+    `}
 `;
 
 const CalendarWrapper = styled.div`
@@ -42,7 +46,7 @@ const CalendarWrapper = styled.div`
 
   /* 전체 달력 배경색 */
   .react-calendar {
-    background: #B7E6E2 !important; /* 연한 청록색 배경색 */
+    background: #b7e6e2 !important; /* 연한 청록색 배경색 */
     border: 0px solid #ddd; /* 테두리 없음 */
     border-radius: 4px; /* 둥근 모서리 */
     width: 300px; /* 달력 너비 설정 */
@@ -62,7 +66,7 @@ const CalendarWrapper = styled.div`
   /* 선택된 날짜 배경색 및 원형 모양 */
   .react-calendar__tile--active,
   .react-calendar__tile--hasActive {
-    background: #256B66; /* 진한 초록색 배경색 */
+    background: #256b66; /* 진한 초록색 배경색 */
     color: white; /* 흰색 텍스트 */
   }
 
@@ -74,7 +78,7 @@ const CalendarWrapper = styled.div`
 
   /* 범위의 시작일 배경색 및 테두리 */
   .react-calendar__tile--rangeStart {
-    background: #256B66; /* 범위 시작일의 진한 초록색 배경색 */
+    background: #256b66; /* 범위 시작일의 진한 초록색 배경색 */
     color: white; /* 흰색 텍스트 */
     border-top-left-radius: 50%; /* 왼쪽 위 모서리 둥글게 */
     border-bottom-left-radius: 50%; /* 왼쪽 아래 모서리 둥글게 */
@@ -82,7 +86,7 @@ const CalendarWrapper = styled.div`
 
   /* 범위의 종료일 배경색 및 테두리 */
   .react-calendar__tile--rangeEnd {
-    background: #256B66; /* 범위 종료일의 진한 초록색 배경색 */
+    background: #256b66; /* 범위 종료일의 진한 초록색 배경색 */
     color: white; /* 흰색 텍스트 */
     border-top-right-radius: 50%; /* 오른쪽 위 모서리 둥글게 */
     border-bottom-right-radius: 50%; /* 오른쪽 아래 모서리 둥글게 */
@@ -94,8 +98,10 @@ const CalendarWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    color: ${(props) => (props.range[0] && props.range[1] ? '#1D1B20' : '#888')}; /* 텍스트 색상 */
-    background-color: ${(props) => (props.range[0] && props.range[1] ? '#ffffff' : '#f0f0f0')}; /* 배경색 */
+    color: ${(props) =>
+      props.range[0] && props.range[1] ? "#1D1B20" : "#888"}; /* 텍스트 색상 */
+    background-color: ${(props) =>
+      props.range[0] && props.range[1] ? "#ffffff" : "#f0f0f0"}; /* 배경색 */
     border: 1px solid #ddd; /* 경계선 */
     border-radius: 4px; /* 둥근 모서리 */
     margin-bottom: 10px; /* 날짜 범위와 달력 사이의 간격 */
@@ -107,7 +113,7 @@ const CalendarWrapper = styled.div`
     justify-content: space-between;
     padding: 10px;
     border-top: 1px solid #ffffff; /* 상단 경계선 */
-    background: #B7E6E2; /* 달력과 동일한 배경색 */
+    background: #b7e6e2; /* 달력과 동일한 배경색 */
   }
 
   /* 버튼 그룹 스타일 */
@@ -120,7 +126,7 @@ const CalendarWrapper = styled.div`
   /* 버튼 스타일 */
   .calendar-button {
     background-color: transparent; /* 투명한 배경색 */
-    color: #15181E; /* 버튼 텍스트 색상 */
+    color: #15181e; /* 버튼 텍스트 색상 */
     padding: 8px 12px;
     font-size: 12px;
     cursor: pointer;
@@ -159,7 +165,7 @@ const CustomCalendar = ({ onChange, value }) => {
   };
 
   const handleReset = () => {
-    const threeMonthsAgo = moment().subtract(3, 'months').toDate(); // 3개월 전 날짜
+    const threeMonthsAgo = moment().subtract(3, "months").toDate(); // 3개월 전 날짜
     setTempRange([threeMonthsAgo, today]); // 임시 범위 상태에 3개월 전 날짜와 오늘 날짜를 설정
   };
 
@@ -170,7 +176,7 @@ const CustomCalendar = ({ onChange, value }) => {
 
   const handleConfirm = () => {
     setRange(tempRange); // 임시 범위를 최종 범위로 설정
-    if (typeof onChange === 'function') {
+    if (typeof onChange === "function") {
       onChange(tempRange);
     }
     setIsOpen(false);
@@ -178,15 +184,18 @@ const CustomCalendar = ({ onChange, value }) => {
 
   const formatRange = (range) => {
     if (range[0] && range[1]) {
-      return `📅   ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(range[1]).format("YYYY.MM.DD")}   `;
+      return `📅   ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(
+        range[1]
+      ).format("YYYY.MM.DD")}   `;
     }
     return "날짜를 선택해주세요";
   };
 
-  
   const formatTempRange = (range) => {
     if (range[0] && range[1]) {
-      return `선택한 날짜: ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(range[1]).format("YYYY.MM.DD")}`;
+      return `선택한 날짜: ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(
+        range[1]
+      ).format("YYYY.MM.DD")}`;
     }
     return "날짜를 선택해주세요";
   };
@@ -197,9 +206,7 @@ const CustomCalendar = ({ onChange, value }) => {
         {formatRange(range)}
       </DropdownButton>
       <CalendarWrapper isOpen={isOpen} range={tempRange}>
-        <div className="selected-range">
-          {formatTempRange(tempRange)}
-        </div>
+        <div className="selected-range">{formatTempRange(tempRange)}</div>
         <Calendar
           onChange={handleDateChange}
           formatDay={(locale, date) => moment(date).format("DD")}
@@ -209,10 +216,16 @@ const CustomCalendar = ({ onChange, value }) => {
           maxDate={maxDate} // 최대 날짜 제한을 오늘 날짜로 설정
         />
         <div className="button-container">
-          <button className="calendar-button reset" onClick={handleReset}>초기화</button>
+          <button className="calendar-button reset" onClick={handleReset}>
+            초기화
+          </button>
           <div className="button-group">
-            <button className="calendar-button cancel" onClick={handleCancel}>취소</button>
-            <button className="calendar-button confirm" onClick={handleConfirm}>확인</button>
+            <button className="calendar-button cancel" onClick={handleCancel}>
+              취소
+            </button>
+            <button className="calendar-button confirm" onClick={handleConfirm}>
+              확인
+            </button>
           </div>
         </div>
       </CalendarWrapper>

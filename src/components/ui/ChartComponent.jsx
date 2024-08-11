@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   background: var(--Schemes-On-Primary, #fff);
   ${media.mobile`
-    padding: 20px;
+    padding: 10px;
  `}
 `;
 
