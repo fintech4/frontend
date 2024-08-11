@@ -13,9 +13,6 @@ const ChartTitle = styled.h1`
   font-weight: 600;
   line-height: 150%; /* 30px */
   margin: 0px;
-  ${media.mobile`
-      margin:  0px 20px;
-  `}
 `;
 
 const TitleWrapper = styled.div`
@@ -39,6 +36,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   border-radius: 8px;
   background: var(--Schemes-On-Primary, #fff);
+  ${media.mobile`
+    padding: 20px;
+ `}
 `;
 
 const ChartWrapper = styled.div`
