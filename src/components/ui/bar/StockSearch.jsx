@@ -212,7 +212,43 @@ const TextHighlight = styled.span`
   font-weight: 700;
   line-height: 150%;
 `;
+const getTooltipContent = (market) => {
+  switch (market) {
+    case "KOSPI":
+      return (
+        <>
+          코스피는 한국의 주식 시장에서 거래되는 모든 상장 기업의 주가를
+          <br /> 종합적으로 나타내는 지수입니다(: 주로 삼성전자나 현대자동차
+          같은
+          <br /> <TextHighlight>대기업</TextHighlight>의 주식들이 모여있는
+          곳이죠.
+        </>
+      );
+    case "KOSDAQ":
+      return (
+        <>
+          한국의 중소기업과 벤처기업이 주로 상장된 주식 시장이에요.
+          <br /> 코스피에 들어가는 기업보다 상대적으로 작은 기업들이 많이
+          포함되어 있습니다.
+          <br /> 일반적으로 코스피보다 변동성이 클 수 있어요.
+        </>
+      );
+    case "KONEX":
+      return (
+        <>
+          코넥스는 'Korea New Exchange'의 약자로, 스타트업이나 초기 단계의
+          <br />
+          중소기업이 상장할 수 있는 주식 시장이에요. 쉽게 말해, 미래의 유망
+          <br />
+          기업들이 모인 '신생 기업 시장'이라고 할 수 있습니다.
+        </>
+      );
+    default:
+      return "알 수 없는 시장입니다.";
+  }
+};
 function StockSearch() {
+  const [selectedMarket, setSelectedMarket] = useState("코스피"); // 선택된 시장 정보를 관리하는 상태
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [stockList, setStockList] = useState([]);
@@ -257,12 +293,10 @@ function StockSearch() {
       if (value !== "") {
         try {
           await fetchStocks(value);
-          setStockList(stocks); // Update stockList with the fetched stocks
+          setStockList(stocks); // 입력된 검색어로 주식 리스트 업데이트
         } catch (error) {
           console.error("Error fetching stocks:", error);
         }
-      } else {
-        setStockList([]);
       }
     } else {
       setErrorMessage("완전한 한글만 입력해주세요.");
@@ -293,7 +327,7 @@ function StockSearch() {
           <StockName>{stockHistory ? stockHistory.stockName : ""}</StockName>
           <StockText>
             <TextWrapper data-tooltip-id="kospiTip">
-              <Kospi>코스피</Kospi>
+              <Kospi>{stockHistory ? stockHistory.market : ""}</Kospi>
               <FaInfoCircle className="info-icon" color="#058077" />
             </TextWrapper>
             <ReactTooltip
@@ -302,11 +336,7 @@ function StockSearch() {
               effect="solid"
               style={tooltipStyles}
             >
-              코스피는 한국의 주식 시장에서 거래되는 모든 상장 기업의 주가를
-              <br /> 종합적으로 나타내는 지수입니다(: 주로 삼성전자나 현대자동차
-              같은
-              <br /> <TextHighlight>대기업</TextHighlight>의 주식들이 모여있는
-              곳이죠.
+              {stockHistory ? getTooltipContent(stockHistory.market) : ""}
             </ReactTooltip>
             <DateText>
               {stockHistory ? formatDate(stockHistory.newestDate) : ""}
