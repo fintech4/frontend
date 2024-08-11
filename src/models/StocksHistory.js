@@ -1,8 +1,17 @@
 // src/models/StockHistory.js
 
 class StockHistory {
-  constructor(id, stockCode, stockName, stockNewestPrice, newestDate, dailyHistories) {
+  constructor(
+    id,
+    market,
+    stockCode,
+    stockName,
+    stockNewestPrice,
+    newestDate,
+    dailyHistories
+  ) {
     this.id = id;
+    this.market = market;
     this.stockCode = stockCode;
     this.stockName = stockName;
     this.stockNewestPrice = stockNewestPrice;
