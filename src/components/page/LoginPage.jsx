@@ -113,7 +113,8 @@ const WelcomeTitle = styled.h1`
 `;
 const LogoImg = styled.img`
   width: 297.46px;
-  height: 79.23px;
+  height: auto;
+  margin-bottom: 0px;
   flex-shrink: 0;
 `;
 
@@ -147,7 +148,7 @@ function LoginPage({ isLoggedIn, onLoginSuccess }) {
         <Container1>
           <Contents>
             <WelcomeTitle>투유로 만나는 무한한 투자여정</WelcomeTitle>
-            <LogoImg src="images/logo/header_logo.png" />
+            <LogoImg src="images/logo/logo.gif" />
           </Contents>
           <Container2>
             {" "}
