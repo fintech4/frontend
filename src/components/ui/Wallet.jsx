@@ -23,8 +23,8 @@ const WalletContainer = styled.div`
 `;
 
 const WalletImage = styled.img`
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   margin-bottom: 29px;
   ${media.mobile`
     display: flex;

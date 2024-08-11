@@ -219,6 +219,7 @@ export const StocksProvider = ({ children }) => {
       setRange, 
       updateSelectedStock,
       setMyAsset,
+      fetchData,
       myAsset,
       loading, 
       error 
