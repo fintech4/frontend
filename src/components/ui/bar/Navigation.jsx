@@ -212,9 +212,7 @@ function Navigation({ path, isLoggedIn }) {
 
           <SignInPcWrapper>
             {isLoggedIn ? (
-              <SignInPcLink as="button" onClick={handleLogout}>
-                로그아웃
-              </SignInPcLink>
+              <SignInPcLink onClick={handleLogout}>로그아웃</SignInPcLink>
             ) : (
               <SignInPcLink to="/login">로그인</SignInPcLink>
             )}
@@ -234,12 +232,13 @@ function Navigation({ path, isLoggedIn }) {
           <>
             <TabLinkMobileWrapper>
               <SignInMobileWrapper>
-                <SignInMobileLink
-                  to={isLoggedIn ? "/" : "/login"}
-                  onClick={handleLogout}
-                >
-                  {isLoggedIn ? "로그아웃" : "로그인"}
-                </SignInMobileLink>
+                {isLoggedIn ? (
+                  <SignInMobileLink onClick={handleLogout}>
+                    로그아웃
+                  </SignInMobileLink>
+                ) : (
+                  <SignInMobileLink to="/login">로그인</SignInMobileLink>
+                )}
               </SignInMobileWrapper>
               <TabLinkMobile to="/main">
                 <TabLinkMobileListElement
