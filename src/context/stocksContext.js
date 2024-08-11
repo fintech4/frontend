@@ -1,7 +1,34 @@
-import React, { createContext, useState, useCallback, useEffect } from "react";
-import axios from "axios";
-import Stocks from "../models/Stocks";
-import StockHistory from "../models/StocksHistory";
+import React, { createContext, useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
+import Stocks from '../models/Stocks';
+import StockHistory from '../models/StocksHistory';
+// Default values
+const defaultMyAsset = {
+  total: 150000000,
+  deposit: 50000000,
+  stockTotal: 7000000,
+  yield: 12.56,
+  stockCount: 3,
+};
+
+const defaultMyStockList = [
+  {
+    stock_name: "삼성전자",
+    average_price: 5000,
+    current_price: 5760,
+    quantity: 10,
+    evaluation_amount: 50000,
+    yield: 8.07,
+  },
+  {
+    stock_name: "현대차",
+    average_price: 6000,
+    current_price: 6600,
+    quantity: 15,
+    evaluation_amount: 90000,
+    yield: 10.0,
+  },
+];
 
 export const StocksContext = createContext();
 
@@ -26,6 +53,9 @@ export const StocksProvider = ({ children }) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [range, setRange] = useState();
+
+  const [myAsset, setMyAsset] = useState(defaultMyAsset);
+  const [myStockList, setMyStockList] = useState(defaultMyStockList);
 
   // Update selected stock details
   const updateSelectedStock = (stock) => {
@@ -94,6 +124,70 @@ export const StocksProvider = ({ children }) => {
     }
   }, []);
 
+  // Fetch data function
+  const fetchData = useCallback(async () => {
+    try {
+      // Fetch asset information
+      const assetResponse = await axios.get("/toou/api/accounts/assets");
+      if (assetResponse.data) {
+        setMyAsset({
+          total: assetResponse.data.totalAsset || 0,
+          deposit: assetResponse.data.deposit || 0,
+          stockTotal: assetResponse.data.totalHoldingsValue || 0,
+          yield: assetResponse.data.investmentYield || 0,
+          stockCount: assetResponse.data.totalHoldingsQuantity || 0,
+        });
+        console.log("확인:" + assetResponse.data.deposit);
+      } else {
+        setMyAsset(defaultMyAsset);
+      }
+
+      // Fetch stock holdings
+      const holdingsResponse = await axios.get("/toou/api/accounts/holdings");
+      if (holdingsResponse.data && holdingsResponse.data.holdings) {
+        setMyStockList(
+          holdingsResponse.data.holdings.map((stock) => ({
+            stock_name: stock.stockName || "N/A",
+            average_price: stock.averagePurchasePrice || 0,
+            current_price: stock.currentPrice || 0,
+            quantity: stock.quantity || 0,
+            evaluation_amount: stock.valuation || 0,
+            yield: stock.yield || 0,
+          }))
+        );
+      } else {
+        setMyStockList(defaultMyStockList);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setMyAsset(defaultMyAsset);
+      setMyStockList(defaultMyStockList);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchDataWrapper = async () => {
+      try {
+        // 데이터를 비동기적으로 가져오는 함수 호출
+        await fetchData(); 
+      } catch (error) {
+        // 오류가 발생한 경우, 콘솔에 오류 메시지를 출력하고
+        // 기본값으로 상태를 설정
+        console.error("Error fetching data:", error);
+        setMyAsset(defaultMyAsset);
+        setMyStockList(defaultMyStockList);
+      } finally {
+        // 데이터 가져오기 작업이 완료되면 로딩 상태를 종료
+        setLoading(false);
+      }
+    };
+
+    // fetchDataWrapper 함수를 호출하여 데이터를 가져옴
+    fetchDataWrapper();
+  }, []);
+
   useEffect(() => {
     const fetchInitialStockData = async () => {
       try {
@@ -102,7 +196,7 @@ export const StocksProvider = ({ children }) => {
         console.error("Error fetching initial stock data:", error);
       }
     };
-
+      
     fetchInitialStockData();
   }, [fetchStocksHistory]);
 
@@ -114,21 +208,22 @@ export const StocksProvider = ({ children }) => {
   }, [selectedStockCode, fetchStocksHistory]);
 
   return (
-    <StocksContext.Provider
-      value={{
-        stocks,
-        stockHistory,
-        fetchStocks,
-        fetchStocksHistory,
-        setSearchTerm,
-        setStartDate,
-        setEndDate,
-        setRange,
-        updateSelectedStock,
-        loading,
-        error,
-      }}
-    >
+    <StocksContext.Provider value={{ 
+      stocks, 
+      stockHistory, 
+      fetchStocks, 
+      fetchStocksHistory, 
+      setSearchTerm, 
+      setStartDate, 
+      setEndDate, 
+      setRange, 
+      updateSelectedStock,
+      setMyAsset,
+      myAsset,
+      loading, 
+      error 
+    }}>
+
       {children}
     </StocksContext.Provider>
   );

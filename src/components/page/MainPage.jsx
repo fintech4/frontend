@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navigation from "../ui/bar/Navigation";
 import StockSearch from "../ui/bar/StockSearch";
 import Wallet from "../ui/Wallet";
 import OrderForm from "../ui/OrderForm";
 import Guide from "../ui/Guide";
 import styled from "styled-components";
-import CandleChart from "../chart/CandleChart";
+
 import ChartComponent from "../ui/ChartComponent";
 import { StocksProvider } from '../../context/stocksContext';
 import { media } from "../../media";
+
 
 const WalletWrapper = styled.div`
   display: flex;
@@ -71,6 +72,7 @@ const Wrapper3 = styled.div`
 `;
 
 function MainPage({ isLoggedIn, onLogout }) {
+
   return (
     <StocksProvider>
       <Navigation path={"/"} isLoggedIn={isLoggedIn} onLogout={onLogout} />

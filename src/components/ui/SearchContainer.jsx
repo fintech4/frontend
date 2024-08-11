@@ -68,9 +68,6 @@ const StockListWrapper = styled.div`
   box-sizing: border-box; /* padding과 border를 포함한 너비 계산 */
 `;
 
-
-
-
 const StockInfo = styled.p`
   margin: 5px 0;
   font-size: 16px;

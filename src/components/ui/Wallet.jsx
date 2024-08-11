@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { media } from "../../media";
+import { StocksContext } from "../../context/stocksContext";
 import { FaInfoCircle } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
 
@@ -14,11 +15,11 @@ const WalletContainer = styled.div`
   text-align: center;
   background: var(--Schemes-On-Primary, #fff);
   height: 310px;
-  position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
+  position: relative;
   ${media.mobile`
-    width : 100%;
+    width: 100%;
     height: 140px;
-    `};
+  `};
 `;
 
 const WalletImage = styled.img`
@@ -26,24 +27,22 @@ const WalletImage = styled.img`
   height: 140px;
   margin-bottom: 29px;
   ${media.mobile`
-   display: flex;
-width: 50px;
-height: 52.326px;
-padding-bottom: 0.326px;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-    `};
+    display: flex;
+    width: 50px;
+    height: 52.326px;
+    padding-bottom: 0.326px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `};
 `;
 
 const WalletName = styled.h2`
   font-size: 20px;
   margin: 0 0 29px 0;
-
   ${media.mobile`
-   font-size: 16px;
- 
-    `};
+    font-size: 16px;
+  `};
 `;
 
 const WalletBalance = styled.p`
@@ -55,9 +54,8 @@ const WalletBalance = styled.p`
   right: 25px;
   margin: 0;
   ${media.mobile`
-   font-size: 20px;
- 
-    `};
+    font-size: 20px;
+  `};
 `;
 
 const InfoIcon = styled(FaInfoCircle)`
@@ -92,18 +90,24 @@ const CashText = styled.span`
 `;
 
 function Wallet({ walletName, image }) {
-  console.log(walletName);
-  console.log(image);
+  const { myAsset } = useContext(StocksContext);
 
-  // 하드코딩된 balance 데이터
+  // Log myAsset to check if it's being received correctly
+  console.log("myAsset:", myAsset);
+
+  // Ensure myAsset is not undefined
   const getBalance = (name) => {
+    if (!myAsset) {
+      return "로딩 중";
+    }
+
     switch (name) {
       case "예수금":
-        return "₩100,000,000"; // 백엔드에서 예수금 데이터 요청
+        return (myAsset.deposit).toLocaleString();
       case "총 수익률":
-        return "15%"; // 백엔드에서 수익률 데이터 요청
+        return `${(myAsset.yield)}%`;
       default:
-        return "데이터 없음"; // 기본값
+        return "데이터가 없어요:(";
     }
   };
 
@@ -137,5 +141,6 @@ function Wallet({ walletName, image }) {
     </WalletContainer>
   );
 }
+
 
 export default Wallet;
