@@ -17,7 +17,7 @@ const TableWrapper = styled.div`
   td {
     width: 295px;
     height: 64px;
-    padding: 18px 29px;
+    padding: 18px 20px;
     border-right: 1px solid var(--black-black-300, #e0e4ea);
     border-bottom: 1px solid var(--black-black-300, #e0e4ea);
   }
@@ -79,6 +79,23 @@ const tooltipStyles = {
   lineHeight: "24px",
   zIndex: "1000",
 };
+const TextWrapper = styled.div`
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover span,
+  &:hover .info-icon {
+    color: #058077;
+  }
+
+  span,
+  .info-icon {
+    color: #000; /* 기본 색상 (예: 검정색) */
+    transition: color 0.3s ease; /* 색상이 부드럽게 변경되도록 전환 효과 추가 */
+  }
+`;
 
 const StockTable = ({ myStockList }) => {
   const [stockList, setStockList] = useState([]);
@@ -97,13 +114,10 @@ const StockTable = ({ myStockList }) => {
           <tr>
             <th>주식명</th>
             <th>
-              평균매수가{" "}
-              <FaInfoCircle
-                className="info-icon"
-                data-tooltip-id="averagePrice"
-                color="#058077"
-                style={{ cursor: "pointer" }}
-              />
+              <TextWrapper data-tooltip-id="averagePrice">
+                <span>평균매수가</span>
+                <FaInfoCircle className="info-icon" color="#058077" />
+              </TextWrapper>
               <ReactTooltip
                 id="averagePrice"
                 place="bottom"
@@ -115,13 +129,11 @@ const StockTable = ({ myStockList }) => {
                 <br /> 주식을 매입했을 때 유용합니다.
               </ReactTooltip>
               <br />
-              현재가격{" "}
-              <FaInfoCircle
-                className="info-icon"
-                data-tooltip-id="currentPrice"
-                color="#058077"
-                style={{ cursor: "pointer" }}
-              />
+              <TextWrapper data-tooltip-id="currentPrice">
+                <span>현재가격</span>
+                <FaInfoCircle className="info-icon" color="#058077" />
+              </TextWrapper>
+
               <ReactTooltip
                 id="currentPrice"
                 place="bottom"
@@ -134,22 +146,18 @@ const StockTable = ({ myStockList }) => {
             </th>
             <th>보유주식수</th>
             <th>
-              평가금액{" "}
-              <FaInfoCircle
-                className="info-icon"
-                data-tooltip-id="valuationAmount"
-                color="#058077"
-                style={{ cursor: "pointer" }}
-              />
+              <TextWrapper data-tooltip-id="valuationAmount">
+                <span>평가금액</span>
+                <FaInfoCircle className="info-icon" color="#058077" />
+              </TextWrapper>
               <ReactTooltip
                 id="valuationAmount"
                 place="bottom"
                 effect="solid"
                 style={tooltipStyles}
               >
-                증권 계좌에 있는 현금으로, 내가 주식 매입을 위해 사용할 수 있는
-                <br />
-                금액입니다. 나의 통장 잔고와 같은 존재이죠.
+                자산의 현재 시장 가치를 나타내는 금액입니다.
+                <br /> 주식의 현재 가격을 기준으로 평가합니다.
               </ReactTooltip>
               <br />
               수익률

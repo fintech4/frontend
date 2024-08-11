@@ -3,6 +3,9 @@ import styled from "styled-components";
 import SearchContainer from "../SearchContainer";
 import axios from "axios";
 import { media } from "../../../media";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { FaInfoCircle } from "react-icons/fa";
+
 export const getCurrentDateTime = () => {
   const now = new Date();
   const year = now.getFullYear();
@@ -80,6 +83,7 @@ const StockName = styled.p`
 const StockText = styled.div`
   display: flex;
   width: 100%;
+  gap: 5px;
 `;
 
 const Kospi = styled.p`
@@ -234,6 +238,45 @@ function StockSearch() {
     fetchStockDetails(selectedStock);
   };
 
+  const tooltipStyles = {
+    boxShadow: "0px 4px 10px 1px rgba(113, 205, 199, 0.3)",
+    borderRadius: "8px",
+    padding: "10px",
+    backgroundColor: "#fff",
+    color: "#15181E",
+    fontFamily: "Pretendard Variable",
+    fontSize: "16px",
+    fontWeight: "500",
+    lineHeight: "24px",
+    zIndex: "1000",
+  };
+
+  const TextWrapper = styled.div`
+    display: inline-flex;
+    gap: 0px;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover ${Kospi}, &:hover .info-icon {
+      color: #058077;
+    }
+
+    ${Kospi},
+    .info-icon {
+      color: #000; /* 기본 색상 (예: 검정색) */
+      transition: color 0.3s ease; /* 색상이 부드럽게 변경되도록 전환 효과 추가 */
+    }
+  `;
+
+  const TextHighlight = styled.span`
+    color: var(--black-black-900, #f00);
+    font-family: "Pretendard Variable";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+  `;
+
   return (
     <Wrapper>
       <StockContainer>
@@ -242,7 +285,22 @@ function StockSearch() {
             {selectedStock ? selectedStock.name : "삼성전자"}
           </StockName>
           <StockText>
-            <Kospi>코스피</Kospi>
+            <TextWrapper data-tooltip-id="kospiTip">
+              <Kospi>코스피</Kospi>
+              <FaInfoCircle className="info-icon" color="#058077" />
+            </TextWrapper>
+            <ReactTooltip
+              id="kospiTip"
+              place="bottom"
+              effect="solid"
+              style={tooltipStyles}
+            >
+              코스피는 한국의 주식 시장에서 거래되는 모든 상장 기업의 주가를
+              <br /> 종합적으로 나타내는 지수입니다(: 주로 삼성전자나 현대자동차
+              같은
+              <br /> <TextHighlight>대기업</TextHighlight>의 주식들이 모여있는
+              곳이죠.
+            </ReactTooltip>
             <DateText>{currentDate}</DateText>
           </StockText>
         </StockNameContainer>
