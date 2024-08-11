@@ -61,8 +61,7 @@
 ### 6. **Responsive**
 
 - **설명**: MainPage, WelcomePage, MyPage를 반응형으로 구현하였습니다. styled-components와 같은 CSS-in-JS 라이브러리와 미디어 쿼리(Media Query)를 사용하였습니다.
-- **주요 기능**:
-      - 미디어 쿼리 사용(모바일 기기 767px 이하)
+- **주요 기능**: 미디어 쿼리 사용(모바일 기기 767px 이하)
   
 
 ### 7. **API 호출 및 데이터 관리**
