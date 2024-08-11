@@ -23,7 +23,7 @@
 - 협업 툴 : Github, Notion, Slack, Figma
 - 서비스 배포 환경 : Netlify
 - 디자인 : [Figma](https://www.figma.com/design/6DM11s2CklrNIxiVFDDfEj/%F0%9F%92%9A-%ED%95%80%ED%85%8C%ED%81%AC-%ED%95%B4%EC%BB%A4%ED%86%A4-4%EC%A1%B0-%F0%9F%92%9A?node-id=927-21334&m=dev)
-- [Git 컨벤션](https://www.notion.so/coli-pasta/Git-b52748fe66b64637b4b15407a8b86bcf)
+- Git 컨벤션 : [Git 컨벤션](https://www.notion.so/coli-pasta/Git-b52748fe66b64637b4b15407a8b86bcf)
 
 ## 2. 채택한 개발 기술과 브랜치 전략
 
