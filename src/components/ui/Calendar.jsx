@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 
 const CalendarContainer = styled.div`
   position: relative;
-  font-family: "Pretendard Variable";
+  font-family: "Pretendard Variable"; 
   font-weight: 500;
 `;
 
 const DropdownButton = styled.button`
-  width: 243.76px;
+  width: 266.76px;
   height: 40px;
   border: 0.8px solid var(--festie-gray-600, #949494);
   border-radius: 4px;
@@ -36,7 +36,8 @@ const CalendarWrapper = styled.div`
   position: absolute;
   top: 0%;
   right: 0; /* 버튼 왼쪽에 달력 위치 설정 */
-  transform: translateX(-85%); /* 달력 너비에 맞게 조정 */
+  //transform: translateX(-80%); /* 달력 너비에 맞게 조정 */
+  transform: translateY(30%);
   display: ${(props) => (props.isOpen ? "block" : "none")};
 
   /* 전체 달력 배경색 */
@@ -46,6 +47,7 @@ const CalendarWrapper = styled.div`
     border-radius: 4px; /* 둥근 모서리 */
     width: 300px; /* 달력 너비 설정 */
     font-size: 13.4px; /* 달력 폰트 크기 설정 */
+    font-weight: 500;
   }
 
   /* 달력 헤더 스타일 */
@@ -93,7 +95,7 @@ const CalendarWrapper = styled.div`
     justify-content: space-between;
     padding: 10px;
     color: ${(props) => (props.range[0] && props.range[1] ? '#1D1B20' : '#888')}; /* 텍스트 색상 */
-    background-color: ${(props) => (props.range[0] && props.range[1] ? 'transparent' : '#f0f0f0')}; /* 배경색 */
+    background-color: ${(props) => (props.range[0] && props.range[1] ? '#ffffff' : '#f0f0f0')}; /* 배경색 */
     border: 1px solid #ddd; /* 경계선 */
     border-radius: 4px; /* 둥근 모서리 */
     margin-bottom: 10px; /* 날짜 범위와 달력 사이의 간격 */
@@ -176,7 +178,7 @@ const CustomCalendar = ({ onChange, value }) => {
 
   const formatRange = (range) => {
     if (range[0] && range[1]) {
-      return `${moment(range[0]).format("YYYY.MM.DD")} - ${moment(range[1]).format("YYYY.MM.DD")}`;
+      return `📅   ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(range[1]).format("YYYY.MM.DD")}   `;
     }
     return "날짜를 선택해주세요";
   };

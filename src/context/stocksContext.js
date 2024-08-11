@@ -4,29 +4,21 @@ import Stocks from '../models/Stocks';
 import StockHistory from '../models/StocksHistory';
 // Default values
 const defaultMyAsset = {
-  total: 150000000,
-  deposit: 50000000,
-  stockTotal: 7000000,
-  yield: 12.56,
-  stockCount: 3,
+  total: 0,
+  deposit: 0,
+  stockTotal: 0,
+  yield: 0,
+  stockCount: 0,
 };
 
 const defaultMyStockList = [
   {
-    stock_name: "삼성전자",
-    average_price: 5000,
-    current_price: 5760,
-    quantity: 10,
-    evaluation_amount: 50000,
-    yield: 8.07,
-  },
-  {
-    stock_name: "현대차",
-    average_price: 6000,
-    current_price: 6600,
-    quantity: 15,
-    evaluation_amount: 90000,
-    yield: 10.0,
+    stock_name: "",
+    average_price: 0,
+    current_price: 0,
+    quantity: 0,
+    evaluation_amount: 0,
+    yield: 0,
   },
 ];
 

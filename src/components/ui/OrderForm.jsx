@@ -78,6 +78,7 @@ const Price = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
+  margin-left: 6px;
 `;
 
 const Contents = styled.div`

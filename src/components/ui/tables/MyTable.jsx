@@ -136,7 +136,7 @@ const Table = ({ myAsset }) => {
               </ReactTooltip>
             </td>
             <td className="align-right">
-              {myAsset.deposit ? myAsset.deposit.toLocaleString() : "N/A"}
+              {myAsset.deposit ? myAsset.deposit.toLocaleString() : "0원"}
             </td>
           </tr>
           <tr>
