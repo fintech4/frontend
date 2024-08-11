@@ -177,7 +177,7 @@ const BuySellButton = styled.button`
       ? props.buy
         ? '#FF4E36'
         : '#0C67EF'
-      : 'var(--primary-primary-300, #D1EFED)'};
+      : 'var(--primary-primary-300, #0C67EF)'};
   cursor: pointer;
   &:focus {
     outline: none;
@@ -205,6 +205,7 @@ const formatNumber = (number) => {
 };
 
 function OrderForm() {
+  const { myAsset, setMyAsset } = useContext(StocksContext);
   const { stocks, stockHistory } = useContext(StocksContext);
   const [quantity, setQuantity] = useState('');
   const [orderType, setOrderType] = useState('buy'); // "buy" or "sell"
@@ -250,6 +251,7 @@ function OrderForm() {
       const result = await response.json();
 
       if (result.ok) {
+        setMyAsset();
         setIsModalOpen(true); // Show modal for success
       } else {
         // Error handling
