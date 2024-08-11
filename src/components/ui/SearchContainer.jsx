@@ -26,7 +26,7 @@ const SearchTitle = styled.h2`
 
 const SearchInputContainer = styled.div`
   position: relative;
-  width: 70%; /* 검색 입력창과 x 버튼의 길이를 제한합니다. */
+  width: 80%; /* 검색 입력창과 x 버튼의 길이를 제한합니다. */
 `;
 
 const SearchInput = styled.input`
@@ -129,7 +129,7 @@ const SearchContainer = ({
       <SearchInputContainer>
         <SearchInput
           type="text"
-          placeholder="원하시는 종목을 검색하세요."
+          placeholder="🔍원하시는 종목을 검색하세요."
           value={searchTerm}
           onChange={onSearchTermChange}
           onKeyPress={onKeyPress}
