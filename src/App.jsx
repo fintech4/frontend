@@ -28,6 +28,7 @@ function App() {
     localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 제거
     console.log("Token after removal:", localStorage.getItem("token")); // 토큰 제거 후 확인
     setIsLoggedIn(false);
+    window.location.reload(); // 페이지 새로고침
   };
 
   return (
