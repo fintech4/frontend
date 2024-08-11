@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import StockList from "./StockList";
 import { StocksContext } from "../../context/stocksContext";
+import { media } from "../../media";
 
 const Container = styled.div`
   display: flex;
@@ -10,6 +11,10 @@ const Container = styled.div`
   max-width: 400px;
   margin-right: 15px;
   position: relative; /* 자식 요소의 위치를 기준으로 함 */
+  ${media.mobile`
+    align-items: center;
+    justify-content: center;
+    `}
 `;
 
 const SearchTitle = styled.h2`
@@ -22,6 +27,10 @@ const SearchTitle = styled.h2`
   font-weight: 400;
   line-height: 150%; /* 30px */
   letter-spacing: -0.22px;
+  ${media.mobile`
+    display: none;
+    align-items: center;
+    `}
 `;
 
 const SearchInputContainer = styled.div`

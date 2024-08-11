@@ -46,7 +46,6 @@ const StockContainer = styled.div`
   gap: 20px;
 
   ${media.mobile`
-    width : 100%;
      display: flex; 
      background: none;
     flex-direction: row;
