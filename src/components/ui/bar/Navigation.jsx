@@ -12,7 +12,6 @@ const NavigationBar = styled.nav`
 const NavigationWrapper = styled.div`
   width: 1200px;
   margin: 0 auto;
-  padding: 0 360px;
   display: flex;
   justify-content: space-between;
 
