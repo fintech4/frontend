@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StockListContainer = styled.ul`
   list-style: none;
   padding: 0;
-  msrgin: 10px 0 0 0;
+  margin: 10px 0 0 0;
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
