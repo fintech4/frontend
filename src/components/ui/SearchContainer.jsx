@@ -10,6 +10,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 400px;
   margin-right: 15px;
+  margin-bottom: 10px;
   position: relative; /* 자식 요소의 위치를 기준으로 함 */
   ${media.mobile`
     align-items: center;

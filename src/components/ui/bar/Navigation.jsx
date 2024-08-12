@@ -7,17 +7,19 @@ import { useNavigate } from "react-router-dom";
 const NavigationBar = styled.nav`
   display: flex;
   background-color: #fff;
+  
 `;
 
 const NavigationWrapper = styled.div`
   width: 1200px;
-  margin: 0 auto;
+  margin: auto;
+  padding: 0 21px;
   display: flex;
   justify-content: space-between;
 
   ${media.mobile`
     width: 100%;
-    padding: 8px 18px;
+    padding: 8px 8px;
   `}
 `;
 
