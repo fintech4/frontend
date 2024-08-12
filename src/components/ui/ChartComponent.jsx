@@ -50,7 +50,7 @@ function ChartComponent() {
   // Set default date range: 3 months ago to today
   const [dateRange, setDateRange] = useState([
     moment().subtract(3, "months").startOf("day").toDate(),
-    moment().endOf("day").toDate(),
+    moment().subtract(4, "days").endOf("day").toDate(),
   ]);
 
   const handleDateChange = (range) => {
