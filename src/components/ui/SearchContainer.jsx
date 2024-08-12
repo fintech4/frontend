@@ -21,7 +21,7 @@ const SearchTitle = styled.h2`
   color: #1e1e1e;
   width: 30%;
   margin-right: 16px;
-  font-family: "Pretendard Varia  ble";
+  font-family: "Pretendard Variable";
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -138,7 +138,7 @@ const SearchContainer = ({
       <SearchInputContainer>
         <SearchInput
           type="text"
-          placeholder="🔍원하시는 종목을 검색하세요."
+          placeholder="🔍  원하는 종목을 검색하세요"
           value={searchTerm}
           onChange={onSearchTermChange}
           onKeyPress={onKeyPress}
