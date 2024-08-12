@@ -138,7 +138,7 @@ const SearchContainer = ({
       <SearchInputContainer>
         <SearchInput
           type="text"
-          placeholder="🔍  원하는 종목을 검색하세요"
+          placeholder="🔍 원하는 종목을 검색하세요"
           value={searchTerm}
           onChange={onSearchTermChange}
           onKeyPress={onKeyPress}

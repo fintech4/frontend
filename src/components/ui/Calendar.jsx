@@ -184,12 +184,12 @@ const CustomCalendar = ({ onChange, value }) => {
 
   const formatRange = (range) => {
     if (range[0] && range[1]) {
-      return `📅   ${moment(range[0]).format("YYYY.MM.DD")} - ${moment(
-        range[1]
-      ).format("YYYY.MM.DD")}   `;
+      // 달력 아이콘 뒤에 공백을 추가하고, 날짜 형식 사이에도 공백을 추가합니다.
+      return `📅 ${moment(range[0]).format("YYYY.MM.DD")}   -   ${moment(range[1]).format("YYYY.MM.DD")}`;
     }
     return "날짜를 선택해주세요";
   };
+  
 
   const formatTempRange = (range) => {
     if (range[0] && range[1]) {
