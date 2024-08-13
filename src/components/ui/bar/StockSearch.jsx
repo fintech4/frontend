@@ -366,13 +366,13 @@ function StockSearch() {
                   : isPositive
                   ? `+${(
                       (priceChange /
-                        (stockHistory.dailyHistories[0]?.prices[0] ||
+                        (stockHistory.dailyHistories[stockHistory.dailyHistories.length - 2]?.prices[3] ||
                           stockHistory.stockNewestPrice)) *
                       100
                     ).toFixed(2)}%`
                   : `${(
                       (priceChange /
-                        (stockHistory.dailyHistories[0]?.prices[0] ||
+                        (stockHistory.dailyHistories[stockHistory.dailyHistories.length - 2]?.prices[3] ||
                           stockHistory.stockNewestPrice)) *
                       100
                     ).toFixed(2)}%`}
