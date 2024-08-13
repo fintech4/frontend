@@ -1,4 +1,4 @@
-# 초보자를 위한 주식모의투자 서비스 "TOOU"
+# 📈 초보자를 위한 주식모의투자 서비스 "TOOU"
 
 - 배포 URL : https://main--cerulean-smakager-d65d2c.netlify.app/
 - Test ID : toou-1, toou-2, toou-3, toou-4, toou-5
@@ -8,17 +8,16 @@
 
 ## 프로젝트 소개
 
-- README는 책을 좋아하는 사람들이 자신의 책 취향을 공유하고, 다 읽은 책을 판매할 수 있는 SNS입니다.
-- 개인의 프로필 페이지에 좋아하는 구절 등 책에 대한 정보를 작성하고 판매하고 싶은 책을 등록할 수 있습니다.
-- 검색을 통해 책 취향이 비슷한 다른 유저들의 피드를 구경할 수 있습니다.
-- 다양한 유저들을 팔로우하며 마음에 드는 게시글에 좋아요를 누르거나 댓글을 작성할 수 있습니다.
+- 초보자를 위한 주식 모의 투자 서비스입니다.
+- 손쉽게 주식 종목 주가정보와 주식관련 용어를 알아 볼 수 있습니다.
+- 매수, 매도를 지원하고, 보유 종목을 확인할 수 있습니다.
 
 <br>
 
 ## 1. 개발 환경
 
 - Front : HTML, React, styled-components
-- Back-end : 제공된 API 활용
+- Back-end : Java SpringBoot
 - 버전 및 이슈관리 : Github
 - 협업 툴 : Github, Notion, Slack, Figma
 - 서비스 배포 환경 : Netlify
