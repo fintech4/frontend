@@ -1,4 +1,4 @@
-# 📖 초보자를 위한 주식모의투자 서비스 "TOOU" README
+# 초보자를 위한 주식모의투자 서비스 "TOOU"
 
 - 배포 URL : https://main--cerulean-smakager-d65d2c.netlify.app/
 - Test ID : toou-1, toou-2, toou-3, toou-4, toou-5
