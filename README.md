@@ -1,4 +1,5 @@
 # 📈 초보자를 위한 주식모의투자 서비스 "TOOU"
+![Uploading 제목 없음.png…]()
 
 - 배포 URL : https://www.toou.site
 - Test ID : toou-1, toou-2, toou-3, toou-4, toou-5
